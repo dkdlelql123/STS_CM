@@ -27,6 +27,7 @@ public class UseHomeController {
 		
 		return num;
 	} 
+	
 	@RequestMapping("/usr/home/main5")
 	@ResponseBody
 	public int showResetCount(){
@@ -35,5 +36,11 @@ public class UseHomeController {
 		
 		return num;
 	} 
-	
+
+	@RequestMapping("/usr/home/doSetCount")
+	@ResponseBody
+	public String doSetCount(int count){
+		this.num = count;
+		return "초기화 됨 : " + num;
+	} 
 }
