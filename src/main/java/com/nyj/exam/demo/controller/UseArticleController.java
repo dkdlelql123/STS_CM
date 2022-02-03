@@ -1,5 +1,6 @@
 package com.nyj.exam.demo.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,13 @@ public class UseArticleController {
  
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public Article doAdd(String title, String body){
-		Article article = new Article(id, title, body);
+	public Article doAdd(){ 
 		id++;
+		String title = "제목"+id;
+		String body = "내용"+id;
+		Article article = new Article(id, title, body);
 		
-		lists.add(article);
+		lists.add(article); 
 		
 		return article;
 	} 
@@ -35,7 +38,21 @@ public class UseArticleController {
 	@ResponseBody
 	public List<Article> showArticle(){ 
 		
+		makes();
+		 
 		return lists;
 	}
+	
+	private void makes() {
+		for(int a = 0; a <= 10; a++) {
+			id = a;
+			String title = "제목"+a;
+			String body = "내용"+a;
+			Article article = new Article(id, title, body);
+			
+			lists.add(article);
+		}
+	} 
+	
 	
 }
