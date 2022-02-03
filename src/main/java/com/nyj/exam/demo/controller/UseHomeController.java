@@ -27,5 +27,13 @@ public class UseHomeController {
 		
 		return num;
 	} 
+	@RequestMapping("/usr/home/main5")
+	@ResponseBody
+	public int showResetCount(){
+		
+		num = 0;
+		
+		return num;
+	} 
 	
 }
