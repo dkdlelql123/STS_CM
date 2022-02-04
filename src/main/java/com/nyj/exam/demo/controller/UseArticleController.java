@@ -13,6 +13,7 @@ import com.nyj.exam.demo.vo.Article;
 @Controller
 public class UseArticleController {
 	
+	// 인스턴스 변수 시작
 	private List<Article> lists;
 	private int id;
 	
@@ -21,6 +22,8 @@ public class UseArticleController {
 		lists = new ArrayList<Article>();
 	}
 	
+	
+	// 생성자
 	public Article wirteArticle() {
 		
 		String title = "제목"+id;
@@ -30,7 +33,37 @@ public class UseArticleController {
 				
 		return article;
 	}
+	
  
+	// 서비스 메서드 시작
+
+	private void makes() {
+		for(int a = 0; a <= 10; a++) {
+			Article article = wirteArticle();
+			lists.add(article);
+		}
+	} 
+	
+	public Article getArticle(int id){
+		for(Article list:lists) {
+			if(list.getId() == id) {
+				return list;
+			}
+		}
+		return null;
+	}
+	
+
+
+	private void deleteArticle(int id) {
+		Article article = getArticle(id);
+				
+		lists.remove(article);
+	}
+	
+	
+
+	// 액션 메서드
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(){ 
@@ -38,22 +71,35 @@ public class UseArticleController {
 		
 		return article;
 	} 
+	
+	@RequestMapping("/usr/articles/add")
+	@ResponseBody
+	public List<Article> addArticles(){ 
+		
+		makes();
+		return lists;
+	}
  
 	@RequestMapping("/usr/articles")
 	@ResponseBody
 	public List<Article> showArticle(){ 
-		
-		makes();
 		 
 		return lists;
 	}
 	
-	private void makes() {
-		for(int a = 0; a <= 10; a++) {
-			Article article = wirteArticle();
-			lists.add(article);
+	@RequestMapping("/usr/article/delete")
+	@ResponseBody
+	public String doDelete(int id){
+		Article article = getArticle(id);
+		if( article == null ) {
+			return "게시물이 없습니다";
 		}
-	} 
+		
+		deleteArticle(id);
+		return id+"게시물이 삭제완료";
+	}
+
+	
 	
 	
 }
