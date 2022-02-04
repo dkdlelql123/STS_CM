@@ -53,12 +53,17 @@ public class UseArticleController {
 		return null;
 	}
 	
-
-
 	private void deleteArticle(int id) {
 		Article article = getArticle(id);
 				
 		lists.remove(article);
+	}
+	
+
+	private void modifyArticle(int id, String title, String body) { 
+		Article article = getArticle(id);
+		article.setTitle(title);
+		article.setBody(body);
 	}
 	
 	
@@ -98,6 +103,20 @@ public class UseArticleController {
 		deleteArticle(id);
 		return id+"게시물이 삭제완료";
 	}
+	
+	@RequestMapping("/usr/article/modify")
+	@ResponseBody
+	public String doModify(int id, String title, String body){
+		Article article = getArticle(id);
+		if( article == null ) {
+			return "게시물이 없습니다";
+		}
+		
+		modifyArticle(id, title, body);
+		return id+"게시물이 수정완료";
+	}
+
+
 
 	
 	
