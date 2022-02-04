@@ -20,16 +20,21 @@ public class UseArticleController {
 		id = 0;
 		lists = new ArrayList<Article>();
 	}
+	
+	public Article wirteArticle() {
+		
+		String title = "제목"+id;
+		String body = "내용"+id;
+		Article article = new Article(id, title, body);
+		id++;
+				
+		return article;
+	}
  
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(){ 
-		id++;
-		String title = "제목"+id;
-		String body = "내용"+id;
-		Article article = new Article(id, title, body);
-		
-		lists.add(article); 
+		Article article = wirteArticle();
 		
 		return article;
 	} 
@@ -45,11 +50,7 @@ public class UseArticleController {
 	
 	private void makes() {
 		for(int a = 0; a <= 10; a++) {
-			id = a;
-			String title = "제목"+a;
-			String body = "내용"+a;
-			Article article = new Article(id, title, body);
-			
+			Article article = wirteArticle();
 			lists.add(article);
 		}
 	} 
