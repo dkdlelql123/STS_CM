@@ -36,7 +36,6 @@ public class UseArticleController {
 	
  
 	// 서비스 메서드 시작
-
 	private void makes() {
 		for(int a = 0; a <= 10; a++) {
 			Article article = wirteArticle();
@@ -92,6 +91,17 @@ public class UseArticleController {
 		return lists;
 	}
 	
+	@RequestMapping("/usr/article")
+	@ResponseBody
+	public Object showDetail(int id){
+		Article article = getArticle(id);
+		if( article == null ) {
+			return id + "번 게시물이 없습니다";
+		}
+		
+		return article;
+	}
+	
 	@RequestMapping("/usr/article/delete")
 	@ResponseBody
 	public String doDelete(int id){
@@ -101,7 +111,7 @@ public class UseArticleController {
 		}
 		
 		deleteArticle(id);
-		return id+"게시물이 삭제완료";
+		return id+"번 게시물이 삭제완료";
 	}
 	
 	@RequestMapping("/usr/article/modify")
@@ -113,9 +123,8 @@ public class UseArticleController {
 		}
 		
 		modifyArticle(id, title, body);
-		return id+"게시물이 수정완료";
+		return id+"번 게시물이 수정완료";
 	}
-
 
 
 	
