@@ -23,18 +23,17 @@ public class UseArticleController {
 //	jsp(, js, css, html)
 	
 //	C
-//	컨트롤러
-	
+//	컨트롤러 
 
 	@Autowired
 	private ArticleService articleService; 
 
 	// 액션 메서드	
-	@RequestMapping("/usr/articles")
+	@RequestMapping("/usr/article/write")
 	@ResponseBody
-	public List<Article> addArticle(String title, String body){ 
+	public List<Article> writeArticle(String title, String body){ 
 		 
-		articleService.addArticle(title, body);
+		articleService.writeArticle(title, body);
 		
 		List<Article> article = articleService.getArticles();
 		
