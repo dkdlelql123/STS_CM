@@ -31,11 +31,12 @@ public class UseArticleController {
 	// 액션 메서드	
 	@RequestMapping("/usr/article/write")
 	@ResponseBody
-	public List<Article> writeArticle(String title, String body){ 
+	public Article writeArticle(String title, String body){ 
 		 
-		articleService.writeArticle(title, body);
+		int id = articleService.writeArticle(title, body);
 		
-		List<Article> article = articleService.getArticles();
+		Article article = articleService.getArticle(id);
+		System.out.println(article);
 		
 		return article;
 	}

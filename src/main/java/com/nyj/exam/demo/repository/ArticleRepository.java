@@ -41,8 +41,8 @@ public interface ArticleRepository {
 
 
 	// 서비스 메서드 시작    
-//	@Insert("insert into article set regDate = now(), updateDate = now(), title = #{title}, `body` = #{body}")
-	public Article writeArticle(@Param("title") String title,@Param("body") String body) ;
+	@Insert("insert into article set regDate = NOW(), updateDate = NOW(), title = #{title}, `body` = #{body}") 
+	public void writeArticle(@Param("title") String title,@Param("body") String body) ;
 	
 	@Select("select * from article where id = #{id}")
 	public Article getArticle(@Param("id") int id) ;
@@ -55,4 +55,7 @@ public interface ArticleRepository {
 
 	@Select("select * from article")
 	public List<Article> getArticles();
+	
+	@Select("SELECT LAST_INSERT_ID()")
+	public int last_insert_id();
 }

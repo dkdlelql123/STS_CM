@@ -17,13 +17,13 @@ public class ArticleService {
 	
 	// articleRepository 보다 조금 더 빠르게 진행됨.
 	public ArticleService(ArticleRepository articleRepository) {
-		this.articleRepository = articleRepository;
-//		articleRepository.makeTestData();
+		this.articleRepository = articleRepository; 
 	}
 
 
-	public Article writeArticle(String title, String body) {
-		return articleRepository.writeArticle(title, body);
+	public int writeArticle(String title, String body) {
+		articleRepository.writeArticle(title, body);
+		return articleRepository.last_insert_id();
 	}
 
 	public List<Article> getArticles() {	
