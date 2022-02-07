@@ -18,7 +18,7 @@ public class ArticleService {
 	// articleRepository 보다 조금 더 빠르게 진행됨.
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
-		articleRepository.makeTestData();
+//		articleRepository.makeTestData();
 	}
 
 
