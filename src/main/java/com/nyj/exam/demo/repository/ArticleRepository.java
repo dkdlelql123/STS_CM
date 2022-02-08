@@ -41,21 +41,15 @@ public interface ArticleRepository {
 
 
 	// 서비스 메서드 시작    
-	@Insert("insert into article set regDate = NOW(), updateDate = NOW(), title = #{title}, `body` = #{body}") 
 	public void writeArticle(@Param("title") String title,@Param("body") String body) ;
 	
-	@Select("select * from article where id = #{id}")
 	public Article getArticle(@Param("id") int id) ;
 	
-	@Delete("delete from article where id = #{id}")
 	public void deleteArticle(@Param("id") int id) ;  
 
-	@Update("update article set updateDate = now(), title = #{title}, `body` = #{body} where id = #{id}")
 	public void modifyArticle(@Param("id") int id, @Param("title") String title,@Param("body") String body);
 
-	@Select("select * from article")
 	public List<Article> getArticles();
 	
-	@Select("SELECT LAST_INSERT_ID()")
 	public int last_insert_id();
 }
