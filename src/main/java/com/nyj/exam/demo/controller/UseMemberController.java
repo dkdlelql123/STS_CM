@@ -23,6 +23,13 @@ public class UseMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
+
+		if(loginId == null) return "아이디를 입력해주세요.";
+		if(loginPw == null) return "비밀번호를 입력해주세요.";
+		if(email == null) return "이메일을 입력해주세요.";
+		if(name == null) return "이름을 입력해주세요.";
+		if(nickname == null) return "닉네임을 입력해주세요.";
+		if(phoneNumber == null) return "전화번호를 입력해주세요.";
 		
 		int memberId = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
 		
