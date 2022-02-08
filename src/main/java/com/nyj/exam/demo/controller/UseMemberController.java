@@ -22,9 +22,13 @@ public class UseMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Member doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
+	public Object doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
 		
 		int memberId = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
+		
+		if(memberId == -1) {
+			return "중복되는 아이디가 있습니다.";
+		}
 		
 		Member member = memberService.getMember(memberId);
 		

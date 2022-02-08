@@ -32,4 +32,7 @@ public interface MemberRepository {
 	public Member getMember(@Param("id") int id);
 	
 	public int last_insert_id();
+
+	@Select("SELECT * FROM `member` WHERE loginId = #{loginId}")
+	public Member getMemberLoginId(@Param("loginId") String loginId);
 }

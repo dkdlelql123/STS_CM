@@ -20,7 +20,7 @@
 	select * from `member` where id = #{id}
 	</select>
 	
-	<select id="last_insert_id" resultType="Int">
+	<select id="last_insert_id" resultType="int">
 	SELECT LAST_INSERT_ID()
 	</select>
 	
