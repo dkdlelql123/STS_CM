@@ -7,19 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nyj.exam.demo.repository.ArticleRepository;
+import com.nyj.exam.demo.repository.MemberRepository;
 import com.nyj.exam.demo.vo.Article;
 
 @Service
-public class ArticleService {
-	
+public class ArticleService {  
 //	@Autowired
 	private ArticleRepository articleRepository;
 	
 	// articleRepository 보다 조금 더 빠르게 진행됨.
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository; 
-	}
-
+	} 
 
 	public int writeArticle(String title, String body) {
 		articleRepository.writeArticle(title, body);

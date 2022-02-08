@@ -15,19 +15,21 @@ import org.springframework.stereotype.Repository;
 
 import com.nyj.exam.demo.service.ArticleService;
 import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.vo.Member;
 
 @Mapper
-public interface ArticleRepository {
-	 
-	public void writeArticle(@Param("title") String title,@Param("body") String body) ;
+public interface MemberRepository { 
 	
-	public Article getArticle(@Param("id") int id) ;
-	
-	public void deleteArticle(@Param("id") int id) ;  
+	public void doJoin(
+			@Param("loginId") String loginId,
+			@Param("loginPw") String loginPw,
+			@Param("email") String email,
+			@Param("name") String name,
+			@Param("nickname") String nickname,
+			@Param("phoneNumber") String phoneNumber
+	);
 
-	public void modifyArticle(@Param("id") int id, @Param("title") String title,@Param("body") String body);
-
-	public List<Article> getArticles();
+	public Member getMember(@Param("id") int id);
 	
 	public int last_insert_id();
 }
