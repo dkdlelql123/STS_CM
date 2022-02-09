@@ -29,10 +29,12 @@ public interface MemberRepository {
 			@Param("phoneNumber") String phoneNumber
 	);
 
-	public Member getMember(@Param("id") int id);
+	public Member getMemberById(@Param("id") int id);
 	
 	public int last_insert_id();
+ 
+	public Member getMemberByLoginId(@Param("loginId") String loginId);
 
-	@Select("SELECT * FROM `member` WHERE loginId = #{loginId}")
-	public Member getMemberLoginId(@Param("loginId") String loginId);
+	public Member getMemberbyEmail(@Param("email") String email); 
+
 }

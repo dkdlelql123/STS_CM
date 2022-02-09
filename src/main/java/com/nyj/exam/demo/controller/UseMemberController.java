@@ -39,7 +39,11 @@ public class UseMemberController {
 			return "중복되는 아이디가 있습니다.";
 		}
 		
-		Member member = memberService.getMember(memberId);
+		if(memberId == -2) {
+			return "중복되는 이메일이 있습니다.";
+		}
+		
+		Member member = memberService.getMemberById(memberId);
 		
 		return member;
 	}	

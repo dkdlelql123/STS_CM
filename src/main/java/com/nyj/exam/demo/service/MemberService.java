@@ -19,17 +19,33 @@ public class MemberService {
 	 
 	public int doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
 		
-		Member findMember = memberRepository.getMemberLoginId(loginId);
+		Member findMember = getMemberByLoginId(loginId);
 		
 		if(findMember != null) {
 			return -1;
+		} 		
+		
+		findMember = getMemberbyEmail(email);
+		
+		if(findMember != null) {
+			return -2;
 		} 		
 			
 		memberRepository.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
 		return memberRepository.last_insert_id();
 	}
 	
-	public Member getMember(int id) {
-		return memberRepository.getMember(id);
+	public Member getMemberById(int id) {
+		return memberRepository.getMemberById(id);
 	}
+	
+	public Member getMemberByLoginId(String loginId) {
+		return memberRepository.getMemberByLoginId(loginId);
+	}
+	
+	private Member getMemberbyEmail(String email) {
+		return memberRepository.getMemberbyEmail(email);
+		
+	}
+	
 }

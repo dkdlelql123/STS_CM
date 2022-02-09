@@ -16,12 +16,23 @@
 	phoneNumber = #{phoneNumber}
 	</insert>
 	
-	<select id="getMember" resultType="Member">
-	select * from `member` where id = #{id}
+	<select id="getMemberById" resultType="Member">
+	select * from `member` 
+	where id = #{id}
 	</select>
 	
 	<select id="last_insert_id" resultType="int">
 	SELECT LAST_INSERT_ID()
+	</select>
+	
+	<select id="getMemberByLoginId" resultType="Member"> 
+	SELECT * FROM `member` 
+	WHERE loginId = #{loginId}
+	</select>
+	
+	<select id="getMemberbyEmail" resultType="Member"> 
+	SELECT * FROM `member` 
+	WHERE email = #{email}
 	</select>
 	
 </mapper>
