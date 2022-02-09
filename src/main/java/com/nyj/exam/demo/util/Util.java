@@ -15,5 +15,9 @@ public class Util {
 		return  str.trim().length() == 0;
 		
 	}
+
+	public static String f(String format, Object... objs) {
+		return String.format(format, objs);
+	}
 	
 }

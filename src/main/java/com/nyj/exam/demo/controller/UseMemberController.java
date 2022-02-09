@@ -36,11 +36,11 @@ public class UseMemberController {
 		int memberId = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
 		
 		if(memberId == -1) {
-			return "중복되는 아이디가 있습니다.";
+			return Util.f("중복되는 아이디(%s)가 있습니다.", loginId);
 		}
 		
 		if(memberId == -2) {
-			return "중복되는 이메일이 있습니다.";
+			return Util.f("중복되는 이름(%s)과 이메일(%s)가 있습니다.", name, email);
 		}
 		
 		Member member = memberService.getMemberById(memberId);
