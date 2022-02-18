@@ -40,7 +40,7 @@ public class UseMemberController {
 		}
 		
 		if(memberId == -2) {
-			return Util.f("중복되는 이름(%s)과 이메일(%s)가 있습니다.", name, email);
+			return Util.f("중복되는 이메일(%s)[%s]가 있습니다.", email, name);
 		}
 		
 		Member member = memberService.getMemberById(memberId);
