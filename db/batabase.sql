@@ -69,3 +69,8 @@ loginPw= 'user1',
 phoneNumber = '010-222-2222', 
 email = 'user@user.com';
 
+#article에 멤버아이디 추가
+ALTER TABLE `article` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+
+#기존의 article에 memberId = 2 넣어주기
+UPDATE `article` set memberId = 2;
