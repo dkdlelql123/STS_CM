@@ -25,27 +25,23 @@ public class UseMemberController {
 	//
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Object doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
+	public ResultData doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
 
-		if(Util.empty(loginId)) return "아이디를 입력해주세요.";
-		if(Util.empty(loginPw)) return "비밀번호를 입력해주세요.";
-		if(Util.empty(email)) return "이메일을 입력해주세요.";
-		if(Util.empty(name)) return "이름을 입력해주세요.";
-		if(Util.empty(nickname)) return "닉네임을 입력해주세요.";
-		if(Util.empty(phoneNumber)) return "전화번호를 입력해주세요.";
+		if(Util.empty(loginId)) return ResultData.form("f-1", Util.f("아이디를 입력해주세요."));
+		if(Util.empty(loginPw)) return ResultData.form("f-1", Util.f("비밀번호를 입력해주세요."));
+		if(Util.empty(email)) return ResultData.form("f-1", Util.f("이메일을 입력해주세요."));
+		if(Util.empty(name)) return ResultData.form("f-1", Util.f("이름을 입력해주세요."));
+		if(Util.empty(nickname)) return ResultData.form("f-1", Util.f("닉네임을 입력해주세요."));
+		if(Util.empty(phoneNumber)) return ResultData.form("f-1", Util.f("전화번호를 입력해주세요."));
 		
-		int memberId = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
+		ResultData doJoinRD = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
 		
-		if(memberId == -1) {
-			return ResultData.form("f-1", Util.f("중복되는 아이디(%s)가 있습니다.", loginId)); 
+		if(doJoinRD.isFail()) {
+			return doJoinRD; 
 		}
 		
-		if(memberId == -2) {
-			return ResultData.form("f-2",  Util.f("중복되는 이메일(%s)[%s]가 있습니다.", email, name));
-		}
+		Member member = memberService.getMemberById((int)doJoinRD.getData());
 		
-		Member member = memberService.getMemberById(memberId);
-		
-		return ResultData.form("s-1",  Util.f("%s님 회원가입이 완료되었습니다", loginId), member);
+		return ResultData.newData(doJoinRD, member);
 	}	
 }

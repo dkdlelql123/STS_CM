@@ -37,4 +37,8 @@ public class ResultData {
 	public boolean isFail() {
 		return isSuccess() == false;
 	}
+
+	public static ResultData newData(ResultData rd, Object obj) {
+		return form(rd.resultCode, rd.msg, obj);
+	}
 }

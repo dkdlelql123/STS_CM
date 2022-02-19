@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.ArticleService;
-import com.nyj.exam.demo.vo.Article; 
+import com.nyj.exam.demo.util.Util;
+import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.vo.ResultData; 
 
 @Controller
 public class UseArticleController {
@@ -31,25 +33,24 @@ public class UseArticleController {
 	// 액션 메서드	
 	@RequestMapping("/usr/article/write")
 	@ResponseBody
-	public Article writeArticle(String title, String body){ 
+	public ResultData writeArticle(String title, String body){ 
 		 
 		int id = articleService.writeArticle(title, body);
 		
 		Article article = articleService.getArticle(id);
-		System.out.println(article);
 		
-		return article;
+		return ResultData.form("s-1", Util.f("%s번째 글이 작성되었습니다",id), article);
 	}
 	
 	@RequestMapping("/usr/article")
 	@ResponseBody
-	public Object showDetail(int id){
+	public ResultData showArticleDetail(int id){
 		Article article = articleService.getArticle(id);
 		if( article == null ) {
-			return id + "번 게시물이 없습니다";
+			return ResultData.form("f-1",  Util.f("%s번째 게시글이 없습니다.", id));
 		}
 		
-		return article;
+		return ResultData.form("s-1",  Util.f("%s번째 게시글 입니다.", id), article);
 	}
 	
 	@RequestMapping("/usr/article/delete")
