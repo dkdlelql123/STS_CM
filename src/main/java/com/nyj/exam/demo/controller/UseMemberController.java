@@ -44,4 +44,31 @@ public class UseMemberController {
 		
 		return ResultData.newData(doJoinRD, member);
 	}	
+	
+	
+	// login
+	@RequestMapping("/login")
+	@ResponseBody
+	public ResultData doLogin(String loginId, String loginPw) {
+		
+		if(loginId.trim().length() == 0 || loginId == null) {
+			return ResultData.form("f-0", "아이디를 입력해주세요.");
+		}
+		
+		if(loginPw.trim().length() == 0 || loginPw == null) {
+			return ResultData.form("f-0", "비밀번호를 입력해주세요.");
+		}
+		
+		Member member = memberService.getMemberByLoginId(loginId);
+		
+		if(member == null) {
+			return ResultData.form("f-10", Util.f("%s는 존재하는 계정이 아닙니다", loginId));
+		}
+		
+		if(!member.getLoginPw().equals(loginPw)) {
+			return ResultData.form("f-10", "패스워드가 틀렸습니다");
+		}
+		
+		return ResultData.form("s-1", Util.f("%s님이 로그인 하셨습니다." , loginId), member);
+	}
 }
