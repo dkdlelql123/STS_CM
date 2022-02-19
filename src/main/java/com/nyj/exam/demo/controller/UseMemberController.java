@@ -4,6 +4,8 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,11 +51,19 @@ public class UseMemberController {
 	// login
 	@RequestMapping("/login")
 	@ResponseBody
-	public ResultData doLogin(String loginId, String loginPw) {
+	public ResultData doLogin(HttpSession session,String loginId, String loginPw) {
+		
+		boolean loginCheck = false;
+		
+		if( session.getAttribute("MemberLoginId") != null ) {
+			loginCheck = true;
+		}
+		
+		if( loginCheck ) return ResultData.form("f-0", "이미 로그인한 상태입니다.");
+		
 		
 		if(Util.empty(loginId))  return ResultData.form("f-1", "아이디를 입력해주세요.");
 		if(Util.empty(loginPw)) return ResultData.form("f-1", Util.f("비밀번호를 입력해주세요."));
-		
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
@@ -64,6 +74,8 @@ public class UseMemberController {
 		if(!member.getLoginPw().equals(loginPw)) {
 			return ResultData.form("f-10", "패스워드가 틀렸습니다");
 		}
+		
+		session.setAttribute("MemberLoginId", member.getId());
 		
 		return ResultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), member);
 	}
