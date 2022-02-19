@@ -51,13 +51,9 @@ public class UseMemberController {
 	@ResponseBody
 	public ResultData doLogin(String loginId, String loginPw) {
 		
-		if(loginId.trim().length() == 0 || loginId == null) {
-			return ResultData.form("f-0", "아이디를 입력해주세요.");
-		}
+		if(Util.empty(loginId))  return ResultData.form("f-1", "아이디를 입력해주세요.");
+		if(Util.empty(loginPw)) return ResultData.form("f-1", Util.f("비밀번호를 입력해주세요."));
 		
-		if(loginPw.trim().length() == 0 || loginPw == null) {
-			return ResultData.form("f-0", "비밀번호를 입력해주세요.");
-		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
@@ -69,6 +65,6 @@ public class UseMemberController {
 			return ResultData.form("f-10", "패스워드가 틀렸습니다");
 		}
 		
-		return ResultData.form("s-1", Util.f("%s님이 로그인 하셨습니다." , loginId), member);
+		return ResultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), member);
 	}
 }
