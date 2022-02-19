@@ -21,6 +21,7 @@ import com.nyj.exam.demo.vo.ResultData;
 @Controller
 public class UseMemberController { 
 	
+	
 	@Autowired
 	private MemberService memberService;
 
@@ -49,10 +50,9 @@ public class UseMemberController {
 	
 	
 	// login
-	@RequestMapping("/login")
+	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public ResultData doLogin(HttpSession session,String loginId, String loginPw) {
-		
 		boolean loginCheck = false;
 		
 		if( session.getAttribute("MemberLoginId") != null ) {
@@ -79,4 +79,35 @@ public class UseMemberController {
 		
 		return ResultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), member);
 	}
+	
+
+	// logout
+	@RequestMapping("/usr/member/doLogout")
+	@ResponseBody
+	public ResultData doLogout(HttpSession session) {
+		 boolean loginCheck = false;
+		
+		if( session.getAttribute("MemberLoginId") == null ) {
+			loginCheck = true;
+		}
+		
+		if( loginCheck ) {
+			return ResultData.form("s-1", "이미 로그아웃 되셨습니다.");
+		}
+		
+		session.removeAttribute("MemberLoginId");
+		return ResultData.form("s-2", "로그아웃 되셨습니다.");
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
