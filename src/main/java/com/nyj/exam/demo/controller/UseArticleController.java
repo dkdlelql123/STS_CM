@@ -4,28 +4,44 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.ArticleService;
+import com.nyj.exam.demo.service.MemberService;
 import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.vo.Member;
 import com.nyj.exam.demo.vo.ResultData; 
 
 @Controller
 public class UseArticleController {
 
 	@Autowired
-	private ArticleService articleService; 
+	private ArticleService articleService;
+	private MemberService memberService;
 
 	// 액션 메서드	
 	@RequestMapping("/usr/article/write")
 	@ResponseBody
-	public ResultData writeArticle(String title, String body){ 
-		 
-		int id = articleService.writeArticle(title, body);
+	public ResultData writeArticle(HttpSession session, String title, String body){
+		boolean loginedCheck = false;
+		int loginedMemberId = 0 ;
+		
+		if(session.getAttribute("loginedMemberId") != null) {
+			loginedCheck = true;
+			loginedMemberId = (int)session.getAttribute("loginedMemberId");
+		} 
+		
+		if(loginedCheck == false) {
+			return ResultData.form("f-A", "로그인 먼저해주세요.");
+		}
+			
+		int id = articleService.writeArticle(title, body, loginedMemberId);
 		
 		Article article = articleService.getArticle(id);
 		

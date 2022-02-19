@@ -55,7 +55,7 @@ public class UseMemberController {
 	public ResultData doLogin(HttpSession session,String loginId, String loginPw) {
 		boolean loginCheck = false;
 		
-		if( session.getAttribute("MemberLoginId") != null ) {
+		if( session.getAttribute("loginedMemberId") != null ) {
 			loginCheck = true;
 		}
 		
@@ -75,7 +75,7 @@ public class UseMemberController {
 			return ResultData.form("f-10", "패스워드가 틀렸습니다");
 		}
 		
-		session.setAttribute("MemberLoginId", member.getId());
+		session.setAttribute("loginedMemberId", member.getId());
 		
 		return ResultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), member);
 	}
@@ -87,7 +87,7 @@ public class UseMemberController {
 	public ResultData doLogout(HttpSession session) {
 		 boolean loginCheck = false;
 		
-		if( session.getAttribute("MemberLoginId") == null ) {
+		if( session.getAttribute("loginedMemberId") == null ) {
 			loginCheck = true;
 		}
 		
