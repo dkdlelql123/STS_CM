@@ -95,7 +95,7 @@ public class UseMemberController {
 			return ResultData.form("s-1", "이미 로그아웃 되셨습니다.");
 		}
 		
-		session.removeAttribute("MemberLoginId");
+		session.removeAttribute("loginedMemberId");
 		return ResultData.form("s-2", "로그아웃 되셨습니다.");
 		
 	}
