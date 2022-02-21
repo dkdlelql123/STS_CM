@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.nyj.exam.demo.repository.ArticleRepository;
 import com.nyj.exam.demo.repository.MemberRepository;
+import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.vo.ResultData;
 
 @Service
 public class ArticleService {  
@@ -37,9 +39,28 @@ public class ArticleService {
 		articleRepository.deleteArticle(id);
 	}
 
-	public void modifyArticle(int id, String title, String body) {
+	public ResultData modifyArticle(int id, String title, String body) {
+		
 		articleRepository.modifyArticle(id, title, body);
 		
+		Article article = getArticle(id);
+		
+		return ResultData.form("s-1", Util.f("%s 게시물이 수정되었습니다", id),  "article", article); 
+		
+	}
+
+	public ResultData modifyCheck(int id, int loginedMemberId) {
+		Article article = getArticle(id);
+
+		if( article == null ) {
+			return ResultData.form("f-1", "게시물이 없습니다");
+		}
+		
+		if( article.getMemberId() != loginedMemberId) {
+			return ResultData.form("f-2", "권한이 없습니다");
+		}
+		
+		return ResultData.form("s-1", "수정 가능합니다", "article" , article); 
 	}
 	
 	

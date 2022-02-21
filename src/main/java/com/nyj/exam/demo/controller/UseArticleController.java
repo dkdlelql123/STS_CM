@@ -93,15 +93,26 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/modify")
 	@ResponseBody
-	public ResultData doModify(int id, String title, String body){
-		Article article = articleService.getArticle(id);
-		if( article == null ) {
-			return ResultData.form("f-1", "게시물이 없습니다");
+	public ResultData doModify(HttpSession session, int id, String title, String body){
+	
+		boolean loginedCheck = false;
+		int loginedMemberId = 0 ;
+		
+		if(session.getAttribute("loginedMemberId") != null) {
+			loginedCheck = true;
+			loginedMemberId = (int)session.getAttribute("loginedMemberId");
+		} 
+		
+		if(loginedCheck == false) {
+			return ResultData.form("f-A", "로그인 먼저해주세요.");
 		}
 		
-		articleService.modifyArticle(id, title, body);
-
-		return ResultData.form("s-1", Util.f("%s 게시물이 수정되었습니다", "articleId", id)); 
+		ResultData RD = articleService.modifyCheck(id, loginedMemberId);
+		
+		if(RD.isFail()) return RD;
+		
+		return articleService.modifyArticle(id, title, body);
+		
 	}
  
 	
