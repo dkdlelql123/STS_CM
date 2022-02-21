@@ -11,7 +11,10 @@ public class ResultData {
 	private String msg;
 	
 	@Getter
-	private Object data;
+	private String data1Name;
+	
+	@Getter
+	private Object data1;
 	
 	
 	private ResultData() {
@@ -19,14 +22,15 @@ public class ResultData {
 	}
 	
 	public static ResultData form(String resultCode, String msg) {
-		return form(resultCode, msg, null);
+		return form(resultCode, msg, null, null);
 	}
 	
-	public static ResultData form(String resultCode, String msg, Object data) {
+	public static ResultData form(String resultCode, String msg, String data1Name, Object data1) {
 		ResultData rd = new ResultData();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
-		rd.data = data;
+		rd.data1Name = data1Name;
+		rd.data1 = data1;
 		return rd;
 	}
 	
@@ -38,7 +42,7 @@ public class ResultData {
 		return isSuccess() == false;
 	}
 
-	public static ResultData newData(ResultData rd, Object obj) {
-		return form(rd.resultCode, rd.msg, obj);
+	public static ResultData newData(ResultData oldRd, String data1Name, Object data1) {
+		return form(oldRd.resultCode, oldRd.msg, data1Name, data1);
 	}
 }

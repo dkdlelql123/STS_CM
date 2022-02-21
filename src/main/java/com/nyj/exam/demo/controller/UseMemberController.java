@@ -43,9 +43,9 @@ public class UseMemberController {
 			return doJoinRD; 
 		}
 		
-		Member member = memberService.getMemberById((int)doJoinRD.getData());
+		Member member = memberService.getMemberById((int)doJoinRD.getData1());
 		
-		return ResultData.newData(doJoinRD, member);
+		return ResultData.newData(doJoinRD, "member",member);
 	}	
 	
 	
@@ -77,7 +77,7 @@ public class UseMemberController {
 		
 		session.setAttribute("loginedMemberId", member.getId());
 		
-		return ResultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), member);
+		return ResultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), "member",member);
 	}
 	
 

@@ -45,7 +45,7 @@ public class UseArticleController {
 		
 		Article article = articleService.getArticle(id);
 		
-		return ResultData.form("s-1", Util.f("%s번째 글이 작성되었습니다",id), article);	
+		return ResultData.form("s-1", Util.f("%s번째 글이 작성되었습니다",id), "article", article);	
 	}
 	
 	@RequestMapping("/usr/article")
@@ -53,10 +53,10 @@ public class UseArticleController {
 	public ResultData showArticleDetail(int id){
 		Article article = articleService.getArticle(id);
 		if( article == null ) {
-			return ResultData.form("f-1",  Util.f("%s번째 게시글이 없습니다.", id));
+			return ResultData.form("f-1",  Util.f("%s번째 게시글이 없습니다.", "articleId",id));
 		}
 		
-		return ResultData.form("s-1",  "게시판을 찾았습니다.", article);
+		return ResultData.form("s-1",  "게시판을 찾았습니다.", "article", article);
 		
 	}
 	
@@ -87,8 +87,9 @@ public class UseArticleController {
 		
 		articleService.deleteArticle(id);
 		
-		return ResultData.form("s-1", Util.f("%s 게시물이 삭제되었습니다", id));
+		return ResultData.form("s-1", Util.f("%s 게시물이 삭제되었습니다", "articleId", id));
 	}
+	
 	
 	@RequestMapping("/usr/article/modify")
 	@ResponseBody
@@ -100,7 +101,7 @@ public class UseArticleController {
 		
 		articleService.modifyArticle(id, title, body);
 
-		return ResultData.form("s-1", Util.f("%s 게시물이 수정되었습니다", id)); 
+		return ResultData.form("s-1", Util.f("%s 게시물이 수정되었습니다", "articleId", id)); 
 	}
  
 	
