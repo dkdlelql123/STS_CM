@@ -61,7 +61,7 @@ public class UseArticleController {
 		
 	}
 	
-	@RequestMapping("/usr/aritcles")
+	@RequestMapping("/usr/articles")
 	public String showArticles(Model model) {
 		
 		List<Article> articleList = articleService.getArticles();
