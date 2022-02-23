@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-  <h1> hello</h1>
-  <div>zzz</div>
-</body>
-</html>
+
+<c:set var="pageTitle" value="홈" />
+<%@ include file="../common/head.jspf" %>
+  
+<h1>hello</h1>
+
+<%@ include file="../common/tail.jspf" %>  
