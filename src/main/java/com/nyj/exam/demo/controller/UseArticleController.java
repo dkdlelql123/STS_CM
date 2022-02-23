@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -58,6 +59,16 @@ public class UseArticleController {
 		
 		return ResultData.form("s-1",  "게시판을 찾았습니다.", "article", article);
 		
+	}
+	
+	@RequestMapping("/usr/aritcles")
+	public String showArticles(Model model) {
+		
+		List<Article> articleList = articleService.getArticles();
+
+		model.addAttribute("aritcles", articleList);
+		
+		return "/usr/board/list";
 	}
 	
 	@RequestMapping("/usr/article/delete")
