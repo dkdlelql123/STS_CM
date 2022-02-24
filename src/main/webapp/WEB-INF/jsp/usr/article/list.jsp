@@ -16,7 +16,7 @@
     <c:forEach var="article" items="${aritcles}">  
       <tr>
         <td>${article.id} </td>
-        <td>${article.title} </td>
+        <td><a href="../article/detail?id=${article.id}" >${article.title}</a></td>
         <td>${article.regDate} </td>
       </tr>
     </c:forEach>
