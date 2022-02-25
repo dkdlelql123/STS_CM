@@ -96,29 +96,24 @@ public class UseArticleController {
 			loginedMemberId = (int)session.getAttribute("loginedMemberId");
 		} 
 		
-		if(loginedCheck == false) {
-//			return ResultData.form("f-A", "로그인 먼저해주세요.");
+		if(loginedCheck == false) { 
 			model.addAttribute("error", "로그인 먼저해주세요.");
 			return "/usr/error";
 		}
 		
 		
 		Article article = articleService.getArticle(id);
-		if( article == null ) {
-//			return ResultData.form("f-1", "게시물이 없습니다");
+		if( article == null ) { 
 			model.addAttribute("error", "게시물이 없습니다.");
 			return "/usr/error";
 		}
 		
-		if( article.getMemberId() != loginedMemberId ) {
-//			return ResultData.form("f-s", "권한이 없습니다");
+		if( article.getMemberId() != loginedMemberId ) { 
 			model.addAttribute("error", "권한이 없습니다.");
 			return "/usr/error";
 		}
 		
 		articleService.deleteArticle(id);
-		
-//		return ResultData.form("s-1", Util.f("%s 게시물이 삭제되었습니다", "articleId", id));
 		return "redirect:/usr/articles";
 	}
 	
@@ -134,21 +129,18 @@ public class UseArticleController {
 			loginedMemberId = (int)session.getAttribute("loginedMemberId");
 		} 
 		
-		if(loginedCheck == false) {
-//			return ResultData.form("f-A", "로그인 먼저해주세요."); 
+		if(loginedCheck == false) { 
 			model.addAttribute("error", "로그인 먼저해주세요.");
 			return "/usr/error";
 		}
 		
 		ResultData RD = articleService.modifyCheck(id, loginedMemberId);
 		
-		if(RD.isFail()) {
-//			return RD;
+		if(RD.isFail()) { 
 			model.addAttribute("error", "실패했습니다.");
 			return "/usr/error";
 		}
-		
-//		return articleService.modifyArticle(id, title, body);
+		 
 		return "redirect:/usr/article/detail?id="+id;
 		
 	}
