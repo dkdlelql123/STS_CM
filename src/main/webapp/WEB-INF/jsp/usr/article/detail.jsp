@@ -9,10 +9,12 @@
   <div class="w-3/4 mx-auto"> 
        
     <div class="flex items-center gap-1 my-4">
-      <div>뒤로가기</div>
+      <a href="/">뒤로가기</a>
       <div class="flex-grow"></div>
-      <div>수정</div>
-      <div>삭제</div>
+      <c:if test="${article.actorCanModify}">
+        <a href="/usr/article/modify?id=${article.id}">수정</a>
+        <a onclick="if(confirm('삭제하시겠습니까?') == false) return false;" href="/usr/article/delete?id=${article.id}">삭제</a>
+      </c:if>
     </div>
        
     <div class="flex flex-col items-center gap-2">

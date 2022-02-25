@@ -18,4 +18,5 @@ public class Article {
 	private int memberId;
 	
 	private String actorName;
+	private boolean actorCanModify;
 }

@@ -9,6 +9,7 @@
   
   <div class="w-3/4 mx-auto">
     <h1>ERROR</h1>
+    <div>${error}</div>
   </div>
   
 </div>
