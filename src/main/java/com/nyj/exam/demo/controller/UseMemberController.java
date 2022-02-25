@@ -25,7 +25,12 @@ public class UseMemberController {
 	@Autowired
 	private MemberService memberService;
 
-	//
+	
+	@RequestMapping("/usr/member/join")
+	public String showJoin() {
+		return "usr/member/join";
+	}
+	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
@@ -50,6 +55,11 @@ public class UseMemberController {
 	
 	
 	// login
+	@RequestMapping("/usr/member/login")
+	public String showLogin() {
+		return "usr/member/login";
+	}
+	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public ResultData doLogin(HttpSession session,String loginId, String loginPw) {

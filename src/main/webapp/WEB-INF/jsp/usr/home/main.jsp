@@ -5,6 +5,27 @@
 <c:set var="pageTitle" value="홈" />
 <%@ include file="../common/head.jspf" %>
   
-<h1>hello</h1>
+<div class="flex-grow">
+  
+  <div class="w-3/4 mx-auto">
+    <h1>Hello.</h1>
+    
+    <ul>
+      <li>
+        <a href="">게시물 전체 목록</a>
+      </li>
+      <li>
+        <a href="">게시물 글쓰기</a>
+      </li>
+      <li>
+        <a href="">회원 전체 목록</a>
+      </li>
+      <li>
+        <a href=""></a>
+      </li>
+    </ul>
+  </div>
+  
+</div>
 
 <%@ include file="../common/tail.jspf" %>  

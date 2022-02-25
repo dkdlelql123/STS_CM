@@ -23,4 +23,14 @@
   <!-- 사이트 공통 js --> 
   
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
+  <header class="flex items-center container mx-auto h-12 w-3/4 bg-gray-100">
+    <a href="/" class="fontM size-la">LOGO</a>
+    <div class="flex-grow"></div>
+    <nav>
+      <ul class="flex gap-2">
+        <li><a href="/usr/member/login">로그인</a></li>
+        <li><a href="/usr/member/join">회원가입</a></li>
+      </ul>
+    </nav>
+  </header>

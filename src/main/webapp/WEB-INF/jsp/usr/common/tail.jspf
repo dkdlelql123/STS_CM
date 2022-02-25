@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+  <div class="footer flex flex-col w-3/4 mx-auto bg-gray-100 pt-4 pb-6">
+    
+    <ul class="flex gap-2 size-sm">
+      <li><a href="">네이버블로그</a></li>
+      <li><a href="">인스타그램</a></li>
+    </ul>
+    
+    <ul class="flex gap-2 size-sm">
+    	<li>대표 남예지</li>
+    	<li>전화번호 010-1111-2222</li>
+    </ul>
+    
+  </div>
 </body>
 </html>
