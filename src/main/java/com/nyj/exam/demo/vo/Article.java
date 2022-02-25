@@ -16,4 +16,6 @@ public class Article {
 	private String updateDate;
 	
 	private int memberId;
+	
+	private String actorName;
 }

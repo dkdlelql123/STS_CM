@@ -14,12 +14,19 @@
 	</insert>
 	
 	<select id="getArticle" resultType="Article">
-	select * from article 
-	where id = #{id}
+	select A.*, B.nickname as actorName 
+	FROM article A 
+	LEFT JOIN `member` B 
+	ON A.memberId = B.id
+	where A.id = #{id}
 	</select>
 	
 	<select id="getArticles"  resultType="Article">
-	select * from article
+	SELECT A.*, B.nickname as actorName 
+	FROM article A 
+	LEFT JOIN `member` B 
+	ON A.memberId = B.id 
+	ORDER BY A.ID DESC
 	</select>
 	
 	<select id="last_insert_id"  resultType="int">

@@ -63,11 +63,6 @@ public class UseArticleController {
 	public String showArticleDetail(Model model, int id){
 		Article article = articleService.getArticle(id);
 		
-//		if( article == null ) {
-//			return ResultData.form("f-1",  Util.f("%s번째 게시글이 없습니다.", "articleId",id));
-//		}
-//		return ResultData.form("s-1",  "게시판을 찾았습니다.", "article", article);
-		
 		if( article == null ) {
 			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
 			return "/usr/error";
