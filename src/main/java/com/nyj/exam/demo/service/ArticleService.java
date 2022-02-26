@@ -26,9 +26,17 @@ public class ArticleService {
 		articleRepository.writeArticle(title, body, memberId);
 		return articleRepository.last_insert_id();
 	}
+	
+	public List<Article> getForPrintArticles() {	
+		return articleRepository.getForPrintArticles();
+	}
 
 	public List<Article> getArticles() {	
 		return articleRepository.getArticles();
+	}
+	
+	public Article getForPrintArticle(int id) {
+		return articleRepository.getForPrintArticle(id);
 	}
 
 	public Article getArticle(int id) {

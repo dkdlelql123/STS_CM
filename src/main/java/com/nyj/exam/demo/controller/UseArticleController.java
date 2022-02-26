@@ -52,7 +52,7 @@ public class UseArticleController {
 	@RequestMapping("/usr/articles")
 	public String showArticles(Model model) {
 		
-		List<Article> articleList = articleService.getArticles();
+		List<Article> articleList = articleService.getForPrintArticles();
 
 		model.addAttribute("aritcles", articleList);
 		
@@ -69,7 +69,7 @@ public class UseArticleController {
 			loginedMemberId = (int)session.getAttribute("loginedMemberId");
 		} 
 		
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(id);
 		
 		if( article == null ) {
 			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
@@ -101,8 +101,8 @@ public class UseArticleController {
 			return "/usr/error";
 		}
 		
-		
 		Article article = articleService.getArticle(id);
+		
 		if( article == null ) { 
 			model.addAttribute("error", "게시물이 없습니다.");
 			return "/usr/error";
@@ -145,5 +145,4 @@ public class UseArticleController {
 		
 	}
  
-	
 }

@@ -21,13 +21,18 @@ public interface ArticleRepository {
 	 
 	public void writeArticle(@Param("title") String title,@Param("body") String body, @Param("memberId") int memberId) ;
 	
+	public List<Article> getArticles();
+
+	public List<Article> getForPrintArticles();
+	
 	public Article getArticle(@Param("id") int id) ;
+
+	public Article getForPrintArticle(@Param("id") int id) ;
 	
 	public void deleteArticle(@Param("id") int id) ;  
 
 	public void modifyArticle(@Param("id") int id, @Param("title") String title, @Param("body") String body);
 
-	public List<Article> getArticles();
 	
 	public int last_insert_id();
 }

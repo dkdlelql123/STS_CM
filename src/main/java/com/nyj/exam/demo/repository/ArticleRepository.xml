@@ -13,7 +13,22 @@
 	memberId = #{memberId}
 	</insert>
 	
-	<select id="getArticle" resultType="Article">
+	
+	<select id="getForPrintArticles"  resultType="Article">
+	SELECT A.*, B.nickname as actorName 
+	FROM article A 
+	LEFT JOIN `member` B 
+	ON A.memberId = B.id 
+	ORDER BY A.ID DESC
+	</select>
+	
+	<select id="getArticles"  resultType="Article">
+	SELECT * 
+	FROM article
+	ORDER BY A.ID DESC
+	</select>
+	
+	<select id="getForPrintArticle" resultType="Article">
 	select A.*, B.nickname as actorName 
 	FROM article A 
 	LEFT JOIN `member` B 
@@ -21,13 +36,11 @@
 	where A.id = #{id}
 	</select>
 	
-	<select id="getArticles"  resultType="Article">
-	SELECT A.*, B.nickname as actorName 
-	FROM article A 
-	LEFT JOIN `member` B 
-	ON A.memberId = B.id 
-	ORDER BY A.ID DESC
+	<select id="getArticle" resultType="Article">
+	select * 
+	FROM article
 	</select>
+	
 	
 	<select id="last_insert_id"  resultType="int">
 	SELECT LAST_INSERT_ID()
