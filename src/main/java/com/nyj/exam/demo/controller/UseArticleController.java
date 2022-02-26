@@ -32,7 +32,7 @@ public class UseArticleController {
 	@RequestMapping("/usr/article/write")
 	@ResponseBody
 	public ResultData writeArticle(HttpServletRequest req, String title, String body){
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq");
 		
 		if(rq.isLoginedCheck() == false) {
 			return ResultData.form("f-A", "로그인 먼저해주세요.");
@@ -57,15 +57,14 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/detail") 
 	public String showArticleDetail(HttpServletRequest req, Model model, int id){
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq");
 		
 		Article article = articleService.getForPrintArticle(id);
 		
 		if( article == null ) {
 			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
 			return "/usr/error";
-		}
-
+		
 		
 		if( article.getMemberId() == rq.getLoginedMemberId() ) {
 			article.setActorCanModify(true);
@@ -78,7 +77,7 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/delete")
 	public String doDelete(HttpServletRequest req, int id, Model model){
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq"); 
 		
 		if(rq.isLoginedCheck() == false) { 
 			model.addAttribute("error", "로그인 먼저해주세요.");
@@ -104,7 +103,7 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/modify") 
 	public String doModify(HttpServletRequest req, int id, String title, String body, Model model){
-		Rq rq = new Rq(req);
+		Rq rq = (Rq)req.getAttribute("rq"); 
 		
 		if(rq.isLoginedCheck() == false) { 
 			model.addAttribute("error", "로그인 먼저해주세요.");
