@@ -4,6 +4,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ import com.nyj.exam.demo.service.MemberService;
 import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
 import com.nyj.exam.demo.vo.Member;
-import com.nyj.exam.demo.vo.ResultData; 
+import com.nyj.exam.demo.vo.ResultData;
+import com.nyj.exam.demo.vo.Rq; 
 
 @Controller
 public class UseArticleController {
@@ -29,20 +31,14 @@ public class UseArticleController {
 	// 액션 메서드	
 	@RequestMapping("/usr/article/write")
 	@ResponseBody
-	public ResultData writeArticle(HttpSession session, String title, String body){
-		boolean loginedCheck = false;
-		int loginedMemberId = 0 ;
+	public ResultData writeArticle(HttpServletRequest req, String title, String body){
+		Rq rq = new Rq(req);
 		
-		if(session.getAttribute("loginedMemberId") != null) {
-			loginedCheck = true;
-			loginedMemberId = (int)session.getAttribute("loginedMemberId");
-		} 
-		
-		if(loginedCheck == false) {
+		if(rq.isLoginedCheck() == false) {
 			return ResultData.form("f-A", "로그인 먼저해주세요.");
 		}
 			
-		int id = articleService.writeArticle(title, body, loginedMemberId);
+		int id = articleService.writeArticle(title, body, rq.getLoginedMemberId());
 		
 		Article article = articleService.getArticle(id);
 		
@@ -60,14 +56,8 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail") 
-	public String showArticleDetail(HttpSession session, Model model, int id){
-		boolean loginedCheck = false;
-		int loginedMemberId = 0 ;
-		
-		if(session.getAttribute("loginedMemberId") != null) {
-			loginedCheck = true;
-			loginedMemberId = (int)session.getAttribute("loginedMemberId");
-		} 
+	public String showArticleDetail(HttpServletRequest req, Model model, int id){
+		Rq rq = new Rq(req);
 		
 		Article article = articleService.getForPrintArticle(id);
 		
@@ -77,7 +67,7 @@ public class UseArticleController {
 		}
 
 		
-		if( article.getMemberId() == loginedMemberId) {
+		if( article.getMemberId() == rq.getLoginedMemberId() ) {
 			article.setActorCanModify(true);
 		}
 		
@@ -87,16 +77,10 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/delete")
-	public String doDelete(HttpSession session, int id, Model model){
-		boolean loginedCheck = false;
-		int loginedMemberId = 0 ;
+	public String doDelete(HttpServletRequest req, int id, Model model){
+		Rq rq = new Rq(req);
 		
-		if(session.getAttribute("loginedMemberId") != null) {
-			loginedCheck = true;
-			loginedMemberId = (int)session.getAttribute("loginedMemberId");
-		} 
-		
-		if(loginedCheck == false) { 
+		if(rq.isLoginedCheck() == false) { 
 			model.addAttribute("error", "로그인 먼저해주세요.");
 			return "/usr/error";
 		}
@@ -108,7 +92,7 @@ public class UseArticleController {
 			return "/usr/error";
 		}
 		
-		if( article.getMemberId() != loginedMemberId ) { 
+		if( article.getMemberId() != rq.getLoginedMemberId() ) { 
 			model.addAttribute("error", "권한이 없습니다.");
 			return "/usr/error";
 		}
@@ -119,22 +103,15 @@ public class UseArticleController {
 	
 	
 	@RequestMapping("/usr/article/modify") 
-	public String doModify(HttpSession session, int id, String title, String body, Model model){
-	
-		boolean loginedCheck = false;
-		int loginedMemberId = 0 ;
+	public String doModify(HttpServletRequest req, int id, String title, String body, Model model){
+		Rq rq = new Rq(req);
 		
-		if(session.getAttribute("loginedMemberId") != null) {
-			loginedCheck = true;
-			loginedMemberId = (int)session.getAttribute("loginedMemberId");
-		} 
-		
-		if(loginedCheck == false) { 
+		if(rq.isLoginedCheck() == false) { 
 			model.addAttribute("error", "로그인 먼저해주세요.");
 			return "/usr/error";
 		}
 		
-		ResultData RD = articleService.modifyCheck(id, loginedMemberId);
+		ResultData RD = articleService.modifyCheck(id, rq.getLoginedMemberId());
 		
 		if(RD.isFail()) { 
 			model.addAttribute("error", "실패했습니다.");

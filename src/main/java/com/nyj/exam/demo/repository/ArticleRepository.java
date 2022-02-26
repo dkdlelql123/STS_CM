@@ -24,10 +24,11 @@ public interface ArticleRepository {
 	public List<Article> getArticles();
 
 	public List<Article> getForPrintArticles();
-	
-	public Article getArticle(@Param("id") int id) ;
+
 
 	public Article getForPrintArticle(@Param("id") int id) ;
+	
+	public Article getArticle(@Param("id") int id) ;
 	
 	public void deleteArticle(@Param("id") int id) ;  
 

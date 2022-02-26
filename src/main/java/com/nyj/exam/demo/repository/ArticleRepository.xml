@@ -25,7 +25,7 @@
 	<select id="getArticles"  resultType="Article">
 	SELECT * 
 	FROM article
-	ORDER BY A.ID DESC
+	ORDER BY ID DESC
 	</select>
 	
 	<select id="getForPrintArticle" resultType="Article">
@@ -37,10 +37,8 @@
 	</select>
 	
 	<select id="getArticle" resultType="Article">
-	select * 
-	FROM article
+	select * FROM article where id = #{id}
 	</select>
-	
 	
 	<select id="last_insert_id"  resultType="int">
 	SELECT LAST_INSERT_ID()
