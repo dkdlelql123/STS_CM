@@ -1,7 +1,12 @@
 package com.nyj.exam.demo.vo;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.nyj.exam.demo.util.Util;
 
 import lombok.Getter;
 
@@ -10,9 +15,16 @@ public class Rq {
 	private int loginedMemberId;
 	@Getter
 	private boolean loginedCheck;
+	
+	private HttpServletRequest req;
+	private HttpServletResponse resp;
 
-	public Rq(HttpServletRequest req) {
+	public Rq(HttpServletRequest req, HttpServletResponse resp) {
+		this.req = req;
+		this.resp = resp;
+		
 		HttpSession session = req.getSession(); 
+		
 		boolean loginedCheck = false;
 		int loginedMemberId = 0 ;
 		
@@ -23,6 +35,28 @@ public class Rq {
 		
 		this.loginedCheck = loginedCheck;
 		this.loginedMemberId = loginedMemberId;
+	}
+
+	public void publicHistoryBackJS(String msg) {
+		resp.setContentType("text/html; charset=UTF-8");
+		println("<script>");
+		if(!Util.empty(msg)) {
+			println("alert( '"+msg+"' );");
+		}
+		println("history.back();");
+		println("</script>");
+	}
+	
+	public void print(String str) {
+		try {			
+			resp.getWriter().append(str);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void println(String str) {
+		print(str+"\n ");
 	}
 
 }

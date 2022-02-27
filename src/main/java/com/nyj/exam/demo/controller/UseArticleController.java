@@ -29,30 +29,31 @@ public class UseArticleController {
 	private MemberService memberService;
 
 	// 액션 메서드	
+	@RequestMapping("/usr/articles")
+	public String showArticles(Model model) {
+		
+		List<Article> articleList = articleService.getForPrintArticles();
+		
+		model.addAttribute("aritcles", articleList);
+		
+		return "usr/article/list";
+	}
+	
 	@RequestMapping("/usr/article/write")
+	public String showWrite() {
+		return "usr/article/write";
+	}
+	
+	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public ResultData writeArticle(HttpServletRequest req, String title, String body){
 		Rq rq = (Rq)req.getAttribute("rq");
-		
-		if(rq.isLoginedCheck() == false) {
-			return ResultData.form("f-A", "로그인 먼저해주세요.");
-		}
 			
 		int id = articleService.writeArticle(title, body, rq.getLoginedMemberId());
 		
 		Article article = articleService.getArticle(id);
 		
 		return ResultData.form("s-1", Util.f("%s번째 글이 작성되었습니다",id), "article", article);	
-	}
-	
-	@RequestMapping("/usr/articles")
-	public String showArticles(Model model) {
-		
-		List<Article> articleList = articleService.getForPrintArticles();
-
-		model.addAttribute("aritcles", articleList);
-		
-		return "usr/article/list";
 	}
 	
 	@RequestMapping("/usr/article/detail") 
@@ -64,25 +65,22 @@ public class UseArticleController {
 		if( article == null ) {
 			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
 			return "/usr/error";
-		
+		}
 		
 		if( article.getMemberId() == rq.getLoginedMemberId() ) {
 			article.setActorCanModify(true);
 		}
 		
 		model.addAttribute("article", article);
-		return "/usr/article/detail";
+		
+		return "/usr/article/detail" ;
 		
 	}
 	
-	@RequestMapping("/usr/article/delete")
-	public String doDelete(HttpServletRequest req, int id, Model model){
-		Rq rq = (Rq)req.getAttribute("rq"); 
+	@RequestMapping("/usr/article/modify")
+	public String showModify(HttpServletRequest req, int id, Model model) {
 		
-		if(rq.isLoginedCheck() == false) { 
-			model.addAttribute("error", "로그인 먼저해주세요.");
-			return "/usr/error";
-		}
+		Rq rq = (Rq)req.getAttribute("rq"); 
 		
 		Article article = articleService.getArticle(id);
 		
@@ -91,31 +89,37 @@ public class UseArticleController {
 			return "/usr/error";
 		}
 		
-		if( article.getMemberId() != rq.getLoginedMemberId() ) { 
-			model.addAttribute("error", "권한이 없습니다.");
-			return "/usr/error";
-		}
+		model.addAttribute("article", article);
+		
+//		if( article.getMemberId() != rq.getLoginedMemberId() ) { 
+//			model.addAttribute("error", "권한이 없습니다.");
+//			return "/usr/error";
+//		}
+		
+		return "usr/article/modify";
+	}
+	
+	@RequestMapping("/usr/article/doDelete")
+	public String doDelete(int id){
 		
 		articleService.deleteArticle(id);
+		
 		return "redirect:/usr/articles";
 	}
 	
 	
-	@RequestMapping("/usr/article/modify") 
+	@RequestMapping("/usr/article/doModify") 
 	public String doModify(HttpServletRequest req, int id, String title, String body, Model model){
-		Rq rq = (Rq)req.getAttribute("rq"); 
+//		Rq rq = (Rq)req.getAttribute("rq"); 
+//		
+//		ResultData RD = articleService.modifyCheck(id, rq.getLoginedMemberId());
+//		
+//		if(RD.isFail()) { 
+//			model.addAttribute("error", "실패했습니다.");
+//			return "/usr/error";
+//		}
 		
-		if(rq.isLoginedCheck() == false) { 
-			model.addAttribute("error", "로그인 먼저해주세요.");
-			return "/usr/error";
-		}
-		
-		ResultData RD = articleService.modifyCheck(id, rq.getLoginedMemberId());
-		
-		if(RD.isFail()) { 
-			model.addAttribute("error", "실패했습니다.");
-			return "/usr/error";
-		}
+		articleService.modifyArticle(id, title, body);
 		 
 		return "redirect:/usr/article/detail?id="+id;
 		

@@ -37,7 +37,7 @@
 	</select>
 	
 	<select id="getArticle" resultType="Article">
-	select * FROM article where sid = #{id}
+	select * FROM article where id = #{id}
 	</select>
 	
 	<select id="last_insert_id"  resultType="int">

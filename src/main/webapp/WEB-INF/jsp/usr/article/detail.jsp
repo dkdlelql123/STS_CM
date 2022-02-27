@@ -24,7 +24,7 @@
         <span class="size-sm" >${article.actorName}</span>
         <span class="size-sm" >|</span>      
         <span class="size-sm" >${article.regDate}</span>      
-	  </div>
+    </div>
     
       <div class="bg-gray-100 p-2 rounded self-stretch">
         <div>${article.body}</div>
