@@ -7,11 +7,21 @@
   
 <div class="flex-grow">
   
-  <div class="w-3/4 mx-auto">
-    <h1>로그인</h1>
+  <div class="w-3/4 m-auto">
+    <h1 class="text-center text-2xl fontB mt-12 mb-8">로그인</h1>
     
-    <form action="" method="" >
-     
+    <form action="/usr/member/doLogin" method="POST" class="w-3/4 m-auto">
+      <div class="flex bg-gray-200 rounded rounded-full items-center p-1">
+        <span class="w-1/4 text-center p-1 " >아이디</span>
+        <input class="flex-grow bg-gray-200 rounded rounded-full p-1" type="text" id="loginId" name="loginId"  placeholder="아아디를 입력해주세요."/>
+      </div>
+       <div class="flex bg-gray-200 rounded rounded-full items-center p-1 mt-2">
+        <span class="w-1/4 text-center p-1 " >비밀번호</span>
+        <input class="flex-grow bg-gray-200 rounded rounded-full p-1" type="password" id="loginPw" name="loginPw"  placeholder="비밀번호를 입력해주세요."/>
+      </div>
+      <div class="flex mt-2">
+        <input class="flex-grow bg-gray-700 text-white fontM rounded rounded-full p-2" type="submit" value="로그인" >
+      </div>
     </form>
   </div>
   

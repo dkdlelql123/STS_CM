@@ -4,6 +4,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ import com.nyj.exam.demo.service.MemberService;
 import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
 import com.nyj.exam.demo.vo.Member;
-import com.nyj.exam.demo.vo.ResultData; 
+import com.nyj.exam.demo.vo.ResultData;
+import com.nyj.exam.demo.vo.Rq; 
 
 @Controller
 public class UseMemberController { 
@@ -35,12 +37,14 @@ public class UseMemberController {
 	@ResponseBody
 	public ResultData doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
 
-		if(Util.empty(loginId)) return ResultData.form("f-1", Util.f("아이디를 입력해주세요."));
+		if(Util.empty(loginId)) return ResultData.form("f-1", Util.f("아이디를 입력해주세요.")); 
 		if(Util.empty(loginPw)) return ResultData.form("f-1", Util.f("비밀번호를 입력해주세요."));
 		if(Util.empty(email)) return ResultData.form("f-1", Util.f("이메일을 입력해주세요."));
 		if(Util.empty(name)) return ResultData.form("f-1", Util.f("이름을 입력해주세요."));
 		if(Util.empty(nickname)) return ResultData.form("f-1", Util.f("닉네임을 입력해주세요."));
 		if(Util.empty(phoneNumber)) return ResultData.form("f-1", Util.f("전화번호를 입력해주세요."));
+		
+
 		
 		ResultData doJoinRD = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
 		
@@ -55,23 +59,17 @@ public class UseMemberController {
 	
 	
 	// login
-	@RequestMapping("/usr/member/login")
+	@RequestMapping("usr/member/login")
 	public String showLogin() {
-		return "usr/member/login";
+		return "/usr/member/login";
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData doLogin(HttpSession session,String loginId, String loginPw) {
-		boolean loginCheck = false;
+	public ResultData doLogin(HttpServletRequest req, HttpSession session,String loginId, String loginPw) {
+		Rq rq = (Rq)req.getAttribute("rq");
 		
-		if( session.getAttribute("loginedMemberId") != null ) {
-			loginCheck = true;
-		}
-		
-		if( loginCheck ) return ResultData.form("f-0", "이미 로그인한 상태입니다.");
-		
-		
+		if(rq.isLoginedCheck()) return ResultData.form("f-0", "이미 로그인한 상태입니다.");
 		if(Util.empty(loginId))  return ResultData.form("f-1", "아이디를 입력해주세요.");
 		if(Util.empty(loginPw)) return ResultData.form("f-1", Util.f("비밀번호를 입력해주세요."));
 		
