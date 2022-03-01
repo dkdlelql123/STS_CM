@@ -60,7 +60,8 @@ public class UseMemberController {
 		
 		if(Util.empty(phoneNumber))  {
 			return Util.jsHistoryBack("전화번호를 입력해주세요.");
-		}
+		} 
+
 		
 		ResultData doJoinRD = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
 		
@@ -80,7 +81,7 @@ public class UseMemberController {
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
-	@ResponseBody
+	@ResponseBody 
 	public Object doLogin(HttpServletRequest req, HttpSession session,String loginId, String loginPw, Model model) {
 		Rq rq = (Rq)req.getAttribute("rq");
 		
@@ -92,7 +93,7 @@ public class UseMemberController {
 		}
 		if (Util.empty(loginPw)) {
 			return Util.jsHistoryBack("비밀번호를 입력해주세요.");			
-		}
+		} 
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
