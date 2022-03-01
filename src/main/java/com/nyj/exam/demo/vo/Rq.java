@@ -18,12 +18,13 @@ public class Rq {
 	
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
+	private HttpSession session;
 
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
 		
-		HttpSession session = req.getSession(); 
+		this.session = req.getSession(); 
 		
 		boolean loginedCheck = false;
 		int loginedMemberId = 0 ;
@@ -57,6 +58,15 @@ public class Rq {
 	
 	public void println(String str) {
 		print(str+"\n ");
+	}
+
+	public void login(Member member) {
+		session.setAttribute("loginedMemberId", member.getId());
+		
+	}
+
+	public void logout() {
+		session.removeAttribute("loginedMemberId");
 	}
 
 }

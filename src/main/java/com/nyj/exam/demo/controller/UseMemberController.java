@@ -103,7 +103,7 @@ public class UseMemberController {
 			return Util.jsHistoryBack("비밀번호가 일치하지 않습니다.");	
 		}
 		
-		session.setAttribute("loginedMemberId", member.getId());
+		rq.login(member);
 		
 //		return esultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), "member",member);
 		return Util.jsReplace(Util.f("%s님 반갑습니다", member.getName()), "/");
@@ -113,19 +113,12 @@ public class UseMemberController {
 	// logout
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpSession session) {
-		 boolean loginCheck = false;
+	public String doLogout(HttpServletRequest req) {
+		Rq rq = (Rq)req.getAttribute("rq");
 		
-		if( session.getAttribute("loginedMemberId") == null ) {
-			loginCheck = true;
-		}
+		rq.logout();
 		
-		if( loginCheck ) {
-			return Util.jsReplace("", "/");
-		}
-		
-		session.removeAttribute("loginedMemberId");
-		return "redirect:/";
+		return Util.jsReplace("", "/");
 	}
 	
 }
