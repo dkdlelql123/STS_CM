@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,28 +36,42 @@ public class UseMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber) {
+	public String doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber, Model model) {
 
-		if(Util.empty(loginId)) return ResultData.form("f-1", Util.f("아이디를 입력해주세요.")); 
-		if(Util.empty(loginPw)) return ResultData.form("f-1", Util.f("비밀번호를 입력해주세요."));
-		if(Util.empty(email)) return ResultData.form("f-1", Util.f("이메일을 입력해주세요."));
-		if(Util.empty(name)) return ResultData.form("f-1", Util.f("이름을 입력해주세요."));
-		if(Util.empty(nickname)) return ResultData.form("f-1", Util.f("닉네임을 입력해주세요."));
-		if(Util.empty(phoneNumber)) return ResultData.form("f-1", Util.f("전화번호를 입력해주세요."));
+		if(Util.empty(loginId)){
+			return Util.jsHistoryBack("아이디를 입력해주세요.");
+		}
 		
-
+		if(Util.empty(loginPw)){
+			return Util.jsHistoryBack("비밀번호를 입력해주세요.");
+		}
+		
+		if(Util.empty(email)){
+			return Util.jsHistoryBack("이메일을 입력해주세요.");
+		}
+		
+		if(Util.empty(name))  {
+			return Util.jsHistoryBack(" 이름을 입력해주세요.");
+		}
+		
+		if(Util.empty(nickname)) {
+			return Util.jsHistoryBack(" 닉네임을 입력해주세요.");
+		}
+		
+		if(Util.empty(phoneNumber))  {
+			return Util.jsHistoryBack("전화번호를 입력해주세요.");
+		}
 		
 		ResultData doJoinRD = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
 		
-		if(doJoinRD.isFail()) {
-			return doJoinRD; 
+		if(doJoinRD.isFail())   {
+			return Util.jsHistoryBack(doJoinRD.getMsg());
 		}
 		
 		Member member = memberService.getMemberById((int)doJoinRD.getData1());
 		
-		return ResultData.newData(doJoinRD, "member",member);
+		return Util.jsReplace("회원가입이 완료되었습니다", "/");
 	}	
-	
 	
 	// login
 	@RequestMapping("usr/member/login")
@@ -66,33 +81,39 @@ public class UseMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public ResultData doLogin(HttpServletRequest req, HttpSession session,String loginId, String loginPw) {
+	public Object doLogin(HttpServletRequest req, HttpSession session,String loginId, String loginPw, Model model) {
 		Rq rq = (Rq)req.getAttribute("rq");
 		
-		if(rq.isLoginedCheck()) return ResultData.form("f-0", "이미 로그인한 상태입니다.");
-		if(Util.empty(loginId))  return ResultData.form("f-1", "아이디를 입력해주세요.");
-		if(Util.empty(loginPw)) return ResultData.form("f-1", Util.f("비밀번호를 입력해주세요."));
+		if (rq.isLoginedCheck()) {
+			return Util.jsHistoryBack("이미 로그인되었습니다.");
+		}
+		if (Util.empty(loginId)) {
+			return Util.jsHistoryBack("로그인 아이디를 입력해주세요.");			
+		}
+		if (Util.empty(loginPw)) {
+			return Util.jsHistoryBack("비밀번호를 입력해주세요.");			
+		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
-		if(member == null) {
-			return ResultData.form("f-10", Util.f("%s는 존재하는 계정이 아닙니다", loginId));
+		if (member == null) {
+			return Util.jsHistoryBack("없는 계정입니다");
 		}
-		
-		if(!member.getLoginPw().equals(loginPw)) {
-			return ResultData.form("f-10", "패스워드가 틀렸습니다");
+		if (!member.getLoginPw().equals(loginPw)) {
+			return Util.jsHistoryBack("비밀번호가 일치하지 않습니다.");	
 		}
 		
 		session.setAttribute("loginedMemberId", member.getId());
 		
-		return ResultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), "member",member);
+//		return esultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), "member",member);
+		return Util.jsReplace(Util.f("%s님 반갑습니다", member.getName()), "/");
 	}
 	
 
 	// logout
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData doLogout(HttpSession session) {
+	public String doLogout(HttpSession session) {
 		 boolean loginCheck = false;
 		
 		if( session.getAttribute("loginedMemberId") == null ) {
@@ -100,12 +121,11 @@ public class UseMemberController {
 		}
 		
 		if( loginCheck ) {
-			return ResultData.form("s-1", "이미 로그아웃 되셨습니다.");
+			return Util.jsReplace("", "/");
 		}
 		
 		session.removeAttribute("loginedMemberId");
-		return ResultData.form("s-2", "로그아웃 되셨습니다.");
-		
+		return "redirect:/";
 	}
 	
 }
