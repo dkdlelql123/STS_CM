@@ -9,7 +9,7 @@
   <div class="w-3/4 mx-auto"> 
        
     <div class="flex items-center gap-1 my-4">
-      <a href="/">뒤로가기</a>
+      <a href="#" onClick="history.go(-1);">뒤로가기</a>
     </div>
        
      <form action="/usr/article/doModify" method="post">
@@ -46,7 +46,7 @@
             제목
           </td>
           <td>
-            <input type="text" id="num" name="num" class="w-full p-1 bg-gray-100 my-1" value="${article.title}" />
+            <input type="text" id="title" name="title" class="w-full p-1 bg-gray-100 my-1" value="${article.title}"/>
           </td>
         </tr>
         <tr>
@@ -54,20 +54,16 @@
             내용
           </td>
           <td>
-            <textarea id="num" name="num" class="w-full p-1 bg-gray-100 my-1" rows=5 >${article.body}</textarea>
+            <textarea id="body" name="body" class="w-full p-1 bg-gray-100 my-1" rows=5 >${article.body}</textarea>
           </td>
         </tr>
-      </table>
-      
+      </table> 
       
       <div class="flex items-center my-4 justify-center">  
         <button>수정</button>
       </div>
      
     </form>
-    
-         
-    
   </div>
 </div>
 <%@ include file="../common/tail.jspf" %>  

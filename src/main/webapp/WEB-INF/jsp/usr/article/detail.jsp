@@ -10,8 +10,7 @@
        
     <div class="flex items-center gap-1 my-4">
       <a href="#" onClick="history.back(); return false;">뒤로가기</a>
-      <div class="flex-grow"></div>
-      <!-- <c:if test="${article.actorCanModify}"></c:if> -->
+      <div class="flex-grow"></div> 
         <a href="/usr/article/modify?id=${article.id}">수정</a>
         <a onclick="if(confirm('삭제하시겠습니까?') == false) return false;" href="/usr/article/delete?id=${article.id}">삭제</a>
     </div>

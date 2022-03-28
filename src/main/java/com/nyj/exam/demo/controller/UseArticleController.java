@@ -94,6 +94,8 @@ public class UseArticleController {
 			return rq.historyBackOnView(rs.getMsg());
 		}
 		
+		model.addAttribute("article", article);
+		
 		return "usr/article/modify";
 	}
 	
@@ -107,19 +109,25 @@ public class UseArticleController {
 	
 	
 	@RequestMapping("/usr/article/doModify") 
+	@ResponseBody
 	public String doModify(HttpServletRequest req, int id, String title, String body, Model model){
-//		Rq rq = (Rq)req.getAttribute("rq"); 
-//		
-//		ResultData RD = articleService.modifyCheck(id, rq.getLoginedMemberId());
-//		
-//		if(RD.isFail()) { 
-//			model.addAttribute("error", "실패했습니다.");
-//			return "/usr/error";
-//		}
+		Rq rq = (Rq)req.getAttribute("rq"); 
+		
+		Article article = articleService.getArticle(id);
+		
+		if( article == null ) { 
+			return Util.jsHistoryBack(Util.f("%d번의 게시물 없습니다.", id));
+		}
+		
+		ResultData actorCanModify = articleService.modifyCheck(id,rq.getLoginedMemberId());
+		
+		if( actorCanModify.isFail() ) { 
+			return Util.jsHistoryBack(actorCanModify.getMsg());
+		}
 		
 		articleService.modifyArticle(id, title, body);
 		 
-		return "redirect:/usr/article/detail?id="+id;
+		return Util.jsReplace("수정이 완료되었습니다.", "/usr/article/modify?id="+id);
 		
 	}
  
