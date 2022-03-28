@@ -1,6 +1,7 @@
 package com.nyj.exam.demo.vo;
 
 import java.io.IOException;
+import java.net.http.HttpRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,6 +68,14 @@ public class Rq {
 
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
+	}
+
+	public String historyBackOnView(String msg) {
+	
+		req.setAttribute("msg", msg);
+		req.setAttribute("historyBack", true);
+		
+		return "/usr/common/js";
 	}
 
 }

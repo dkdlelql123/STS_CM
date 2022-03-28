@@ -82,7 +82,7 @@ public class UseMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody 
-	public Object doLogin(HttpServletRequest req, HttpSession session,String loginId, String loginPw, Model model) {
+	public Object doLogin(HttpServletRequest req, String loginId, String loginPw, Model model) {
 		Rq rq = (Rq)req.getAttribute("rq");
 		
 		if (rq.isLoginedCheck()) {
@@ -105,8 +105,7 @@ public class UseMemberController {
 		}
 		
 		rq.login(member);
-		
-//		return esultData.form("s-1", Util.f("%s(%s)님이 로그인 하셨습니다." , member.getNickname(),loginId), "member",member);
+	
 		return Util.jsReplace(Util.f("%s님 반갑습니다", member.getName()), "/");
 	}
 	
@@ -116,7 +115,6 @@ public class UseMemberController {
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
 		Rq rq = (Rq)req.getAttribute("rq");
-		
 		rq.logout();
 		
 		return Util.jsReplace("", "/");

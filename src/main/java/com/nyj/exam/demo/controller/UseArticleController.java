@@ -85,16 +85,14 @@ public class UseArticleController {
 		Article article = articleService.getArticle(id);
 		
 		if( article == null ) { 
-			model.addAttribute("error", "게시물이 없습니다.");
-			return "/usr/error";
+			return rq.historyBackOnView(Util.f("%d번의 게시물이 없습니다.", id));
 		}
 		
-		model.addAttribute("article", article);
+		ResultData rs = articleService.modifyCheck(id,rq.getLoginedMemberId());
 		
-//		if( article.getMemberId() != rq.getLoginedMemberId() ) { 
-//			model.addAttribute("error", "권한이 없습니다.");
-//			return "/usr/error";
-//		}
+		if( rs.isFail() ) { 
+			return rq.historyBackOnView(rs.getMsg());
+		}
 		
 		return "usr/article/modify";
 	}

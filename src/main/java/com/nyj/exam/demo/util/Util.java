@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 public class Util {
 
 	public static boolean empty(Object obj) {
+		// 값이 비어있는 경우 true
 		if(obj == null) {
 			return true;
 		}

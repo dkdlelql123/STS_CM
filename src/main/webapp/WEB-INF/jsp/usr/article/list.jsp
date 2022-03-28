@@ -27,9 +27,9 @@
         <c:forEach var="article" items="${aritcles}">  
           <tr class="">
             <td class="text-center py-1" >${article.id} </td>
-            <td class="py-1" ><a href="/usr/article/detail?id=${article.id}" >${article.title}</a></td>
+            <td class="py-1" ><a href="/usr/article/detail?id=${article.id}" class="flex">${article.title}</a></td>
             <td class="text-center py-1">${article.actorName}</td>
-            <td class="text-center py-1 ">${fn:substring(article.regDate,0,16) }</td>
+            <td class="text-center py-1 ">${fn:substring(article.regDate,0,16)}</td>
           </tr>
         </c:forEach>
       </tbody>
