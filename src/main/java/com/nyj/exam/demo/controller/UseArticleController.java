@@ -54,7 +54,7 @@ public class UseArticleController {
 		Article article = articleService.getArticle(id);
 		
 //		return ResultData.form("s-1", , "article", article);	
-		return Util.jsReplace(Util.f("%s번째 글이 작성되었습니다",id), Util.f("/usr/article/detail?id=%d",id));
+		return rq.jsReplace(Util.f("%s번째 글이 작성되었습니다",id), Util.f("/usr/article/detail?id=%d",id));
 	}
 	
 	@RequestMapping("/usr/article/detail") 
@@ -117,18 +117,18 @@ public class UseArticleController {
 		Article article = articleService.getArticle(id);
 		
 		if( article == null ) { 
-			return Util.jsHistoryBack(Util.f("%d번의 게시물 없습니다.", id));
+			return rq.jsHistoryBack(Util.f("%d번의 게시물 없습니다.", id));
 		}
 		
 		ResultData actorCanModify = articleService.modifyCheck(id,rq.getLoginedMemberId());
 		
 		if( actorCanModify.isFail() ) { 
-			return Util.jsHistoryBack(actorCanModify.getMsg());
+			return rq.jsHistoryBack(actorCanModify.getMsg());
 		}
 		
 		articleService.modifyArticle(id, title, body);
 		 
-		return Util.jsReplace("수정이 완료되었습니다.", "/usr/article/modify?id="+id);
+		return rq.jsReplace("수정이 완료되었습니다.", "/usr/article/modify?id="+id);
 		
 	}
  

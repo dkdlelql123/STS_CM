@@ -86,27 +86,27 @@ public class UseMemberController {
 		Rq rq = (Rq)req.getAttribute("rq");
 		
 		if (rq.isLoginedCheck()) {
-			return Util.jsHistoryBack("이미 로그인되었습니다.");
+			return rq.jsHistoryBack("이미 로그인되었습니다.");
 		}
 		if (Util.empty(loginId)) {
-			return Util.jsHistoryBack("로그인 아이디를 입력해주세요.");			
+			return rq.jsHistoryBack("로그인 아이디를 입력해주세요.");			
 		}
 		if (Util.empty(loginPw)) {
-			return Util.jsHistoryBack("비밀번호를 입력해주세요.");			
+			return rq.jsHistoryBack("비밀번호를 입력해주세요.");			
 		} 
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
 		if (member == null) {
-			return Util.jsHistoryBack("없는 계정입니다");
+			return rq.jsHistoryBack("없는 계정입니다");
 		}
 		if (!member.getLoginPw().equals(loginPw)) {
-			return Util.jsHistoryBack("비밀번호가 일치하지 않습니다.");	
+			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");	
 		}
 		
 		rq.login(member);
 	
-		return Util.jsReplace(Util.f("%s님 반갑습니다", member.getName()), "/");
+		return rq.jsReplace(Util.f("%s님 반갑습니다", member.getName()), "/");
 	}
 	
 
@@ -117,7 +117,7 @@ public class UseMemberController {
 		Rq rq = (Rq)req.getAttribute("rq");
 		rq.logout();
 		
-		return Util.jsReplace("", "/");
+		return rq.jsReplace("", "/");
 	}
 	
 }
