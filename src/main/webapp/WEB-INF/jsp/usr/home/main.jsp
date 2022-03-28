@@ -12,7 +12,7 @@
     
     <ul>
       <li>
-        <a href="">게시물 전체 목록</a>
+        <a href="/usr/articles">게시물 전체 목록</a>
       </li>
       <li>
         <a href="">게시물 글쓰기</a>
