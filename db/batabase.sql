@@ -5,27 +5,27 @@ USE stscm;
 
 CREATE TABLE `article`(
 	id INT(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	regData DATETIME NOT NULL,
-	updateData DATETIME NOT NULL,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
 	title CHAR(100) NOT NULL,
 	`body` TEXT NOT NULL
 );
 
 INSERT INTO `article`
-SET regData = NOW(),
-updateData = NOW(),
+SET regDate = NOW(),
+updateDate = NOW(),
 title = "제목1",
 `body` = "아아아";
 
 INSERT INTO `article`
-SET regData = NOW(),
-updateData = NOW(),
+SET regDate = NOW(),
+updateDate = NOW(),
 title = "제목2",
 `body` = "아아아";
 
 INSERT INTO `article`
-SET regData = NOW(),
-updateData = NOW(),
+SET regDate = NOW(),
+updateDate = NOW(),
 title = "제목3",
 `body` = "아아아";
 
@@ -73,4 +73,38 @@ email = 'user@user.com';
 ALTER TABLE `article` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDate;
 
 #기존의 article에 memberId = 2 넣어주기
-UPDATE `article` set memberId = 2;
+UPDATE `article` SET memberId = 2;
+
+#게시판
+CREATE TABLE board (
+	id INT(10) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	`code` CHAR(50) NOT NULL UNIQUE DEFAULT 0 COMMENT 'notice(공지사항),free1(자유게시판)...',
+	`name` CHAR(50) NOT NULL UNIQUE COMMENT '게시판이름',
+	delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0=삭제전, 1=삭제',
+	delDate DATETIME COMMENT '삭제날짜'	
+);
+
+#게시판 생성 - 공지사항, 자유게시판
+INSERT INTO board 
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'notice',
+`name` = '공지사항';
+
+INSERT INTO board 
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'free1',
+`name` = '자유게시판';
+
+
+#게시물 테이블에 게시판 칼럼 추가
+ALTER TABLE `article` ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER memberid;
+
+#게시물 1,2번 공지사항 게시판 게시물로 지정
+UPDATE article SET boardId = 1 WHERE id IN(1,2);
+
+#게시물 3번 공지사항 게시판 게시물로 지정
+UPDATE article SET boardId = 2 WHERE id IN(3);
