@@ -34,7 +34,8 @@
         <li><a href="/usr/member/join">회원가입</a></li>
         </c:if>
         <c:if test="${rq.loginedCheck}">
-        <li><a href="/usr/articles">게시물</a></li>
+        <li><a href="/usr/article/list?boardId=1">공지사항 게시판</a></li>
+        <li><a href="/usr/article/list?boardId=2">자유 게시판</a></li>
         <li><a href="/usr/member/doLogout">로그아웃</a></li>
         <li><a href="/usr/member/mypage">마이페이지</a></li>
         </c:if>

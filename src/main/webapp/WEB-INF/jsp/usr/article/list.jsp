@@ -2,14 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:set var="pageTitle" value="게시물 목록" />
+<c:set var="pageTitle" value="${board.name} 게시물 목록" />
 <%@ include file="../common/head.jspf" %>
   
 
 <div class="flex-grow">
   
   <div class="w-3/4 mx-auto">
-    <h1 class="size-xl fontL">게시물 목록</h1>
+    <h1 class="size-xl fontL">${board.name} 게시물 목록</h1>
     
     <table class="w-full">
       <colgroup>

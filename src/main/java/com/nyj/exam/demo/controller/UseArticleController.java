@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.ArticleService;
+import com.nyj.exam.demo.service.BoardService;
 import com.nyj.exam.demo.service.MemberService;
 import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.vo.Board;
 import com.nyj.exam.demo.vo.Member;
 import com.nyj.exam.demo.vo.ResultData;
 import com.nyj.exam.demo.vo.Rq; 
@@ -24,9 +26,15 @@ import com.nyj.exam.demo.vo.Rq;
 @Controller
 public class UseArticleController {
 
-	@Autowired
 	private ArticleService articleService;
 	private MemberService memberService;
+	private BoardService boardService;
+	
+	public UseArticleController(ArticleService articleService, MemberService memberService, BoardService boardService) {
+		this.articleService = articleService;
+		this.memberService = memberService;
+		this.boardService = boardService;
+	}
 
 	// 액션 메서드	
 	@RequestMapping("/usr/articles")
@@ -34,6 +42,18 @@ public class UseArticleController {
 		
 		List<Article> articleList = articleService.getForPrintArticles();
 		
+		model.addAttribute("aritcles", articleList);
+		
+		return "usr/article/list";
+	}
+	
+	@RequestMapping("/usr/article/list")
+	public String showArticle(Model model, int boardId) {
+		Board board = boardService.findById(boardId);
+		
+		List<Article> articleList = articleService.getForPrintArticles();
+		
+		model.addAttribute("board", board);
 		model.addAttribute("aritcles", articleList);
 		
 		return "usr/article/list";
