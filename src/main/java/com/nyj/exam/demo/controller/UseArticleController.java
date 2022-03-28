@@ -46,14 +46,15 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData writeArticle(HttpServletRequest req, String title, String body){
+	public String writeArticle(HttpServletRequest req, String title, String body){
 		Rq rq = (Rq)req.getAttribute("rq");
 			
 		int id = articleService.writeArticle(title, body, rq.getLoginedMemberId());
 		
 		Article article = articleService.getArticle(id);
 		
-		return ResultData.form("s-1", Util.f("%s번째 글이 작성되었습니다",id), "article", article);	
+//		return ResultData.form("s-1", , "article", article);	
+		return Util.jsReplace(Util.f("%s번째 글이 작성되었습니다",id), Util.f("/usr/article/detail?id=%d",id));
 	}
 	
 	@RequestMapping("/usr/article/detail") 

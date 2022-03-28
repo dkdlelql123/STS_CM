@@ -15,7 +15,7 @@
         <a href="/usr/articles">게시물 전체 목록</a>
       </li>
       <li>
-        <a href="">게시물 글쓰기</a>
+        <a href="/usr/article/write">게시물 글쓰기</a>
       </li>
       <li>
         <a href="">회원 전체 목록</a>
