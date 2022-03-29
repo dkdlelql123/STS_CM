@@ -1,13 +1,9 @@
 package com.nyj.exam.demo.controller;
-
-import java.lang.ProcessBuilder.Redirect;
-import java.util.ArrayList;
+ 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpServletRequest; 
+ 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +14,7 @@ import com.nyj.exam.demo.service.BoardService;
 import com.nyj.exam.demo.service.MemberService;
 import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
-import com.nyj.exam.demo.vo.Board;
-import com.nyj.exam.demo.vo.Member;
+import com.nyj.exam.demo.vo.Board; 
 import com.nyj.exam.demo.vo.ResultData;
 import com.nyj.exam.demo.vo.Rq; 
 
@@ -48,8 +43,14 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String showArticle(Model model, int boardId) {
+	public String showArticle(HttpServletRequest req, Model model, int boardId) {
+		Rq rq = (Rq)req.getAttribute("rq"); 
+		
 		Board board = boardService.findById(boardId);
+		
+		if(board == null) {
+			return rq.historyBackOnView(Util.f("%d번 게시판은 존재하지 않습니다.", boardId));
+		}
 		
 		List<Article> articleList = articleService.getForPrintArticles();
 		
@@ -83,13 +84,14 @@ public class UseArticleController {
 		
 		Article article = articleService.getForPrintArticle(id);
 		
+		
 		if( article == null ) {
 			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
 			return "/usr/error";
 		}
 		
 		if( article.getMemberId() == rq.getLoginedMemberId() ) {
-			article.setActorCanModify(true);
+			article.setExtra_actorCanModify(true);
 		}
 		
 		model.addAttribute("article", article);

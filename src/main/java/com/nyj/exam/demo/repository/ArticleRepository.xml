@@ -15,7 +15,7 @@
 	
 	
 	<select id="getForPrintArticles"  resultType="Article">
-	SELECT A.*, B.nickname as actorName 
+	SELECT A.*, B.nickname as extra_actorName 
 	FROM article A 
 	LEFT JOIN `member` B 
 	ON A.memberId = B.id 
@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="getForPrintArticle" resultType="Article">
-	select A.*, B.nickname as actorName 
+	select A.*, B.nickname as extra_actorName 
 	FROM article A 
 	LEFT JOIN `member` B 
 	ON A.memberId = B.id

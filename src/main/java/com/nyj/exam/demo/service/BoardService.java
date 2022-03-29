@@ -14,7 +14,4 @@ public class BoardService {
 	public Board findById(int boardId) {
 		return boardRepositofy.findById(boardId) ;
 	}
-	
-	
-
 }

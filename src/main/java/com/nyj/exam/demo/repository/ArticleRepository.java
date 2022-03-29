@@ -1,19 +1,10 @@
 package com.nyj.exam.demo.repository;
-
-import java.util.ArrayList;
+ 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
+ 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-
-import com.nyj.exam.demo.service.ArticleService;
+import org.apache.ibatis.annotations.Param; 
+ 
 import com.nyj.exam.demo.vo.Article;
 
 @Mapper
@@ -24,7 +15,6 @@ public interface ArticleRepository {
 	public List<Article> getArticles();
 
 	public List<Article> getForPrintArticles();
-
 
 	public Article getForPrintArticle(@Param("id") int id) ;
 	

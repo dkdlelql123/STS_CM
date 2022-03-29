@@ -1,15 +1,10 @@
 package com.nyj.exam.demo.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.nyj.exam.demo.repository.ArticleRepository;
+ 
 import com.nyj.exam.demo.repository.MemberRepository;
-import com.nyj.exam.demo.util.Util;
-import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.util.Util; 
 import com.nyj.exam.demo.vo.Member;
 import com.nyj.exam.demo.vo.ResultData;
 

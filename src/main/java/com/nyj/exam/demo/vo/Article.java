@@ -17,6 +17,7 @@ public class Article {
 	
 	private int memberId;
 	
-	private String actorName;
-	private boolean actorCanModify;
+	private String extra_actorName;
+	private boolean extra_actorCanModify;
+	private boolean extra_actorCanDelete;
 }
