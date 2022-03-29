@@ -24,17 +24,18 @@ public class UseArticleController {
 	private ArticleService articleService;
 	private MemberService memberService;
 	private BoardService boardService;
+	private Rq rq;
 	
-	public UseArticleController(ArticleService articleService, MemberService memberService, BoardService boardService) {
+	public UseArticleController(ArticleService articleService, MemberService memberService, BoardService boardService, Rq rq) {
 		this.articleService = articleService;
 		this.memberService = memberService;
 		this.boardService = boardService;
+		this.rq = rq;
 	}
 
 	// 액션 메서드	
 	@RequestMapping("/usr/articles")
 	public String showArticles(Model model) {
-		
 		List<Article> articleList = articleService.getForPrintArticles();
 		
 		model.addAttribute("aritcles", articleList);
@@ -43,9 +44,7 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String showArticle(HttpServletRequest req, Model model, int boardId) {
-		Rq rq = (Rq)req.getAttribute("rq"); 
-		
+	public String showArticle(Model model, int boardId) {
 		Board board = boardService.findById(boardId);
 		
 		if(board == null) {
@@ -69,9 +68,7 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String writeArticle(HttpServletRequest req, String title, String body){
-		Rq rq = (Rq)req.getAttribute("rq");
-			
+	public String writeArticle(String title, String body){
 		int id = articleService.writeArticle(title, body, rq.getLoginedMemberId());
 		
 		Article article = articleService.getArticle(id);
@@ -81,11 +78,8 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail") 
-	public String showArticleDetail(HttpServletRequest req, Model model, int id){
-		Rq rq = (Rq)req.getAttribute("rq");
-		
+	public String showArticleDetail(Model model, int id){
 		Article article = articleService.getForPrintArticle(id);
-		
 		
 		if( article == null ) {
 			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
@@ -103,10 +97,7 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/modify")
-	public String showModify(HttpServletRequest req, int id, Model model) {
-		
-		Rq rq = (Rq)req.getAttribute("rq"); 
-		
+	public String showModify(int id, Model model) {
 		Article article = articleService.getArticle(id);
 		
 		if( article == null ) { 
@@ -126,7 +117,6 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/doDelete")
 	public String doDelete(int id){
-		
 		articleService.deleteArticle(id);
 		
 		return "redirect:/usr/articles";
@@ -135,9 +125,7 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/doModify") 
 	@ResponseBody
-	public String doModify(HttpServletRequest req, int id, String title, String body, Model model){
-		Rq rq = (Rq)req.getAttribute("rq"); 
-		
+	public String doModify(int id, String title, String body, Model model){
 		Article article = articleService.getArticle(id);
 		
 		if( article == null ) { 

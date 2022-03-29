@@ -16,13 +16,7 @@
       </li>
       <li>
         <a href="/usr/article/write">게시물 글쓰기</a>
-      </li>
-      <li>
-        <a href="">회원 전체 목록</a>
-      </li>
-      <li>
-        <a href=""></a>
-      </li>
+      </li>  
     </ul>
   </div>
   

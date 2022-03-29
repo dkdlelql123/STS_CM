@@ -24,10 +24,13 @@ import com.nyj.exam.demo.vo.Rq;
 @Controller
 public class UseMemberController { 
 	
-	
-	@Autowired
 	private MemberService memberService;
-
+	private Rq rq;
+	
+	public UseMemberController(MemberService memberService,Rq rq) {
+		this.memberService = memberService;
+		this.rq = rq;
+	}
 	
 	@RequestMapping("/usr/member/join")
 	public String showJoin() {
@@ -37,7 +40,6 @@ public class UseMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public String doJoin(String loginId, String loginPw, String email, String name, String nickname, String phoneNumber, Model model) {
-
 		if(Util.empty(loginId)){
 			return Util.jsHistoryBack("아이디를 입력해주세요.");
 		}
@@ -62,7 +64,6 @@ public class UseMemberController {
 			return Util.jsHistoryBack("전화번호를 입력해주세요.");
 		} 
 
-		
 		ResultData doJoinRD = memberService.doJoin(loginId, loginPw, email, name, nickname, phoneNumber);
 		
 		if(doJoinRD.isFail())   {
@@ -82,9 +83,7 @@ public class UseMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody 
-	public Object doLogin(HttpServletRequest req, String loginId, String loginPw, Model model) {
-		Rq rq = (Rq)req.getAttribute("rq");
-		
+	public Object doLogin(String loginId, String loginPw, Model model) {
 		if (rq.isLoginedCheck()) {
 			return rq.jsHistoryBack("이미 로그인되었습니다.");
 		}
@@ -113,20 +112,12 @@ public class UseMemberController {
 	// logout
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
-		Rq rq = (Rq)req.getAttribute("rq");
+	public String doLogout() {
 		rq.logout();
 		
 		return rq.jsReplace("", "/");
 	}
 	
 }
-
-
-
-
-
-
-
 
 
