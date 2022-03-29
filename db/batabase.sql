@@ -108,3 +108,10 @@ UPDATE article SET boardId = 1 WHERE id IN(1,2);
 
 #게시물 3번 공지사항 게시판 게시물로 지정
 UPDATE article SET boardId = 2 WHERE id IN(3);
+
+#페이징을 위한 게시물 추가
+/*
+insert into article (regDate,updateDate,memberId,boardId,title,`body`)
+select NOW(), NOW(), floor(rand() * 2)+1,FLOOR(RAND() * 2)+1,concat('제목_',rand()),CONCAT('내용_',RAND())
+from article;
+*/

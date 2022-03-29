@@ -9,7 +9,7 @@
 <div class="flex-grow">
   
   <div class="w-3/4 mx-auto">
-    <h1 class="size-xl fontL py-8">${board.name} 게시물 목록</h1>
+    <h1 class="size-xl fontL py-8">${board.name} 게시물 목록 총 ${articleCount}개</h1>
     
     <table class="w-full">
       <colgroup>

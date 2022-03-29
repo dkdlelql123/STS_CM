@@ -52,9 +52,11 @@ public class UseArticleController {
 			return rq.historyBackOnView(Util.f("%d번 게시판은 존재하지 않습니다.", boardId));
 		}
 		
+		int articleCount = articleService.getArticleListCount(boardId);
 		List<Article> articleList = articleService.getForPrintArticlelist(boardId);
 		
 		model.addAttribute("board", board);
+		model.addAttribute("articleCount", articleCount);
 		model.addAttribute("aritcles", articleList);
 		
 		return "usr/article/list";

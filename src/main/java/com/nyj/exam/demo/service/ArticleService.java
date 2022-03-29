@@ -74,6 +74,10 @@ public class ArticleService {
 		
 		return ResultData.form("s-1", "수정 가능합니다", "article" , article); 
 	}
+
+	public int getArticleListCount(int boardId) {
+		return articleRepository.getArticleListCount(boardId) ;
+	}
 	
 	
 }
