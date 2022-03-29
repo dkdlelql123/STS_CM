@@ -30,6 +30,10 @@ public class ArticleService {
 	public List<Article> getForPrintArticles() {	
 		return articleRepository.getForPrintArticles();
 	}
+	
+	public List<Article> getForPrintArticlelist(int boardId) {	
+		return articleRepository.getForPrintArticlelist(boardId);
+	}
 
 	public List<Article> getArticles() {	
 		return articleRepository.getArticles();
