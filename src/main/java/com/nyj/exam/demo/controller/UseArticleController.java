@@ -1,5 +1,6 @@
 package com.nyj.exam.demo.controller;
  
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest; 
@@ -62,14 +63,18 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/write")
-	public String showWrite() {
+	public String showWrite(Model model) {
+		
+		ArrayList<Board> board = boardService.findAll();
+		model.addAttribute("board", board);
+		
 		return "usr/article/write";
 	}
 	
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String writeArticle(String title, String body){
-		int id = articleService.writeArticle(title, body, rq.getLoginedMemberId());
+	public String writeArticle(String title, String body, int boardId){
+		int id = articleService.writeArticle(title, body, boardId, rq.getLoginedMemberId());
 		
 		Article article = articleService.getArticle(id);
 		

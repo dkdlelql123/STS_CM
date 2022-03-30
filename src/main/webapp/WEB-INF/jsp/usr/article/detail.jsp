@@ -19,7 +19,7 @@
       <div class="title text-center size-la fontM">${article.title}</div>
     
       <div class="flex gap-2 text-gray-500 "> 
-        <span class="size-sm" >${article.actorName}</span>
+        <span class="size-sm" >${article.extra_actorName}</span>
         <span class="size-sm" >|</span>      
         <span class="size-sm" >${article.regDate}</span>      
     </div>

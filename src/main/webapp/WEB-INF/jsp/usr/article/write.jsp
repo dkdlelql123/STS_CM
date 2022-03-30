@@ -25,6 +25,20 @@
             ${rq.loginedMember.nickname}
           </td>
         </tr>
+          <tr class="border-b border-gray-100">
+          <td class="text-center py-2">
+            게시판 
+          </td>
+          <td>
+            <select name="boardId" class="select select-bordered">
+              <option disabled selected>선택해주세요</option>
+              <c:forEach var="board" items="${board}">
+                <option value="${board.id}" >${board.name}</option>
+              </c:forEach>
+            </select>
+            
+          </td>
+        </tr>
         <tr class="border-b border-gray-100">
           <td class="text-center py-2">
             제목
