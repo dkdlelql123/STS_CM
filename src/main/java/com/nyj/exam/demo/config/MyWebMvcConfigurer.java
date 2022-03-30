@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.nyj.exam.demo.interceptor.BeforeActionInterceptor;
 import com.nyj.exam.demo.interceptor.NeedLogin;
+import com.nyj.exam.demo.interceptor.NeedLogoutInterceptor;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
@@ -17,6 +18,9 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	 
 	 @Autowired
 	 NeedLogin needLogin;
+	 
+	 @Autowired
+	 NeedLogoutInterceptor needLogoutInterceptor;
 	 
 	 // 이 함수는 인터셉터를 적용하는 역할을 합니다.
 	 @Override
@@ -31,8 +35,13 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		 .addPathPatterns("/usr/article/doWrite")
 		 .addPathPatterns("/usr/article/modify")
 		 .addPathPatterns("/usr/article/doModify")
-		 .addPathPatterns("/usr/article/doDelete")
-		 ;
+		 .addPathPatterns("/usr/article/doDelete");
+		 
+		 registry.addInterceptor(needLogoutInterceptor)
+		 .addPathPatterns("/usr/member/login")
+		 .addPathPatterns("/usr/member/doLogin")
+		 .addPathPatterns("/usr/member/join")
+		 .addPathPatterns("/usr/member/doJoin");
 	 }
 
 }

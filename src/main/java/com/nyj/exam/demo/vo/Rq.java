@@ -46,8 +46,8 @@ public class Rq {
 			loginedMember = memberService.getMemberById(loginedMemberId);
 		} 
 		
-		this.loginedCheck = loginedCheck;
 		this.loginedMemberId = loginedMemberId;
+		this.loginedCheck = loginedCheck;
 		this.loginedMember = loginedMember;
 		
 		this.req.setAttribute("rq", this);
