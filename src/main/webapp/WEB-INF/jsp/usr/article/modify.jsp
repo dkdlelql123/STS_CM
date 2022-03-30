@@ -27,6 +27,27 @@
         </tr>
         <tr class="border-b border-gray-100">
           <td class="text-center py-2">
+            게시판
+          </td>
+          <td> 
+            <select name="boardId" class="select select-bordered">
+              <option disabled>선택해주세요</option>
+              <c:forEach var="board" items="${board}">
+             	<c:choose> 
+                    <c:when test="${article.boardId == board.id}">
+                        <option value="${board.id}" selected >${board.name}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${board.id}" >${board.name}</option>
+                    </c:otherwise>
+                </c:choose>
+                
+              </c:forEach>
+            </select>
+          </td>
+        </tr>
+        <tr class="border-b border-gray-100">
+          <td class="text-center py-2">
             작성일
           </td>
           <td>

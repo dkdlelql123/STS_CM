@@ -22,7 +22,7 @@ public class ArticleService {
 		this.articleRepository = articleRepository; 
 	} 
 
-	public int writeArticle(String title, String body, int memberId, int boardId) {
+	public int writeArticle(String title, String body,int boardId, int memberId) {
 		articleRepository.writeArticle(title, body, boardId, memberId);
 		return articleRepository.last_insert_id();
 	}

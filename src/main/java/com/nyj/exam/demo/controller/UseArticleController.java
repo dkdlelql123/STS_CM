@@ -78,7 +78,6 @@ public class UseArticleController {
 		
 		Article article = articleService.getArticle(id);
 		
-//		return ResultData.form("s-1", , "article", article);	
 		return rq.jsReplace(Util.f("%s번째 글이 작성되었습니다",id), Util.f("/usr/article/detail?id=%d",id));
 	}
 	
@@ -114,8 +113,11 @@ public class UseArticleController {
 		if( rs.isFail() ) { 
 			return rq.historyBackOnView(rs.getMsg());
 		}
-		
+
 		model.addAttribute("article", article);
+		
+		ArrayList<Board> board = boardService.findAll();
+		model.addAttribute("board", board);
 		
 		return "usr/article/modify";
 	}

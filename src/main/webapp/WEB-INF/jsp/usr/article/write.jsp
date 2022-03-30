@@ -25,7 +25,7 @@
             ${rq.loginedMember.nickname}
           </td>
         </tr>
-          <tr class="border-b border-gray-100">
+        <tr class="border-b border-gray-100">
           <td class="text-center py-2">
             게시판 
           </td>
@@ -36,7 +36,6 @@
                 <option value="${board.id}" >${board.name}</option>
               </c:forEach>
             </select>
-            
           </td>
         </tr>
         <tr class="border-b border-gray-100">
