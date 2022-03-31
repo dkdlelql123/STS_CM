@@ -9,7 +9,7 @@
 <div class="flex-grow">
   
   <div class="w-3/4 mx-auto">
-    <h1 class="size-xl fontL py-8">${board.name} 게시물 목록 총 ${articleCount}개</h1>
+    <h1 class="size-sm py-4">총 ${articleCount}개</h1>
     
     <table class="w-full">
       <colgroup>
@@ -35,29 +35,28 @@
       </tbody>
     </table>
     
-    <div class="btn-group">
+    <div id="pagenation" class="btn-group justify-center my-2">
       <c:set var ="pageMenuArmLen" value="2" />
       <c:set var="startPage" value="${page - pageMenuArmLen > 0 ? page - pageMenuArmLen : 1}"/>
       <c:set var="endPage" value="${page + pageMenuArmLen <= end ? page + pageMenuArmLen: end }"/>
        
       <c:if test="${startPage > 1}"> 
-         <a class="btn btn-sm" href="/usr/article/list?boardId=${board.id}&page=1" >1</a>
+         <a class="btn btn-sm btn-outline" href="/usr/article/list?boardId=${board.id}&page=1" >1</a>
         <c:if test="${startPage > 2}">
-           <a class="btn btn-sm btn-disabled">...</a>
+           <a class="btn btn-sm btn-outline btn-disabled">...</a>
         </c:if> 
       </c:if> 
       
       <c:forEach var="i"  begin="${startPage}" end="${endPage}" step="1" >  
-        <a class="btn btn-sm ${page == i ? 'btn-active' :''}"  href="/usr/article/list?boardId=${board.id}&page=${i}" >${i}</a>
+        <a class="btn btn-sm btn-outline ${page == i ? 'btn-active' :''}"  href="/usr/article/list?boardId=${board.id}&page=${i}" >${i}</a>
       </c:forEach>
       
       <c:if test="${endPage < end}">
         <c:if test="${endPage < end-1 }">
-         <a class="btn btn-sm btn-disabled">...</a>
+         <a class="btn btn-sm btn-disabled btn-outline">...</a>
         </c:if> 
-        <a class="btn btn-sm"  href="/usr/article/list?boardId=${board.id}&page=${end}" >${end}</a>
-      </c:if> 
-       
+        <a class="btn btn-sm btn-outline"  href="/usr/article/list?boardId=${board.id}&page=${end}" >${end}</a>
+      </c:if>  
     </div>
     
   </div>
