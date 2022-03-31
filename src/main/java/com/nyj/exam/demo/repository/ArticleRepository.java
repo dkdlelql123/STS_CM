@@ -24,7 +24,24 @@ public interface ArticleRepository {
 	LEFT JOIN `member` B 
 	ON A.memberId = B.id 
 	<if test="boardId != 0">
-			WHERE A.boardId = #{boardId}
+		WHERE A.boardId = #{boardId}
+		<if test="searchKeyword != ''">
+			<choose>
+				<when test="searchType == 'title'">
+					AND title LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<when test="searchType == 'body'">
+					AND body LIKE CONCAT('%',#{searchKeyword},'%')
+				</when>
+				<otherwise>
+					AND(
+						title LIKE CONCAT('%',#{searchKeyword},'%')
+					OR
+						body LIKE CONCAT('%',#{searchKeyword},'%')
+					)
+				</otherwise>	
+			</choose>
+		</if>
 	</if>
 	ORDER BY A.id DESC
 	<if test="limitCount != -1">
@@ -32,7 +49,7 @@ public interface ArticleRepository {
 	</if>
 	</script>
 	""")
-	public List<Article> getForPrintArticlelist(@Param("boardId") int boardId,@Param("limitStart") int limitStart,@Param("limitCount") int limitCount);
+	public List<Article> getForPrintArticlelist(int boardId,int limitStart,int limitCount, String searchType, String searchKeyword);
 
 	public Article getForPrintArticle(@Param("id") int id) ;
 	

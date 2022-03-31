@@ -48,21 +48,26 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String showArticle(Model model,@RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int limit, @RequestParam(defaultValue = "title") String searchType, @RequestParam(defaultValue = "") String searchKeyword) {
+	public String showArticle(Model model,
+			@RequestParam(defaultValue = "1") int boardId, 
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "10") int limit, 
+			@RequestParam(defaultValue = "title,body") String searchType,
+			@RequestParam(defaultValue = "") String searchKeyword) {
 		Board board = boardService.findById(boardId);
 		
 		if(board == null) {
 			return rq.historyBackOnView(Util.f("%d번 게시판은 존재하지 않습니다.", boardId));
 		}
 		
-		int articleCount = articleService.getArticleListCount(boardId, searchType, searchKeyword);
+		int articleCount = articleService.getArticleListCount(boardId,searchType, searchKeyword);
 
 		int limitStart = ((int)page - 1) * limit;
 		int limitCount = limit;
 		
 		int totalPageLimit = (articleCount/limit) + 1; 
 		
-		List<Article> articleList = articleService.getForPrintArticlelist(boardId, limitStart, limitCount);
+		List<Article> articleList = articleService.getForPrintArticlelist(boardId, limitStart, limitCount, searchType, searchKeyword );
 		
 		model.addAttribute("board", board);
 		model.addAttribute("articleCount", articleCount);

@@ -39,23 +39,27 @@
       <c:set var ="pageMenuArmLen" value="2" />
       <c:set var="startPage" value="${page - pageMenuArmLen > 0 ? page - pageMenuArmLen : 1}"/>
       <c:set var="endPage" value="${page + pageMenuArmLen <= end ? page + pageMenuArmLen: end }"/>
+      
+      <c:set var="baseUri" value="?boardId=${board.id}"/>
+      <c:set var="baseUri" value="${baseUri}&searchType=${param.searchType}"/>
+      <c:set var="baseUri" value="${baseUri}&searchKeyword=${param.searchKeyword}"/>
        
       <c:if test="${startPage > 1}"> 
-         <a class="btn btn-sm btn-outline" href="/usr/article/list?boardId=${board.id}&page=1" >1</a>
+         <a class="btn btn-sm btn-outline" href="${baseUri}&page=1" >1</a>
         <c:if test="${startPage > 2}">
            <a class="btn btn-sm btn-outline btn-disabled">...</a>
         </c:if> 
       </c:if> 
       
       <c:forEach var="i"  begin="${startPage}" end="${endPage}" step="1" >  
-        <a class="btn btn-sm btn-outline ${page == i ? 'btn-active' :''}"  href="/usr/article/list?boardId=${board.id}&page=${i}" >${i}</a>
+        <a class="btn btn-sm btn-outline ${page == i ? 'btn-active' :''}"  href="${baseUri}&page=${i}" >${i}</a>
       </c:forEach>
       
       <c:if test="${endPage < end}">
         <c:if test="${endPage < end-1 }">
          <a class="btn btn-sm btn-disabled btn-outline">...</a>
         </c:if> 
-        <a class="btn btn-sm btn-outline"  href="/usr/article/list?boardId=${board.id}&page=${end}" >${end}</a>
+        <a class="btn btn-sm btn-outline"  href="${baseUri}&page=${end}" >${end}</a>
       </c:if>  
     </div>
     
