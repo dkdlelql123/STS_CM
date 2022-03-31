@@ -40,28 +40,22 @@
       <c:set var="startPage" value="${page - pageMenuArmLen > 0 ? page - pageMenuArmLen : 1}"/>
       <c:set var="endPage" value="${page + pageMenuArmLen <= end ? page + pageMenuArmLen: end }"/>
        
-      <c:if test="${startPage > 1}">
-        <button class="btn btn-sm" type="button">
-           <a href="/usr/article/list?page=1" >1</a>
-         </button> 
-          <c:if test="${startPage > 2}">
-             <button class="btn btn-sm btn-disabled">...</button>
-          </c:if> 
+      <c:if test="${startPage > 1}"> 
+         <a class="btn btn-sm" href="/usr/article/list?boardId=${board.id}&page=1" >1</a>
+        <c:if test="${startPage > 2}">
+           <a class="btn btn-sm btn-disabled">...</a>
+        </c:if> 
       </c:if> 
       
       <c:forEach var="i"  begin="${startPage}" end="${endPage}" step="1" >  
-        <button class="btn btn-sm ${page == i ? 'btn-active' :''}" type="button" >
-           <a href="/usr/article/list?page=${i}" >${i}</a>
-         </button> 
+        <a class="btn btn-sm ${page == i ? 'btn-active' :''}"  href="/usr/article/list?boardId=${board.id}&page=${i}" >${i}</a>
       </c:forEach>
       
-       <c:if test="${endPage < end}">
-          <c:if test="${endPage < end-1 }">
-             <button class="btn btn-sm btn-disabled">...</button>
-          </c:if> 
-        <button class="btn btn-sm" type="button">
-           <a href="/usr/article/list?page=${end}" >${end}</a>
-         </button> 
+      <c:if test="${endPage < end}">
+        <c:if test="${endPage < end-1 }">
+         <a class="btn btn-sm btn-disabled">...</a>
+        </c:if> 
+        <a class="btn btn-sm"  href="/usr/article/list?boardId=${board.id}&page=${end}" >${end}</a>
       </c:if> 
        
     </div>
