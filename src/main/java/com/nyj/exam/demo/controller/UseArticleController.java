@@ -3,11 +3,14 @@ package com.nyj.exam.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest; 
- 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nyj.exam.demo.service.ArticleService;
@@ -45,7 +48,7 @@ public class UseArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String showArticle(Model model, int boardId) {
+	public String showArticle(Model model,@RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int limit) {
 		Board board = boardService.findById(boardId);
 		
 		if(board == null) {
@@ -53,10 +56,18 @@ public class UseArticleController {
 		}
 		
 		int articleCount = articleService.getArticleListCount(boardId);
-		List<Article> articleList = articleService.getForPrintArticlelist(boardId);
+
+		int limitStart = ((int)page - 1) * limit;
+		int limitCount = limit;
+		
+		int totalPageLimit = (articleCount/limit) + 1; 
+		
+		List<Article> articleList = articleService.getForPrintArticlelist(boardId, limitStart, limitCount);
 		
 		model.addAttribute("board", board);
 		model.addAttribute("articleCount", articleCount);
+		model.addAttribute("page", page); 
+		model.addAttribute("end", totalPageLimit); 
 		model.addAttribute("aritcles", articleList);
 		
 		return "usr/article/list";

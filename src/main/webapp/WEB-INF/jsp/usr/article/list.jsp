@@ -26,7 +26,7 @@
       <tbody>
         <c:forEach var="article" items="${aritcles}">  
           <tr class="">
-            <td class="text-center py-1" >${article.id} </td>
+            <td class="text-center py-1" >${article.id}</td>
             <td class="py-1" ><a href="/usr/article/detail?id=${article.id}" class="flex">${article.title}</a></td>
             <td class="text-center py-1">${article.extra_actorName}</td>
             <td class="text-center py-1 ">${fn:substring(article.regDate,0,16)}</td>
@@ -35,8 +35,38 @@
       </tbody>
     </table>
     
+    <div class="btn-group">
+      <c:set var ="pageMenuArmLen" value="2" />
+      <c:set var="startPage" value="${page - pageMenuArmLen > 0 ? page - pageMenuArmLen : 1}"/>
+      <c:set var="endPage" value="${page + pageMenuArmLen <= end ? page + pageMenuArmLen: end }"/>
+       
+      <c:if test="${startPage > 1}">
+        <button class="btn btn-sm" type="button">
+           <a href="/usr/article/list?page=1" >1</a>
+         </button> 
+          <c:if test="${startPage > 2}">
+             <button class="btn btn-sm btn-disabled">...</button>
+          </c:if> 
+      </c:if> 
+      
+      <c:forEach var="i"  begin="${startPage}" end="${endPage}" step="1" >  
+        <button class="btn btn-sm ${page == i ? 'btn-active' :''}" type="button" >
+           <a href="/usr/article/list?page=${i}" >${i}</a>
+         </button> 
+      </c:forEach>
+      
+       <c:if test="${endPage < end}">
+          <c:if test="${endPage < end-1 }">
+             <button class="btn btn-sm btn-disabled">...</button>
+          </c:if> 
+        <button class="btn btn-sm" type="button">
+           <a href="/usr/article/list?page=${end}" >${end}</a>
+         </button> 
+      </c:if> 
+       
+    </div>
+    
   </div>
-  
 </div>  
   
 

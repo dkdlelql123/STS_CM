@@ -27,9 +27,12 @@ public interface ArticleRepository {
 			WHERE A.boardId = #{boardId}
 	</if>
 	ORDER BY A.id DESC
+	<if test="limitCount != -1">
+	LIMIT #{limitStart}, #{limitCount}
+	</if>
 	</script>
 	""")
-	public List<Article> getForPrintArticlelist(@Param("boardId") int boardId);
+	public List<Article> getForPrintArticlelist(@Param("boardId") int boardId,@Param("limitStart") int limitStart,@Param("limitCount") int limitCount);
 
 	public Article getForPrintArticle(@Param("id") int id) ;
 	
