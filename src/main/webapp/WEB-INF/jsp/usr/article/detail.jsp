@@ -4,6 +4,28 @@
 <c:set var="pageTitle" value="게시물 상세" />
 <%@ include file="../common/head.jspf" %>
   
+<script> const id = ${param.id}; </script>
+<script>
+function increasedHit(){
+  $.ajax({
+    url:'/usr/article/doIncreasedHit',
+    data: {'id' : id},
+  	type: 'get',
+      success: function(data){
+    	console.log(data.data1);  
+    	$('#hitCount').empty().html(data.data1);
+      }, 
+    error:function(error){
+      console.log(error)
+    }
+  })
+}
+
+$(function(){
+	increasedHit();
+})
+</script>  
+  
 <div class="flex-grow">
   
   <div class="w-3/4 mx-auto"> 
@@ -21,7 +43,7 @@
       <div class="flex gap-2 text-gray-500 "> 
         <span class="size-sm" >${article.extra_actorName}</span>
         <span class="size-sm" >|</span>      
-        <span class="size-sm" >${article.hit}</span>
+        <span id="hitCount" class="size-sm" >${article.hit}</span>
         <span class="size-sm" >|</span>    
         <span class="size-sm" >${article.regDate}</span>      
     </div>
