@@ -99,12 +99,18 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/detail") 
 	public String showArticleDetail(Model model, int id){
-		Article article = articleService.getForPrintArticle(id);
 		
-		if( article == null ) {
-			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
-			return "/usr/error";
+		ResultData hitIncreasedRd = articleService.hitIncreased(id);
+		System.out.print(hitIncreasedRd);
+		if( hitIncreasedRd.isFail() ) {
+			return rq.historyBackOnView(hitIncreasedRd.getMsg());
 		}
+		
+		Article article = articleService.getForPrintArticle(id);		
+//		if( article == null ) {
+//			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
+//			return "/usr/error";
+//		}
 		
 		if( article.getMemberId() == rq.getLoginedMemberId() ) {
 			article.setExtra_actorCanModify(true);

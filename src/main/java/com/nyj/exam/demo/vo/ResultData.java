@@ -1,7 +1,9 @@
 package com.nyj.exam.demo.vo;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 public class ResultData {
 
 	@Getter

@@ -18,6 +18,8 @@ public class Article {
 	private int boardId;
 	private int memberId;
 	
+	private int hit;
+	
 	private String extra_actorName;
 	private boolean extra_actorCanModify;
 	private boolean extra_actorCanDelete;

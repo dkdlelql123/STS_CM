@@ -21,6 +21,8 @@
       <div class="flex gap-2 text-gray-500 "> 
         <span class="size-sm" >${article.extra_actorName}</span>
         <span class="size-sm" >|</span>      
+        <span class="size-sm" >${article.hit}</span>
+        <span class="size-sm" >|</span>    
         <span class="size-sm" >${article.regDate}</span>      
     </div>
     

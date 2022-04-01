@@ -78,6 +78,20 @@ public class ArticleService {
 	public int getArticleListCount(int boardId, String searchType, String searchKeyword) {
 		return articleRepository.getArticleListCount(boardId,searchType,searchKeyword) ;
 	}
+
+	public ResultData hitIncreased(int id) {
+		int hitIncreased = articleRepository.hitIncreased(id);
+		if(hitIncreased == 0) {
+			return ResultData.form("f-1", "존재하지 않는 게시판입니다.", "hitIncreased", hitIncreased);
+		}
+		
+		return ResultData.form("s-1", "조회수가 증가했습니다", "hitIncreased", hitIncreased);
+	}
+
+	private ResultData ResultData(String string, String string2, String string3, int hitIncreased) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }
