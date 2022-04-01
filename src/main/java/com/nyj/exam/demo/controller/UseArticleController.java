@@ -100,12 +100,6 @@ public class UseArticleController {
 	@RequestMapping("/usr/article/detail") 
 	public String showArticleDetail(Model model, int id){
 		
-		ResultData hitIncreasedRd = articleService.hitIncreased(id);
-		System.out.print(hitIncreasedRd);
-		if( hitIncreasedRd.isFail() ) {
-			return rq.historyBackOnView(hitIncreasedRd.getMsg());
-		}
-		
 		Article article = articleService.getForPrintArticle(id);		
 //		if( article == null ) {
 //			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
@@ -119,7 +113,17 @@ public class UseArticleController {
 		model.addAttribute("article", article);
 		
 		return "/usr/article/detail" ;
+	}
+	@RequestMapping("/usr/article/doIncreasedHit")
+	@ResponseBody
+	public ResultData doIncreasedHit(int id) {
+		ResultData hitIncreasedRd = articleService.hitIncreased(id);
 		
+		if( hitIncreasedRd.isFail() ) {
+			return hitIncreasedRd;
+		}
+		
+		return ResultData.newData(hitIncreasedRd, "hitCount", articleService.findHitCount(id));
 	}
 	
 	@RequestMapping("/usr/article/modify")

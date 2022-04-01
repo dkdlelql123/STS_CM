@@ -30,10 +30,10 @@
       </colgroup>
       <thead>
       <tr>
-        <th>번호</th>
+        <th  class="text-center">번호</th>
         <th>제목</th>
-        <th>작성자</th>
-        <th>시간</th>
+        <th  class="text-center">작성자</th>
+        <th  class="text-center">시간</th>
       </tr>
       </thead>
       <tbody>

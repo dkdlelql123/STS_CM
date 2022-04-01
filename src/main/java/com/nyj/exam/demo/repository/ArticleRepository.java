@@ -97,4 +97,11 @@ public interface ArticleRepository {
 	WHERE id = #{id}
 			""")
 	public int hitIncreased(int id);
+
+	@Select("""
+	SELECT hit
+	FROM article
+	WHERE id = #{id}
+			""")
+	public int findHitCount(int id);
 }

@@ -92,6 +92,10 @@ public class ArticleService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public int findHitCount(int id) {
+		return articleRepository.findHitCount(id);
+	}
 	
 	
 }
