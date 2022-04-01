@@ -24,7 +24,8 @@
   <!-- 사이트 공통 css --> 
   <link rel="stylesheet" href="/common/font.css" > 
   
-  <!-- 사이트 공통 js --> 
+  <!-- 사이트 공통 js -->  
+  <script src="/common/common.js" defer="defer"></script>
   
 </head>
 <body class="flex flex-col min-h-screen">

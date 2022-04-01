@@ -9,15 +9,15 @@
 <div class="flex-grow">
   
   <div class="w-3/4 mx-auto">
-    <form data-value="" class="flex items-center justify-center gap-2 my-4">
+    <form class="flex items-center justify-center gap-2 my-4">
       <input type="hidden" name="boardId" value="${board.id}" />
-      <select data-value="${searchType}"  class="select select-bordered select-sm max-w-xs">
+      <select data-value="${param.searchType}" name="searchType" class="select select-bordered select-sm max-w-xs">
         <option disabled >--선택--</option>
         <option value="title">제목</option>
         <option value="body">내용</option>
         <option value="title,body">제목,내용</option>
       </select>
-      <input type="text" name="searchKeyword" class="input input-bordered input-sm max-w-xs" placeholder="search...">
+      <input type="text" name="searchKeyword" value="${param.searchKeyword}" class="input input-bordered input-sm max-w-xs" placeholder="search...">
       <input type="submit" value="search" class="btn btn-sm lowercase"/>
     </form>
   
