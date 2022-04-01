@@ -9,9 +9,22 @@
 <div class="flex-grow">
   
   <div class="w-3/4 mx-auto">
+    <form data-value="" class="flex items-center justify-center gap-2 my-4">
+      <input type="hidden" name="boardId" value="${board.id}" />
+      <select data-value="${searchType}"  class="select select-bordered select-sm max-w-xs">
+        <option disabled >--선택--</option>
+        <option value="title">제목</option>
+        <option value="body">내용</option>
+        <option value="title,body">제목,내용</option>
+      </select>
+      <input type="text" name="searchKeyword" class="input input-bordered input-sm max-w-xs" placeholder="search...">
+      <input type="submit" value="search" class="btn btn-sm lowercase"/>
+    </form>
+  
     <h1 class="size-sm py-4">총 ${articleCount}개</h1>
     
-    <table class="w-full">
+ 
+    <table class="table table-compact w-full table-fixed">
       <colgroup>
         <col width="100"><col width=""><col width="100"><col width="200">
       </colgroup>
@@ -25,17 +38,21 @@
       </thead>
       <tbody>
         <c:forEach var="article" items="${aritcles}">  
-          <tr class="">
-            <td class="text-center py-1" >${article.id}</td>
-            <td class="py-1" ><a href="/usr/article/detail?id=${article.id}" class="flex">${article.title}</a></td>
-            <td class="text-center py-1">${article.extra_actorName}</td>
-            <td class="text-center py-1 ">${fn:substring(article.regDate,0,16)}</td>
+          <tr class="py-2">
+            <td class="text-center"  >${article.id}</td>
+            <td > 
+              <a class="block w-full truncate" href="/usr/article/detail?id=${article.id}" >
+                ${article.title}
+              </a>
+            </td>
+            <td class="text-center">${article.extra_actorName}</td>
+            <td class="text-center">${fn:substring(article.regDate,0,16)}</td>
           </tr>
         </c:forEach>
       </tbody>
     </table>
     
-    <div id="pagenation" class="btn-group justify-center my-2">
+    <div id="pagenation" class="btn-group justify-center mt-4 mb-6">
       <c:set var ="pageMenuArmLen" value="2" />
       <c:set var="startPage" value="${page - pageMenuArmLen > 0 ? page - pageMenuArmLen : 1}"/>
       <c:set var="endPage" value="${page + pageMenuArmLen <= end ? page + pageMenuArmLen: end }"/>
@@ -45,21 +62,21 @@
       <c:set var="baseUri" value="${baseUri}&searchKeyword=${param.searchKeyword}"/>
        
       <c:if test="${startPage > 1}"> 
-         <a class="btn btn-sm btn-outline" href="${baseUri}&page=1" >1</a>
+         <a class="btn btn-sm btn-outline border-gray-400" href="${baseUri}&page=1" >1</a>
         <c:if test="${startPage > 2}">
-           <a class="btn btn-sm btn-outline btn-disabled">...</a>
+           <a class="btn btn-sm btn-outline btn-disabled border-gray-400">...</a>
         </c:if> 
       </c:if> 
       
       <c:forEach var="i"  begin="${startPage}" end="${endPage}" step="1" >  
-        <a class="btn btn-sm btn-outline ${page == i ? 'btn-active' :''}"  href="${baseUri}&page=${i}" >${i}</a>
+        <a class="btn btn-sm btn-outline border-gray-400 ${page == i ? 'btn-active' :''}"  href="${baseUri}&page=${i}" >${i}</a>
       </c:forEach>
       
       <c:if test="${endPage < end}">
         <c:if test="${endPage < end-1 }">
-         <a class="btn btn-sm btn-disabled btn-outline">...</a>
+         <a class="btn btn-sm btn-disabled btn-outline border-gray-400 ">...</a>
         </c:if> 
-        <a class="btn btn-sm btn-outline"  href="${baseUri}&page=${end}" >${end}</a>
+        <a class="btn btn-sm btn-outline border-gray-400 "  href="${baseUri}&page=${end}" >${end}</a>
       </c:if>  
     </div>
     
