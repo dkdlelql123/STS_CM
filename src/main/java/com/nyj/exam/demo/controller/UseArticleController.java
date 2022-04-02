@@ -123,7 +123,11 @@ public class UseArticleController {
 			return hitIncreasedRd;
 		}
 		
-		return ResultData.newData(hitIncreasedRd, "hitCount", articleService.findHitCount(id));
+		ResultData rd = ResultData.newData(hitIncreasedRd, "hitCount", articleService.findHitCount(id));
+		
+		rd.setData2("id", id);
+		
+		return rd;
 	}
 	
 	@RequestMapping("/usr/article/modify")

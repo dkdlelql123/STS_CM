@@ -18,6 +18,12 @@ public class ResultData {
 	@Getter
 	private Object data1;
 	
+	@Getter
+	private String data2Name;
+	
+	@Getter
+	private Object data2;
+	
 	
 	private ResultData() {
 		
@@ -46,5 +52,11 @@ public class ResultData {
 
 	public static ResultData newData(ResultData oldRd, String data1Name, Object data1) {
 		return form(oldRd.resultCode, oldRd.msg, data1Name, data1);
+	}
+
+	public void setData2(String dataname, Object data) {
+		data2Name = dataname;
+		data2 = data;
+		
 	}
 }
