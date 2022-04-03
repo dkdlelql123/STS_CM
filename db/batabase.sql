@@ -119,3 +119,42 @@ from article;
 #게시물 조회수 컬럼 추가
 ALTER TABLE article
 ADD COLUMN hit INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+#리액트포인터 테이블 추가
+CREATE TABLE reactionPoint(
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	memberId INT(10) UNSIGNED NOT NULL,
+	relTypeCode CHAR(30) NOT NULL COMMENT '관련데이터타입코드',
+	relId INT(10) UNSIGNED NOT NULL COMMENT '관련데이터번호',
+	`point`	SMALLINT(2) NOT NULL
+);
+
+#리액트포인터 테스트 데이터
+## 1번회원 1번글 좋아요
+INSERT INTO reactionPoint
+SET	regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
+
+## 1번회원 2번글 좋아요
+INSERT INTO reactionPoint
+SET	regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+## 2번회원 1번글 싫어요
+INSERT INTO reactionPoint
+SET	regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
