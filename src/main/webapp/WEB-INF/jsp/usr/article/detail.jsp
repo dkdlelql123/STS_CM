@@ -7,6 +7,15 @@
 <script> const id = ${param.id}; </script>
 <script>
 function increasedHit(){
+	
+	const localStorageKey = "article__"+id+"__Done";
+	
+	if(localStorage.getItem(localStorageKey)){
+		return;
+	}
+	
+	localStorage.setItem(localStorageKey, true);	
+	
   $.ajax({
     url:'/usr/article/doIncreasedHit',
     data: {'id' : id},
