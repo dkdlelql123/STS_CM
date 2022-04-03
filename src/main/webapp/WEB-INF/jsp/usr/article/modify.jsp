@@ -51,7 +51,7 @@
             작성일
           </td>
           <td>
-            ${article.regDate} 
+            ${article.getForPrintType1RegDate()} 
           </td>
         </tr>
         <tr class="border-b border-gray-100">
@@ -59,7 +59,7 @@
             수정일
           </td>
           <td>
-            ${article.updateDate} 
+            ${article.getForPrintType1UpdateDate()} 
           </td>
         </tr>
         <tr class="border-b border-gray-100">

@@ -54,7 +54,7 @@ $(function(){
         <span class="size-sm" >|</span>      
         <span id="hitCount" class="size-sm" >${article.hit}</span>
         <span class="size-sm" >|</span>    
-        <span class="size-sm" >${article.regDate}</span>      
+        <span class="size-sm" >${article.getForPrintType1RegDate()}</span>      
     </div>
     
       <div class="bg-gray-100 p-2 rounded self-stretch">

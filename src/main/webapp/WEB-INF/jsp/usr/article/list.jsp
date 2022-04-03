@@ -53,7 +53,7 @@
                 ${article.title} </a>
             </td>
             <td class="text-center">${article.extra_actorName}</td>
-            <td class="text-center">${fn:substring(article.regDate,0,16)}</td>
+            <td class="text-center">${article.getForPrintType2RegDate()}</td>
           </tr>
         </c:forEach>
       </tbody>

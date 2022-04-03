@@ -23,4 +23,18 @@ public class Article {
 	private String extra_actorName;
 	private boolean extra_actorCanModify;
 	private boolean extra_actorCanDelete;
+	
+	public String getForPrintType2RegDate() {
+		return regDate.substring(2, 19).replace(" " , "<br>");
+	}; 
+	public String getForPrintType2UpdateDate() {
+		return updateDate.substring(2, 19).replace(" " , "<br>");
+	};
+	
+	public String getForPrintType1RegDate() {
+		return regDate.substring(2, 16);
+	}; 
+	public String getForPrintType1UpdateDate() {
+		return updateDate.substring(2, 16);
+	}; 
 }
