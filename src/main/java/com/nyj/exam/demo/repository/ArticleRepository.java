@@ -20,48 +20,63 @@ public interface ArticleRepository {
 	
 	@Select("""
 	<script>
-SELECT A.*,
-IFNULL(SUM(RP.point), 0) AS `extra_sumPoint`,
-IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)), 0) AS `extra_goodPoint`,
-IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)), 0) AS `extra_badPoint` 
-FROM (
-	SELECT A.*, B.nickname as `extra_actorName`
-	FROM article A 
-	LEFT JOIN `member` B 
-	ON A.memberId = B.id 
-	<if test="boardId != 0">
-		WHERE A.boardId = #{boardId}
-		<if test="searchKeyword != ''">
-			<choose>
-				<when test="searchType == 'title'">
-					AND title LIKE CONCAT('%',#{searchKeyword},'%')
-				</when>
-				<when test="searchType == 'body'">
-					AND body LIKE CONCAT('%',#{searchKeyword},'%')
-				</when>
-				<otherwise>
-					AND(
-						title LIKE CONCAT('%',#{searchKeyword},'%')
-					OR
-						body LIKE CONCAT('%',#{searchKeyword},'%')
-					)
-				</otherwise>	
-			</choose>
+	SELECT A.*,
+	IFNULL(SUM(RP.point), 0) AS `extra_sumPoint`,
+	IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)), 0) AS `extra_goodPoint`,
+	IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)), 0) AS `extra_badPoint` 
+	FROM (
+		SELECT A.*, B.nickname as `extra_actorName`
+		FROM article A 
+		LEFT JOIN `member` B 
+		ON A.memberId = B.id 
+		<if test="boardId != 0">
+			WHERE A.boardId = #{boardId}
+			<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchType == 'title'">
+						AND title LIKE CONCAT('%',#{searchKeyword},'%')
+					</when>
+					<when test="searchType == 'body'">
+						AND body LIKE CONCAT('%',#{searchKeyword},'%')
+					</when>
+					<otherwise>
+						AND(
+							title LIKE CONCAT('%',#{searchKeyword},'%')
+						OR
+							body LIKE CONCAT('%',#{searchKeyword},'%')
+						)
+					</otherwise>	
+				</choose>
+			</if>
 		</if>
-	</if>
-	<if test="limitCount != -1">
-	LIMIT #{limitStart}, #{limitCount}
-	</if>
-) AS A
-LEFT JOIN `reactionPoint` AS RP
-ON A.id = RP.relId 
-AND RP.relTypeCode = 'article'  
-GROUP BY A.id
-ORDER BY A.id DESC
+		<if test="limitCount != -1">
+		LIMIT #{limitStart}, #{limitCount}
+		</if>
+	) AS A
+	LEFT JOIN `reactionPoint` AS RP
+	ON A.id = RP.relId 
+	AND RP.relTypeCode = 'article'  
+	GROUP BY A.id
+	ORDER BY A.id DESC
 	</script>
 	""")
 	public List<Article> getForPrintArticlelist(int boardId,int limitStart,int limitCount, String searchType, String searchKeyword);
 
+	@Select("""
+	<script>
+	SELECT A.*, B.nickname as `extra_actorName`,
+	IFNULL(SUM(RP.point), 0) AS `extra_sumPoint`,
+	IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)), 0) AS `extra_goodPoint`,
+	IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)), 0) AS `extra_badPoint`  
+	FROM article A 
+	LEFT JOIN `member` B 
+	ON A.memberId = B.id
+	LEFT JOIN `reactionPoint` AS RP
+	ON A.id = RP.relId 
+	AND RP.relTypeCode = 'article'  
+	WHERE A.id = #{id} 
+	</script>
+	""")
 	public Article getForPrintArticle(@Param("id") int id) ;
 	
 	public Article getArticle(@Param("id") int id) ;

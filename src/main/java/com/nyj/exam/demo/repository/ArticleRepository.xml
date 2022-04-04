@@ -12,8 +12,7 @@
 	`body` = #{body},
 	boardId = #{boardId},
 	memberId = #{memberId}
-	</insert>
-	
+	</insert> 
 	
 	<select id="getForPrintArticles"  resultType="Article">
 	SELECT A.*, B.nickname as extra_actorName 
@@ -21,22 +20,13 @@
 	LEFT JOIN `member` B 
 	ON A.memberId = B.id 
 	ORDER BY A.ID DESC
-	</select>
-	 
+	</select> 
 	
 	<select id="getArticles"  resultType="Article">
 	SELECT * 
 	FROM article
 	ORDER BY ID DESC
-	</select>
-	
-	<select id="getForPrintArticle" resultType="Article">
-	select A.*, B.nickname as extra_actorName 
-	FROM article A 
-	LEFT JOIN `member` B 
-	ON A.memberId = B.id
-	where A.id = #{id} 
-	</select>
+	</select> 
 	
 	<select id="getArticle" resultType="Article">
 	select * FROM article where id = #{id}
