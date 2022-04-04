@@ -20,7 +20,12 @@ public interface ArticleRepository {
 	
 	@Select("""
 	<script>
-	SELECT A.*, B.nickname as extra_actorName 
+SELECT A.*,
+IFNULL(SUM(RP.point), 0) AS `extra_sumPoint`,
+IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)), 0) AS `extra_goodPoint`,
+IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)), 0) AS `extra_badPoint` 
+FROM (
+	SELECT A.*, B.nickname as `extra_actorName`
 	FROM article A 
 	LEFT JOIN `member` B 
 	ON A.memberId = B.id 
@@ -44,10 +49,15 @@ public interface ArticleRepository {
 			</choose>
 		</if>
 	</if>
-	ORDER BY A.id DESC
 	<if test="limitCount != -1">
 	LIMIT #{limitStart}, #{limitCount}
 	</if>
+) AS A
+LEFT JOIN `reactionPoint` AS RP
+ON A.id = RP.relId 
+AND RP.relTypeCode = 'article'  
+GROUP BY A.id
+ORDER BY A.id DESC
 	</script>
 	""")
 	public List<Article> getForPrintArticlelist(int boardId,int limitStart,int limitCount, String searchType, String searchKeyword);

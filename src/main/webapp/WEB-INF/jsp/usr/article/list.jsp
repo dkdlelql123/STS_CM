@@ -30,15 +30,19 @@
 
     <table class="table table-compact w-full table-fixed">
       <colgroup>
-        <col width="100">
+        <col width="80">
         <col width="">
-        <col width="100">
-        <col width="200">
+        <col width="80">
+        <col width="80">
+        <col width="80"> 
+        <col width="120">
       </colgroup>
       <thead>
         <tr>
           <th class="text-center">번호</th>
           <th>제목</th>
+          <th class="text-center">조회수</th>
+          <th class="text-center">추천수</th>
           <th class="text-center">작성자</th>
           <th class="text-center">시간</th>
         </tr>
@@ -46,12 +50,14 @@
       <tbody>
         <c:forEach var="article" items="${aritcles}">
           <tr class="py-2">
-            <td class="text-center">${article.id}</td>
+            <th class="text-center">${article.id}</th>
             <td>
               <a class="block w-full truncate"
                 href="/usr/article/detail?id=${article.id}">
                 ${article.title} </a>
             </td>
+            <td class="text-center">${article.hit}</td>
+            <td class="text-center">${article.extra_goodPoint}</td>
             <td class="text-center">${article.extra_actorName}</td>
             <td class="text-center">${article.getForPrintType2RegDate()}</td>
           </tr>

@@ -20,6 +20,10 @@ public class Article {
 	
 	private int hit;
 	
+	private int extra_sumPoint;
+	private int extra_goodPoint;
+	private int extra_badPoint;
+	
 	private String extra_actorName;
 	private boolean extra_actorCanModify;
 	private boolean extra_actorCanDelete;
