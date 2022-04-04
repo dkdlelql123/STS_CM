@@ -96,6 +96,10 @@ public class ArticleService {
 	public int findHitCount(int id) {
 		return articleRepository.findHitCount(id);
 	}
+
+	public boolean actorCanMakeReactionPoint(int articleId, int memberId) {		
+		return articleRepository.actorCanMakeReactionPoint(articleId,memberId) == 0; 
+	}
 	
 	
 }

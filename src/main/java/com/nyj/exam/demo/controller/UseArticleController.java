@@ -100,7 +100,8 @@ public class UseArticleController {
 	@RequestMapping("/usr/article/detail") 
 	public String showArticleDetail(Model model, int id){
 		
-		Article article = articleService.getForPrintArticle(id);		
+		Article article = articleService.getForPrintArticle(id);
+		boolean actorCanMakeReactionPoint = articleService.actorCanMakeReactionPoint(id, rq.getLoginedMemberId());
 //		if( article == null ) {
 //			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
 //			return "/usr/error";
@@ -111,6 +112,8 @@ public class UseArticleController {
 		}
 		
 		model.addAttribute("article", article);
+		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
+		 
 		
 		return "/usr/article/detail" ;
 	}

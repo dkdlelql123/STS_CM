@@ -62,6 +62,13 @@ $(function(){
       <div class="bg-gray-100 p-2 rounded self-stretch">
         <div>${article.body}</div>
       </div> 
+      
+      <div class="flex items-center justify-center gap-2">
+        <c:if test="${actorCanMakeReactionPoint}"> 
+            <button class="btn btn-xs btn-outline btn-primary">좋아요 👍</button>
+            <button class="btn btn-xs btn-outline">싫어요 👎</button>
+        </c:if>
+      </div>
     </div>
 
   </div>
