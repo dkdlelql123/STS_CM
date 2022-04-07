@@ -113,13 +113,4 @@ public interface ArticleRepository {
 	WHERE id = #{id}
 	""")
 	public int findHitCount(int id);
-
-	@Select("""
-	SELECT IFNULL(SUM(RP.point), 0) AS `extra_sumPoint`
-	FROM `reactionPoint` AS RP
-	WHERE RP.relTypeCode = 'article'
-	AND RP.relId = #{articleId}
-	AND RP.memberId = #{memberId}
-	""")
-	public int actorCanMakeReactionPoint(int articleId, int memberId);
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nyj.exam.demo.service.ArticleService;
 import com.nyj.exam.demo.service.BoardService;
 import com.nyj.exam.demo.service.MemberService;
+import com.nyj.exam.demo.service.ReactionPointService;
 import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
 import com.nyj.exam.demo.vo.Board; 
@@ -29,11 +30,13 @@ public class UseArticleController {
 	private MemberService memberService;
 	private BoardService boardService;
 	private Rq rq;
+	private ReactionPointService reactionPointService;
 	
-	public UseArticleController(ArticleService articleService, MemberService memberService, BoardService boardService, Rq rq) {
+	public UseArticleController(ArticleService articleService, MemberService memberService, BoardService boardService, ReactionPointService reactionPointService, Rq rq) {
 		this.articleService = articleService;
 		this.memberService = memberService;
 		this.boardService = boardService;
+		this.reactionPointService = reactionPointService;
 		this.rq = rq;
 	}
 
@@ -101,7 +104,7 @@ public class UseArticleController {
 	public String showArticleDetail(Model model, int id){
 		
 		Article article = articleService.getForPrintArticle(id);
-		boolean actorCanMakeReactionPoint = articleService.actorCanMakeReactionPoint(id, rq.getLoginedMemberId());
+		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(id, rq.getLoginedMemberId(), "article");
 //		if( article == null ) {
 //			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
 //			return "/usr/error";
