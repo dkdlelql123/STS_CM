@@ -54,7 +54,7 @@ $(function(){
         <span class="size-sm" >|</span>      
         <span id="hitCount" class="size-sm" >조회 : ${article.hit}</span>
         <span class="size-sm" >|</span>      
-        <span id="hitCount" class="size-sm" >추천 : ${article.extra_goodPoint}</span>
+        <span id="hitCount" class="size-sm" >추천 : ${article.goodReactionPoint}</span>
         <span class="size-sm" >|</span>    
         <span class="size-sm" >${article.getForPrintType1RegDate()}</span>      
     </div>

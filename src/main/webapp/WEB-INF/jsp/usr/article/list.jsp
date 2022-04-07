@@ -57,7 +57,7 @@
                 ${article.title} </a>
             </td>
             <td class="text-center">${article.hit}</td>
-            <td class="text-center">${article.extra_goodPoint}</td>
+            <td class="text-center">${article.goodReactionPoint}</td>
             <td class="text-center">${article.extra_actorName}</td>
             <td class="text-center">${article.getForPrintType2RegDate()}</td>
           </tr>

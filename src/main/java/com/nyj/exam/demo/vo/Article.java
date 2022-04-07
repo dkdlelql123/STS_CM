@@ -19,10 +19,8 @@ public class Article {
 	private int memberId;
 	
 	private int hit;
-	
-	private int extra_sumPoint;
-	private int extra_goodPoint;
-	private int extra_badPoint;
+	private int goodReactionPoint;
+	private int badReactionPoint;
 	
 	private String extra_actorName;
 	private boolean extra_actorCanModify;
