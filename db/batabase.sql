@@ -150,11 +150,45 @@ relTypeCode = 'article',
 relId = 2,
 `point` = 1;
 
-## 2번회원 1번글 싫어요
+## 2번회원 1번글 좋아요
 INSERT INTO reactionPoint
 SET	regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
 relTypeCode = 'article',
 relId = 1,
-`point` = -1;
+`point` = 1;
+
+
+# 반정규화 - 게시물 테이블에서 좋아요 컬럼 추가
+ALTER TABLE `article`
+ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 반정규화 - 게시물 테이블에서 싫어요 컬럼 추가
+ALTER TABLE `article`
+ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+
+# 리액션포인트 테이블에서 게시물별 좋아요, 싫어요 합계 구하기
+/*
+select RP.relId,
+sum(if(RP.point>0, RP.point, 0)) as goodReactionPoint,
+sum(IF(RP.point<0, RP.point * -1, 0)) AS badReactionPoint
+from `reactionPoint` as RP
+where RP.relTypeCode = 'article'
+group by RP.relId ;
+*/
+
+# 각 게시물 별 좋아요, 싫어요 필드의 값 넣기
+UPDATE `article` AS A
+INNER JOIN (
+	SELECT RP.relId,
+	SUM(IF(RP.point>0, RP.point, 0)) AS goodReactionPoint,
+	SUM(IF(RP.point<0, RP.point * -1, 0)) AS badReactionPoint
+	FROM `reactionPoint` AS RP
+	WHERE RP.relTypeCode = 'article'
+	GROUP BY RP.relId
+) AS RP_SUM
+ON A.id = RP_SUM.relId
+SET A.goodReactionPoint = RP_SUM.goodReactionPoint,
+A.badReactionPoint = RP_SUM.badReactionPoint;
