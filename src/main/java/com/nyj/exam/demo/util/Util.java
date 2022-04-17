@@ -2,6 +2,8 @@ package  com.nyj.exam.demo.util;
 
 import java.net.URLEncoder;
 
+import com.nyj.exam.demo.vo.Rq;
+
 public class Util {
 
 	public static boolean empty(Object obj) {
@@ -67,6 +69,5 @@ public class Util {
 			return str;
 		}
 	}
-
 	
 }

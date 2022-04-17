@@ -4,7 +4,7 @@
 <c:set var="pageTitle" value="게시물 상세" />
 <%@ include file="../common/head.jspf" %>
   
-<script> const id = ${param.id}; </script>
+<script> const id = ${param.id}; </script> 
 <script>
 function increasedHit(){
 	
@@ -65,8 +65,12 @@ $(function(){
       
       <div class="flex items-center justify-center gap-2">
         <c:if test="${actorCanMakeReactionPoint}"> 
-            <button class="btn btn-xs btn-outline btn-primary">좋아요 👍</button>
-            <button class="btn btn-xs btn-outline">싫어요 👎</button>
+            <a 
+            href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            class="btn btn-xs btn-outline btn-primary">좋아요 👍</a>
+            <a 
+            href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            class="btn btn-xs btn-outline">싫어요 👎</a>
         </c:if>
       </div>
     </div>

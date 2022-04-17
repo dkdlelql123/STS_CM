@@ -3,12 +3,20 @@ package com.nyj.exam.demo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nyj.exam.demo.repository.ArticleRepository;
 import com.nyj.exam.demo.repository.ReactionPointRepository;
+import com.nyj.exam.demo.vo.ResultData;
+import com.nyj.exam.demo.vo.Rq;
 
 @Service
 public class ReactionPointService {
-	@Autowired
-	private ReactionPointRepository reactionPointRepository; 
+	private ReactionPointRepository reactionPointRepository;
+	private	ArticleService articleService;
+		
+	public ReactionPointService(ReactionPointRepository reactionPointRepository, ArticleService articleService) {
+		this.reactionPointRepository = reactionPointRepository; 
+		this.articleService= articleService;
+	}
 	
 	public boolean actorCanMakeReactionPoint(int articleId, int memberId, String relCodeType) {		
 		if( memberId == 0 ) {
@@ -16,5 +24,31 @@ public class ReactionPointService {
 		}
 		return reactionPointRepository.actorCanMakeReactionPoint(articleId, memberId, relCodeType) == 0; 
 	}
+
+	public ResultData addGoodReactionPoint(int relId, int loginedMemberId, String relTypeCode) {
+		reactionPointRepository.addGoodReactionPoint(relId,loginedMemberId,relTypeCode); 
+		
+		switch(relTypeCode) {
+		case "article":
+			articleService.increaseGoodPoint(relId);
+			break;	
+		}
+		
+		return ResultData.form("s-1", "좋아요 처리가 완료되었습니다.");
+				
+	} 
+	public ResultData addBadReactionPoint(int relId, int loginedMemberId, String relTypeCode) {
+		reactionPointRepository.addBadReactionPoint(relId,loginedMemberId,relTypeCode); 
+		
+		switch(relTypeCode) {
+		case "article":
+			articleService.increaseBadPoint(relId);
+			break;				
+		}
+		
+		return ResultData.form("s-1", "싫어요 처리가 완료되었습니다.");
+	} 
+	
+	
 	
 }

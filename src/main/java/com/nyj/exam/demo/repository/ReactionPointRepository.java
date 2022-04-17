@@ -1,5 +1,6 @@
 package com.nyj.exam.demo.repository;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -14,6 +15,29 @@ public interface ReactionPointRepository {
 		AND RP.memberId = #{memberId}
 	""") 
 	int actorCanMakeReactionPoint(int articleId, int memberId, String relCodeType);
+
+	
+	@Insert("""	
+		INSERT INTO `reactionPoint`
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId= #{memberId},
+		relTypeCode=#{relTypeCode},
+		relId = #{relId},
+		`point`= 1;
+			""")
+	void addGoodReactionPoint(int relId, int memberId, String relTypeCode);
+
+	@Insert("""	
+		INSERT INTO `reactionPoint`
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		memberId= #{memberId},
+		relTypeCode=#{relTypeCode},
+		relId = #{relId},
+		`point`= -1;
+			""")
+	void addBadReactionPoint(int relId, int memberId, String relTypeCode);
 
 	
 }

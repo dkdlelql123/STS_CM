@@ -81,6 +81,7 @@ public class ArticleService {
 
 	public ResultData hitIncreased(int id) {
 		int hitIncreased = articleRepository.hitIncreased(id);
+		
 		if(hitIncreased == 0) {
 			return ResultData.form("f-1", "존재하지 않는 게시판입니다.", "hitIncreased", hitIncreased);
 		}
@@ -95,6 +96,26 @@ public class ArticleService {
 
 	public int findHitCount(int id) {
 		return articleRepository.findHitCount(id);
+	}
+
+	public ResultData increaseGoodPoint(int id) {
+		int hitIncreased = articleRepository.increaseGoodPoint(id);
+
+		if(hitIncreased == 0) {
+			return ResultData.form("f-1", "존재하지 않는 게시판입니다.", "hitIncreased", hitIncreased);
+		}
+		
+		return ResultData.form("s-1", "좋아요가 증가했습니다", "hitIncreased", hitIncreased);
+	}
+	
+	public ResultData increaseBadPoint(int id) {
+		int hitIncreased = articleRepository.increaseBadPoint(id);
+
+		if(hitIncreased == 0) {
+			return ResultData.form("f-1", "존재하지 않는 게시판입니다.", "hitIncreased", hitIncreased);
+		}
+		
+		return ResultData.form("s-1", "싫어요가 증가했습니다", "hitIncreased", hitIncreased);
 	}
 
 	
