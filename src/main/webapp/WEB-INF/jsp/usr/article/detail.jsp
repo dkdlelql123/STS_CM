@@ -72,6 +72,28 @@ $(function(){
             href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
             class="btn btn-xs btn-outline">싫어요 👎</a>
         </c:if>
+        
+          <c:if test="${actorCanCancleGoodReactionPoint}"> 
+            <a 
+            href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            class="btn btn-xs btn-primary">좋아요 👍</a>
+            <a 
+            onclick="alert(this.title); return false;"
+            title="좋아요 해제를 먼저해주세요"
+            href="#"
+            class="btn btn-xs btn-outline">싫어요 👎</a>
+        </c:if>
+        
+         <c:if test="${actorCanCancleBadReactionPoint}"> 
+            <a     
+            onclick="alert(this.title); return false;"
+            title="싫어요 해제를 먼저해주세요"
+            href="#"
+            class="btn btn-xs btn-outline btn-primary">좋아요 👍</a>
+            <a 
+            href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            class="btn btn-xs">싫어요 👎</a>
+        </c:if>
       </div>
     </div>
 

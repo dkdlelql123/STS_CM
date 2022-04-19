@@ -36,9 +36,9 @@ public class UseReactionPointController {
 	@RequestMapping("/usr/reactionPoint/doGoodReaction")
 	@ResponseBody
 	String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
-		boolean reactionCheck = reactionPointService.actorCanMakeReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
+		ResultData reactionCheckRd = reactionPointService.actorCanMakeReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
 		
-		if( reactionCheck== false ) {
+		if( reactionCheckRd.isFail() ) {
 			return rq.jsHistoryBack("이미 처리되었습니다.");
 		}
 		
@@ -50,9 +50,9 @@ public class UseReactionPointController {
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
 	@ResponseBody
 	String doBadReaction(String relTypeCode, int relId, String replaceUri) {
-		boolean reactionCheck = reactionPointService.actorCanMakeReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
+		ResultData reactionCheckRd = reactionPointService.actorCanMakeReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
 		
-		if( reactionCheck== false ) {
+		if( reactionCheckRd.isFail() ) {
 			return rq.jsHistoryBack("이미 처리되었습니다.");
 		}
 		

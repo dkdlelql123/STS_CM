@@ -104,19 +104,24 @@ public class UseArticleController {
 	public String showArticleDetail(Model model, int id){
 		
 		Article article = articleService.getForPrintArticle(id);
-		boolean actorCanMakeReactionPoint = reactionPointService.actorCanMakeReactionPoint(id, rq.getLoginedMemberId(), "article");
-//		if( article == null ) {
-//			model.addAttribute("error", "해당 게시판을 찾을 수 없습니다.");
-//			return "/usr/error";
-//		}
+		
+		model.addAttribute("article", article);
 		
 		if( article.getMemberId() == rq.getLoginedMemberId() ) {
 			article.setExtra_actorCanModify(true);
 		}
 		
-		model.addAttribute("article", article);
-		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
-		 
+		ResultData actorCanMakeReactionPointRD = reactionPointService.actorCanMakeReactionPoint(id, rq.getLoginedMemberId(), "article");
+		
+		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPointRD.isSuccess());
+		
+		if( actorCanMakeReactionPointRD.getResultCode().equals("f-2") ) {
+			if( (int)actorCanMakeReactionPointRD.getData1() > 0) {
+				model.addAttribute("actorCanCancleGoodReactionPoint", true);
+			} else {
+				model.addAttribute("actorCanCancleBadReactionPoint", true);
+			}
+		}
 		
 		return "/usr/article/detail" ;
 	}
