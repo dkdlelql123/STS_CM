@@ -26,7 +26,7 @@ public class ReactionPointService {
 		int getSumReactionPointByMemberId = reactionPointRepository.actorCanMakeReactionPoint(articleId, memberId, relCodeType);
 		
 		if( getSumReactionPointByMemberId != 0) {
-			return ResultData.form("f-2", "이미 처리되었습니다.", "getSumReactionPointByMemberId", getSumReactionPointByMemberId);
+			return ResultData.form("f-2", "이미 리액션처리 되었습니다.", "getSumReactionPointByMemberId", getSumReactionPointByMemberId);
 		} 
 		return ResultData.form("s-1", "리액션 가능합니다.", "getSumReactionPointByMemberId", getSumReactionPointByMemberId);
 	}
@@ -53,6 +53,30 @@ public class ReactionPointService {
 		}
 		
 		return ResultData.form("s-1", "싫어요 처리가 완료되었습니다.");
+	}
+
+	public ResultData deleteGoodReactionPoint(int relId, int loginedMemberId, String relTypeCode) {
+		reactionPointRepository.deleteReactionPoint(relId,loginedMemberId,relTypeCode); 
+		
+		switch(relTypeCode) {
+		case "article":
+			articleService.decreaseGoodPoint(relId);
+			break;	
+		}
+		
+		return ResultData.form("s-1", "좋아요 취소처리가 완료되었습니다.");
+	} 
+	
+	public ResultData deleteBadReactionPoint(int relId, int loginedMemberId, String relTypeCode) {
+		reactionPointRepository.deleteReactionPoint(relId,loginedMemberId,relTypeCode); 
+		
+		switch(relTypeCode) {
+		case "article":
+			articleService.decreaseBadPoint(relId);
+			break;	
+		}
+		
+		return ResultData.form("s-1", "싫어요 취소처리가 완료되었습니다.");
 	} 
 	
 	

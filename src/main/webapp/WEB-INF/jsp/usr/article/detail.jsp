@@ -75,7 +75,7 @@ $(function(){
         
           <c:if test="${actorCanCancleGoodReactionPoint}"> 
             <a 
-            href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            href="/usr/reactionPoint/doCancleGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
             class="btn btn-xs btn-primary">좋아요 👍</a>
             <a 
             onclick="alert(this.title); return false;"
@@ -91,7 +91,7 @@ $(function(){
             href="#"
             class="btn btn-xs btn-outline btn-primary">좋아요 👍</a>
             <a 
-            href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+            href="/usr/reactionPoint/doCancleBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
             class="btn btn-xs">싫어요 👎</a>
         </c:if>
       </div>

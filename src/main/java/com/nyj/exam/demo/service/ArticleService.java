@@ -118,5 +118,25 @@ public class ArticleService {
 		return ResultData.form("s-1", "싫어요가 증가했습니다", "hitIncreased", hitIncreased);
 	}
 
+	public ResultData decreaseGoodPoint(int id) {
+		int hitIncreased = articleRepository.decreaseGoodPoint(id);
+
+		if(hitIncreased == 0) {
+			return ResultData.form("f-1", "존재하지 않는 게시판입니다.", "hitDecreased", hitIncreased);
+		}
+		
+		return ResultData.form("s-1", "좋아요가 감소했습니다", "hitDecreased", hitIncreased);
+	}
+	
+	public ResultData decreaseBadPoint(int id) {
+		int hitIncreased = articleRepository.decreaseBadPoint(id);
+
+		if(hitIncreased == 0) {
+			return ResultData.form("f-1", "존재하지 않는 게시판입니다.", "hitDecreased", hitIncreased);
+		}
+		
+		return ResultData.form("s-1", "싫어요가 감소했습니다", "hitDecreased", hitIncreased);
+	}
+
 	
 }

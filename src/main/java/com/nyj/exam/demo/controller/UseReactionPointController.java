@@ -39,12 +39,12 @@ public class UseReactionPointController {
 		ResultData reactionCheckRd = reactionPointService.actorCanMakeReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
 		
 		if( reactionCheckRd.isFail() ) {
-			return rq.jsHistoryBack("이미 처리되었습니다.");
+			return rq.jsHistoryBack( reactionCheckRd.getMsg() );
 		}
 		
-		reactionPointService.addGoodReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
+		ResultData addGoodReactionPointRd = reactionPointService.addGoodReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
 
-		return rq.jsReplace("좋아요를 하셨습니다.", replaceUri);
+		return rq.jsReplace(addGoodReactionPointRd.getMsg(), replaceUri);
 	}
 	
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
@@ -53,12 +53,40 @@ public class UseReactionPointController {
 		ResultData reactionCheckRd = reactionPointService.actorCanMakeReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
 		
 		if( reactionCheckRd.isFail() ) {
-			return rq.jsHistoryBack("이미 처리되었습니다.");
+			return rq.jsHistoryBack( reactionCheckRd.getMsg() );
 		}
 		
-		reactionPointService.addBadReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
+		ResultData addBadReactionPointRd = reactionPointService.addBadReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
 
-		return rq.jsReplace("싫어요를 하셨습니다.", replaceUri);
+		return rq.jsReplace(addBadReactionPointRd.getMsg(), replaceUri);
+	}
+	
+	@RequestMapping("/usr/reactionPoint/doCancleGoodReaction")
+	@ResponseBody
+	String doCancleGoodReaction(String relTypeCode, int relId, String replaceUri) {
+		ResultData reactionCheckRd = reactionPointService.actorCanMakeReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
+		
+		if( reactionCheckRd.isSuccess() ) {
+			return rq.jsHistoryBack( reactionCheckRd.getMsg() );
+		}
+		
+		ResultData deleteGoodReactionPointRd = reactionPointService.deleteGoodReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
+
+		return rq.jsReplace(deleteGoodReactionPointRd.getMsg(), replaceUri);
+	}
+	
+	@RequestMapping("/usr/reactionPoint/doCancleBadReaction")
+	@ResponseBody
+	String doCancleBadReaction(String relTypeCode, int relId, String replaceUri) {
+		ResultData reactionCheckRd = reactionPointService.actorCanMakeReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
+		
+		if( reactionCheckRd.isSuccess() ) {
+			return rq.jsHistoryBack( reactionCheckRd.getMsg() );
+		}
+		
+		ResultData deleteBadReactionPointRd = reactionPointService.deleteBadReactionPoint(relId, rq.getLoginedMemberId() ,relTypeCode);
+
+		return rq.jsReplace(deleteBadReactionPointRd.getMsg(), replaceUri);
 	}
 	
  

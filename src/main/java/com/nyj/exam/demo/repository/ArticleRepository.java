@@ -129,5 +129,19 @@ public interface ArticleRepository {
 	""")
 	public int increaseBadPoint(int id);
 
+	@Update("""
+	UPDATE article
+	SET goodReactionPoint = goodReactionPoint-1
+	WHERE id = #{id}  
+	""")
+	public int decreaseGoodPoint(int id);
+
+	@Update("""
+	UPDATE article
+	SET BadReactionPoint = BadReactionPoint-1
+	WHERE id = #{id}  
+	""")
+	public int decreaseBadPoint(int id);
+
 	
 }

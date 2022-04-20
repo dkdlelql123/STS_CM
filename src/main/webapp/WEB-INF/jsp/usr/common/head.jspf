@@ -33,13 +33,14 @@
     <a href="/" class="fontM size-la">LOGO</a>
     <div class="flex-grow"></div>
     <nav>
-      <ul class="flex gap-2">
+      <ul class="flex gap-3">
         <li><a href="/usr/article/list?boardId=1">공지사항 게시판</a></li>
         <li><a href="/usr/article/list?boardId=2">자유 게시판</a></li>
 
         <c:if test="${rq.loginedCheck}">
+          <li><a href="/usr/member/mypage">${rq.loginedMember.nickname}'s 프로필</a></li>
+        <!-- <li><a href="/usr/member/mypage">마이페이지</a></li>-->
         <li><a href="/usr/member/doLogout">로그아웃</a></li>
-        <li><a href="/usr/member/mypage">마이페이지</a></li>
         </c:if>
         
         <c:if test="${!rq.loginedCheck}"> 

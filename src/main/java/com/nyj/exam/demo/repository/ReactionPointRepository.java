@@ -1,5 +1,6 @@
 package com.nyj.exam.demo.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -38,6 +39,15 @@ public interface ReactionPointRepository {
 		`point`= -1;
 			""")
 	void addBadReactionPoint(int relId, int memberId, String relTypeCode);
+
+	@Delete("""	
+	DELETE FROM `reactionPoint` 
+	WHERE memberId= #{memberId}
+	AND relTypeCode=#{relTypeCode}
+	AND relId = #{relId}
+		""")
+	void deleteReactionPoint(int relId, int memberId, String relTypeCode); 
+	
 
 	
 }
