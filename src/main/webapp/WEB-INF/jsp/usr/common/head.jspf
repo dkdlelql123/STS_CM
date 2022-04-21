@@ -29,7 +29,7 @@
   
 </head>
 <body class="flex flex-col min-h-screen">
-  <header class="flex items-center container mx-auto h-12 w-3/4 bg-gray-100">
+  <header class="flex items-center container mx-auto h-12 w-3/4">
     <a href="/" class="fontM size-la">LOGO</a>
     <div class="flex-grow"></div>
     <nav>

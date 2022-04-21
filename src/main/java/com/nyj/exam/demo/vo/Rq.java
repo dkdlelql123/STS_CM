@@ -82,6 +82,10 @@ public class Rq {
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
 	}
+	
+	public boolean isNotLogin() {
+		return !loginedCheck;
+	}
 
 	public String historyBackOnView(String msg) {
 	

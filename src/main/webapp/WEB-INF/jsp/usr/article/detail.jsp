@@ -96,6 +96,34 @@ $(function(){
         </c:if>
       </div>
     </div>
+    
+    <article class="mt-4">
+      <h3>댓글</h3>
+      
+      <div class="py-2"> 댓글 목록 </div>
+      
+      <c:if test="${rq.loginedCheck}">
+        <form action="/usr/reply/doWrite" method="post" >
+          <input type="hidden" name="relTypeCode" value="article" />
+          <input type="hidden" name="relId" value="${article.id}" />
+          <div class="flex flex-col">
+            <div class="size-sm">${rq.loginedMember.nickname}</div>
+            <div>
+              <textarea name="body" id="" rows="2" class="w-full p-1 border"  placeholder="댓글을 입력해주세요."></textarea>
+            </div>
+            <div class="flex">
+              <div class="flex-grow"></div>
+              <input type="submit" class="btn btn-xs btn-outline" value="댓글작성" />
+            </div>
+          </div>
+        </form>
+      </c:if>
+      <c:if test="${rq.notLogin}">
+        <div class="text-sm">
+          <a href="/usr/member/login" class="text-primary font-bold">로그인</a> 이후 이용해주세요
+        </div>
+      </c:if>
+    </article>
 
   </div>
 </div>
