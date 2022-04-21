@@ -103,17 +103,46 @@ $(function(){
       <div class="py-2"> 댓글 목록 </div>
       
       <c:if test="${rq.loginedCheck}">
-        <form action="/usr/reply/doWrite" method="post" >
+        <script>
+        let replyWrite__submitFormDone = false;
+        function replyWrite__submitForm(form){
+
+			if( replyWrite__submitFormDone ) return ;
+			
+			form.body.value = form.body.value.trim();
+			
+			if( form.body.value.length <= 1 ){
+				alert("댓글을 두 글자 이상 작성해주세요."); 
+				return;
+			}
+			
+			replyWrite__submitFormDone = true;
+			form.submit();        	
+			/*
+        	$.ajax(
+  			{
+        		type:"post",
+        		url:"",
+        		data:{},
+        		dataType:,
+        		success: ()=>{
+        			
+        		}, error: (error)=> console.log(error)
+  			}) */
+        }
+        </script>
+        
+        <form action="/usr/reply/doWrite" method="post" onsubmit="replyWrite__submitForm(this); return false;">
           <input type="hidden" name="relTypeCode" value="article" />
           <input type="hidden" name="relId" value="${article.id}" />
           <div class="flex flex-col">
             <div class="size-sm">${rq.loginedMember.nickname}</div>
             <div>
-              <textarea name="body" id="" rows="2" class="w-full p-1 border"  placeholder="댓글을 입력해주세요."></textarea>
+              <textarea name="body" id="" rows="2" class="w-full p-1 border"  placeholder="댓글을 입력해주세요." required="required" ></textarea>
             </div>
             <div class="flex">
               <div class="flex-grow"></div>
-              <input type="submit" class="btn btn-xs btn-outline" value="댓글작성" />
+              <input type="submit" class="btn btn-xs btn-outline" value="댓글작성"  />
             </div>
           </div>
         </form>
