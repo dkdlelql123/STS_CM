@@ -206,10 +206,13 @@ CREATE TABLE reply(
 
 /*
 INSERT INTO reply
-SET regdate = NOW(),
-updatedate = NOW(),
+SET regDate = NOW(),
+updateDate = NOW(),
 memberId = 1,
 relTypeCode = 'article',
 relId = 1,
 `body` = '댓글1';
 */
+
+# relpy 인덱스 추가 - 검색 속도 향상을 위해서
+ALTER TABLE reply ADD INDEX(`relTypeCode`, `relId`);
