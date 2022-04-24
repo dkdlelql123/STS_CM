@@ -54,4 +54,21 @@ public interface ReplyRepository {
 			WHERE id = #{id}
 			""")
 	public void doDeleteReply(int id);
+	
+	@Select("""
+			SELECT r.*,
+			m.nickname AS extra_actorName
+			FROM `member` m
+			LEFT JOIN reply r
+			ON m.id = r.memberId
+			WHERE r.id = #{relId}
+			""")
+	Reply getForPrintReply(int id); 
+
+	@Select("""
+			SELECT *
+			FROM reply 
+			WHERE id = #{relId}  
+			""") 
+	Reply getReply(int id);
 }

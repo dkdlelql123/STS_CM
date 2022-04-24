@@ -124,7 +124,7 @@
                   <c:if test="${reply.extra_actorCanDelete}">
                     <a class="size-xs font-bold"
                       onclick="if(confirm('삭제하시겠습니까?') == false) return false;"
-                      href="/usr/reply/delete?id=${reply.id}&relId=${reply.relId}">삭제</a>
+                      href="/usr/reply/doDelete?id=${reply.id}&relId=${reply.relId}">삭제</a>
                   </c:if>
                 </div>
               </li>

@@ -39,6 +39,17 @@ public class ReplyService {
 		
 		return replies;
 	}
+	
+	public void updateForPrintData(Member member, Reply reply) {
+		if (reply == null) {
+			return;
+		}
+		ResultData modifyRd = actorModifyReply(member, reply);
+		reply.setExtra_actorCanModify(modifyRd.isSuccess());
+		
+		ResultData deleteRd = actorDeleteReply(member, reply);
+		reply.setExtra_actorCanDelete(deleteRd.isSuccess());
+	}
 
 	public ResultData actorModifyReply(Member member, Reply reply) {
 		if(member == null) {
@@ -60,6 +71,14 @@ public class ReplyService {
 			return ResultData.form("f-1","권한이 없습니다.");
 		}
 		return ResultData.form("s-1","댓글 삭제가 가능합니다.");
+	}
+
+	public Reply getForPrintReply(Member member,int id) {
+		Reply reply = replyRepository.getForPrintReply(id);
+		
+		updateForPrintData(member, reply);
+		
+		return reply;
 	}
 	
 	public void doModifyReply(int id, String body) {

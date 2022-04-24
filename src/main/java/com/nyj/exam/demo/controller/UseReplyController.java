@@ -56,9 +56,24 @@ public class UseReplyController {
 		return rq.jsReplace("댓글이 수정이 완료되었습니다.", Util.f("/usr/article/detail?id=%d", relId));
 	}
 	
-	@RequestMapping("/usr/reply/delete")
+	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
 	public String doDeleteReply(int id, int relId) {
+		
+		if(Util.empty(id)) {
+			return rq.jsHistoryBack("id를 입력해주세요");
+		}
+		
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
+		
+		if(reply == null) {
+			return rq.jsHistoryBack(Util.f("%d번 댓글은 존재하지 않습니다.", id));			
+		}
+		
+		if(reply.isExtra_actorCanDelete() == false) {
+			return rq.jsHistoryBack(Util.f("%d번 댓글을 삭제할 권한이 없습니다.", id));
+		}
+		
 		replyService.doDeleteReply(id);
 		
 		return rq.jsReplace("댓글이 삭제되었습니다.", Util.f("/usr/article/detail?id=%d", relId));
