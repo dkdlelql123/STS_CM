@@ -2,9 +2,11 @@ package com.nyj.exam.demo.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.nyj.exam.demo.vo.Reply;
 
@@ -38,4 +40,18 @@ public interface ReplyRepository {
 			ORDER BY r.regDate ; 
 			""") 
 	List<Reply> getForPrintReplies(int relId,String relTypeCode);
+	
+	@Update("""
+			Update reply
+			SET `body` =  #{body},
+			updateDate = NOW()
+			WHERE id = #{id}
+			""")
+	public void doModifyReply(int id, String body);
+
+	@Delete("""
+			DELETE FROM reply
+			WHERE id = #{id}
+			""")
+	public void doDeleteReply(int id);
 }

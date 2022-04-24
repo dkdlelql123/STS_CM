@@ -114,7 +114,7 @@ public class UseArticleController {
 			article.setExtra_actorCanModify(true);
 		}
 		
-		List<Reply> replies = replyService.getForPrintReplies(id, "article");
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember() ,id, "article");
 		int repliesCount = replies.size();
 		
 		model.addAttribute("repliesCount",repliesCount);

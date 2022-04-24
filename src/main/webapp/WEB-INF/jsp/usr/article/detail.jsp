@@ -68,7 +68,8 @@
         <span class="size-sm">${article.getForPrintType1RegDate()}</span>
       </div>
 
-      <div class="bg-gray-100 p-2 rounded self-stretch">
+      <div class="bg-gray-100 p-2 rounded self-stretch"
+        style="min-height: 140px">
         <div>${article.body}</div>
       </div>
 
@@ -108,15 +109,23 @@
         ${repliesCount}개</h3>
 
       <c:if test="${repliesCount > 0}">
-        <div class="mb-2">
+        <div class="mb-2 border-t">
           <ul>
             <c:forEach var="reply" items="${replies}">
-              <li class="flex flex-col">
+              <li class="flex flex-col border-b py-1">
                 <div class="size-sm">${reply.printBody}</div>
                 <div class="flex itmes-center gap-1">
                   <span class="size-xs">${reply.extra_actorName}</span>
                   <span class="size-xs">${reply.getForPrintType1RegDate()}</span>
-                  <a class="size-xs" href="">추천</a>
+                  <c:if test="${reply.extra_actorCanModify}">
+                    <a class="size-xs font-bold "
+                      href="/usr/reply/modify?id=${reply.id}">수정</a>
+                  </c:if>
+                  <c:if test="${reply.extra_actorCanDelete}">
+                    <a class="size-xs font-bold"
+                      onclick="if(confirm('삭제하시겠습니까?') == false) return false;"
+                      href="/usr/reply/delete?id=${reply.id}&relId=${reply.relId}">삭제</a>
+                  </c:if>
                 </div>
               </li>
             </c:forEach>
@@ -126,26 +135,26 @@
 
       <c:if test="${rq.loginedCheck}">
         <script>
-			let replyWrite__submitFormDone = false;
-			function replyWrite__submitForm(form) {
+									let replyWrite__submitFormDone = false;
+									function replyWrite__submitForm(form) {
 
-				if (replyWrite__submitFormDone)
-					return;
+										if (replyWrite__submitFormDone)
+											return;
 
-				form.body.value = form.body.value
-						.trim();
+										form.body.value = form.body.value
+												.trim();
 
-				if (form.body.value.length <= 1) {
-					alert("댓글을 두 글자 이상 작성해주세요.");
-					return;
-				}
+										if (form.body.value.length <= 1) {
+											alert("댓글을 두 글자 이상 작성해주세요.");
+											return;
+										}
 
-				replyWrite__submitFormDone = true;
-				form.submit();
-			}
-		</script>
+										replyWrite__submitFormDone = true;
+										form.submit();
+									}
+								</script>
 
-        <form action="/usr/reply/doWrite" method="post"
+        <form action="/usr/reply/write" method="post"
           onsubmit="replyWrite__submitForm(this); return false;">
           <input type="hidden" name="relTypeCode" value="article" />
           <input type="hidden" name="relId" value="${article.id}" />
@@ -166,7 +175,7 @@
       </c:if>
       <c:if test="${rq.notLogin}">
         <div class="text-sm">
-          댓글 작성은 
+          댓글 작성은
           <a href="/usr/member/login" class="text-primary font-bold">로그인</a>
           이후 이용해주세요
         </div>

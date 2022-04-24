@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nyj.exam.demo.service.ReplyService;
 import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
+import com.nyj.exam.demo.vo.Member;
+import com.nyj.exam.demo.vo.Reply;
 import com.nyj.exam.demo.vo.ResultData;
 import com.nyj.exam.demo.vo.Rq;
 
@@ -20,7 +22,7 @@ public class UseReplyController {
 		this.rq = rq;
 	}
 	
-	@RequestMapping("/usr/reply/doWrite")
+	@RequestMapping("/usr/reply/write")
 	@ResponseBody
 	public String doWrite(String body, String relTypeCode, int relId, String replaceUri){
 		if(Util.empty(relTypeCode)) 
@@ -44,6 +46,21 @@ public class UseReplyController {
 		}
 		
 		return rq.jsReplace(replyRd.getMsg(), replaceUri);
-
+	}
+		
+	@RequestMapping("/usr/reply/modify")
+	@ResponseBody
+	public String doModifyReply(int id, String body, int relId) {
+		replyService.doModifyReply(id, body);
+		
+		return rq.jsReplace("댓글이 수정이 완료되었습니다.", Util.f("/usr/article/detail?id=%d", relId));
+	}
+	
+	@RequestMapping("/usr/reply/delete")
+	@ResponseBody
+	public String doDeleteReply(int id, int relId) {
+		replyService.doDeleteReply(id);
+		
+		return rq.jsReplace("댓글이 삭제되었습니다.", Util.f("/usr/article/detail?id=%d", relId));
 	}
 }
