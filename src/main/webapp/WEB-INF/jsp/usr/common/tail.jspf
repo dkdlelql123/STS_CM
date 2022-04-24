@@ -4,13 +4,12 @@
   <div class="footer flex flex-col w-3/4 mx-auto pt-4 pb-6 gap-2 ">
     
     <ul class="flex gap-2 size-sm">
-      <li><a href="">네이버블로그</a></li>
-      <li><a href="">인스타그램</a></li>
+      <li><a href="https://blog.naver.com/dkdlelql123" target="_blank">네이버블로그</a></li>
+      <li><a href="https://www.instagram.com/ye____j.i/" target="_blank">인스타그램</a></li>
     </ul>
     
     <ul class="flex gap-2 size-sm">
-    	<li>대표 남예지</li>
-    	<li>전화번호 010-1111-2222</li>
+    	<li>꼬북이 홈페이지</li>
     </ul>
     
   </div>

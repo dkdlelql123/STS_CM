@@ -118,6 +118,7 @@ public class UseArticleController {
 		int repliesCount = replies.size();
 		
 		model.addAttribute("repliesCount",repliesCount);
+		model.addAttribute("replies",replies);
 		
 		ResultData actorCanMakeReactionPointRD = reactionPointService.actorCanMakeReactionPoint(id, rq.getLoginedMemberId(), "article");
 		

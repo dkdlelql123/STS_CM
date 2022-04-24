@@ -30,9 +30,11 @@ public interface ReplyRepository {
 	@Select("""
 			SELECT r.*,
 			m.nickname AS extra_actorName
-			FROM `member` m, reply r
-			WHERE  m.id = r.memberId
-			AND r.relTypeCode = #{relTypeCode}
+			FROM `member` m
+			LEFT JOIN reply r
+			ON m.id = r.memberId
+			WHERE r.relTypeCode = #{relTypeCode}
+			AND r.relId = #{relId}
 			ORDER BY r.regDate ; 
 			""") 
 	List<Reply> getForPrintReplies(int relId,String relTypeCode);
