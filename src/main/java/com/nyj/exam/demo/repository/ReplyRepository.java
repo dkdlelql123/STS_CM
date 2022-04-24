@@ -1,8 +1,12 @@
 package com.nyj.exam.demo.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import com.nyj.exam.demo.vo.Reply;
 
 @Mapper
 public interface ReplyRepository {
@@ -23,4 +27,13 @@ public interface ReplyRepository {
 			""")
 	int last_insert_id();
 	
+	@Select("""
+			SELECT r.*,
+			m.nickname AS extra_actorName
+			FROM `member` m, reply r
+			WHERE  m.id = r.memberId
+			AND r.relTypeCode = #{relTypeCode}
+			ORDER BY r.regDate ; 
+			""") 
+	List<Reply> getForPrintReplies(int relId,String relTypeCode);
 }

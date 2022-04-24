@@ -7,15 +7,14 @@
 <script> const id = ${param.id}; </script> 
 <script>
 function increasedHit(){
-	
-	const localStorageKey = "article__"+id+"__Done";
-	
-	if(localStorage.getItem(localStorageKey)){
-		return;
-	}
-	
-	localStorage.setItem(localStorageKey, true);	
-	
+  const localStorageKey = "article__"+id+"__Done";
+
+  if(localStorage.getItem(localStorageKey)){
+  	return;
+  }
+  
+  localStorage.setItem(localStorageKey, true);	
+  
   $.ajax({
     url:'/usr/article/doIncreasedHit',
     data: {'id' : id},
@@ -98,9 +97,20 @@ $(function(){
     </div>
     
     <article class="mt-4">
-      <h3>댓글</h3>
+      <h3>댓글 ${repliesCount} 개</h3>
       
-      <div class="py-2"> 댓글 목록 </div>
+      <div class="py-2"> 
+        <ul>
+          <li class="flex flex-col mb-1">
+            <div class="size-sm">댓글 내용</div>
+            <div class="flex itmes-center gap-2" >
+              <span class="size-xs">닉네임</span>
+              <span class="size-xs">작성날짜</span>
+              <a class="size-xs" href="">추천</a>
+            </div>
+          </li>
+        </ul>
+      </div>
       
       <c:if test="${rq.loginedCheck}">
         <script>
@@ -117,18 +127,7 @@ $(function(){
 			}
 			
 			replyWrite__submitFormDone = true;
-			form.submit();        	
-			/*
-        	$.ajax(
-  			{
-        		type:"post",
-        		url:"",
-        		data:{},
-        		dataType:,
-        		success: ()=>{
-        			
-        		}, error: (error)=> console.log(error)
-  			}) */
+			form.submit();  
         }
         </script>
         

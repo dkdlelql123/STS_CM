@@ -33,7 +33,9 @@
 .fontB {
     font-family: 'GmarketSansBold';
 }
-
+.size-xxs {
+	font-size: 10px
+}
 .size-xs {
 	font-size: 12px
 }

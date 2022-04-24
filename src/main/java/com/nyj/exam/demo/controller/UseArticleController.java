@@ -17,9 +17,11 @@ import com.nyj.exam.demo.service.ArticleService;
 import com.nyj.exam.demo.service.BoardService;
 import com.nyj.exam.demo.service.MemberService;
 import com.nyj.exam.demo.service.ReactionPointService;
+import com.nyj.exam.demo.service.ReplyService;
 import com.nyj.exam.demo.util.Util;
 import com.nyj.exam.demo.vo.Article;
-import com.nyj.exam.demo.vo.Board; 
+import com.nyj.exam.demo.vo.Board;
+import com.nyj.exam.demo.vo.Reply;
 import com.nyj.exam.demo.vo.ResultData;
 import com.nyj.exam.demo.vo.Rq; 
 
@@ -31,12 +33,14 @@ public class UseArticleController {
 	private BoardService boardService;
 	private Rq rq;
 	private ReactionPointService reactionPointService;
+	private ReplyService replyService;
 	
-	public UseArticleController(ArticleService articleService, MemberService memberService, BoardService boardService, ReactionPointService reactionPointService, Rq rq) {
+	public UseArticleController(ArticleService articleService, MemberService memberService, BoardService boardService, ReactionPointService reactionPointService, ReplyService replyService, Rq rq) {
 		this.articleService = articleService;
 		this.memberService = memberService;
 		this.boardService = boardService;
 		this.reactionPointService = reactionPointService;
+		this.replyService = replyService;
 		this.rq = rq;
 	}
 
@@ -102,7 +106,6 @@ public class UseArticleController {
 	
 	@RequestMapping("/usr/article/detail") 
 	public String showArticleDetail(Model model, int id){
-		
 		Article article = articleService.getForPrintArticle(id);
 		
 		model.addAttribute("article", article);
@@ -110,6 +113,11 @@ public class UseArticleController {
 		if( article.getMemberId() == rq.getLoginedMemberId() ) {
 			article.setExtra_actorCanModify(true);
 		}
+		
+		List<Reply> replies = replyService.getForPrintReplies(id, "article");
+		int repliesCount = replies.size();
+		
+		model.addAttribute("repliesCount",repliesCount);
 		
 		ResultData actorCanMakeReactionPointRD = reactionPointService.actorCanMakeReactionPoint(id, rq.getLoginedMemberId(), "article");
 		
