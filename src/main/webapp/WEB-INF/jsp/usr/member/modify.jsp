@@ -10,7 +10,45 @@ let doModify__submitDone = false;
 function doModify__submit(form){
   if(doModify__submitDone) return ;
   
-  i
+  let loginPwText = form.loginPw.value.trim();
+  
+  if(loginPwText.length > 0 ){ 
+
+	  if(form.loginPw2.value.trim().length == 0){
+		  alert("비밀번호 확인해주세요.")
+		  form.loginPw2.focus();
+		  return;
+	  }
+	  
+	  if(loginPwText != form.loginPw2.value.trim()){
+		  alert("비밀번호확인이 일치하지 않습니다.") 
+		  return;
+	  }
+  } 
+  
+  if(form.name.value.trim().length == 0){
+	  alert("이름을 작성해주세요.")
+	  form.name.focus();
+	  return;
+  }
+  
+  if(form.nickname.value.trim().length == 0){
+	  alert("별명을 작성해주세요.")
+	  form.nickname.focus();
+	  return;
+  }
+  
+  if(form.phoneNumber.value.trim().length == 0){
+	  alert("휴대전화번호를 작성해주세요.")
+	  form.phoneNumber.focus();
+	  return;
+  }
+  
+  if(form.email.value.trim().length == 0){
+	  alert("이메일을 작성해주세요.")
+	  form.email.focus();
+	  return;
+  }
   
   doModify__submitDone = true;
   form.submit();
@@ -26,10 +64,11 @@ function doModify__submit(form){
       </div>
       <div class="flex bg-gray-200 rounded rounded-full items-center p-1 mt-2">
         <span class="w-1/4 text-center p-1 " >비밀번호</span>
-        <input class="flex-grow bg-gray-200 rounded rounded-full p-1" type="password" id="loginPw" name="loginPw"  placeholder="비밀번호를 입력해주세요."/>
+        <input class="flex-grow bg-gray-200 rounded rounded-full p-1" type="password" id="loginPw" name="loginPw"  
+        value="${rq.getLoginedMember().getLoginPw()}" placeholder="비밀번호를 입력해주세요."/>
       </div>
       <div class="flex bg-gray-200 rounded rounded-full items-center p-1 mt-2">
-        <span class="w-1/4 text-center p-1 " >비밀번호 재입력</span>
+        <span class="w-1/4 text-center p-1 " >비밀번호 확인</span>
         <input class="flex-grow bg-gray-200 rounded rounded-full p-1" type="password" id="loginPw2" name="loginPw2"  placeholder="비밀번호를 입력해주세요."/>
       </div>
       <div class="flex bg-gray-200 rounded rounded-full items-center p-1 mt-2">

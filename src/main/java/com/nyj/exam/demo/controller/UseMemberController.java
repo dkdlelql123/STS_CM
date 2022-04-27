@@ -157,7 +157,7 @@ public class UseMemberController {
 		}
 		
 		if(Util.empty(email)) {
-			return rq.jsHistoryBack("비밀번호를 입력해주세요.");
+			return rq.jsHistoryBack("이메일을 입력해주세요.");
 		}
 		
 		if(Util.empty(name)) {
@@ -169,10 +169,12 @@ public class UseMemberController {
 		}
 		
 		if(Util.empty(phoneNumber)) {
-			return rq.jsHistoryBack("휴대번호를 입력해주세요.");
+			return rq.jsHistoryBack("휴대전화번호를 입력해주세요.");
 		}
 		
-		return "";
+		ResultData modifyMemberRd = memberService.modify(rq.getLoginedMemberId(),loginPw, email, name, nickname, phoneNumber);
+		
+		return Util.jsReplace(modifyMemberRd.getMsg(), "/");
 	}
 }
 

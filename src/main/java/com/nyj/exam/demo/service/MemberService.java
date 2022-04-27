@@ -46,5 +46,12 @@ public class MemberService {
 		return memberRepository.getMemberbyEmail(email);
 		
 	}
+
+	public ResultData modify(int id, String loginPw, String email, String name, String nickname,
+			String phoneNumber) { 
+		memberRepository.modify(id, loginPw, email, name, nickname, phoneNumber);
+		Member member = getMemberById(id);
+		return ResultData.form( "s-1","회원정보수정이 완료되었습니다.", "member", member );
+	}
 	
 }
