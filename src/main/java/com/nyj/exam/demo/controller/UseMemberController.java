@@ -118,6 +118,15 @@ public class UseMemberController {
 		return rq.jsReplace("", "/");
 	}
 	
+	@RequestMapping("/usr/member/mypage")
+	public String mypage(Model model) {
+		
+		Member member = rq.getLoginedMember();
+		model.addAttribute("member", member);
+		
+		return "/usr/member/mypage";
+	}
+	
 }
 
 
