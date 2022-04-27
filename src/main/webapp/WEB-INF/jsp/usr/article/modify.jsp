@@ -3,16 +3,46 @@
 
 <c:set var="pageTitle" value="게시물 수정" />
 <%@ include file="../common/head.jspf" %>
+
+<script>
+let articleModify__submitDone = false;
+function articleModify__submit(form){
+	
+	if(articleModify__submitDone){ 
+		return;
+	}
+	 
+	let titleText = form.title.value.trim();
+	let bodyText = form.body.value.trim();
+	
+	if(titleText.length <= 1){
+		alert("제목을 두글자 이상 작성해주세요.");
+		form.title.focus();
+		return;
+	}
+	
+	if(bodyText.length <= 1){
+		alert("내용을 2글자 이상 작성해주세요.");
+		form.body.focus();
+		return;
+	} 
+	
+	articleModify__submitDone = true;
+	form.submit();
+}
+
+</script>
   
 <div class="flex-grow">
   
   <div class="w-3/4 mx-auto"> 
        
     <div class="flex items-center gap-1 my-4">
-      <a href="#" onClick="history.go(-1);">뒤로가기</a>
+      <div class="flex-grow"></div>
+      <a class="border text-sm pt-1 px-2 rounded rounded-sm" href="/usr/article/detail?id=${article.id}">게시물 돌아가기</a>
     </div>
        
-     <form action="/usr/article/doModify" method="post">
+     <form action="/usr/article/doModify" method="post" onsubmit="articleModify__submit(this); return false;">
       <table class="table border border-1 flex w-full">
       <colgroup>
         <col width="150"><col>
@@ -24,13 +54,13 @@
           <td>
             <input type="text" name="id" id="id" readonly value="${article.id}" /> 
           </td>
-        </tr>
+        </tr> 
         <tr class="border-b border-gray-100">
           <td class="text-center py-2">
             게시판
           </td>
           <td> 
-            <select name="boardId" class="select select-bordered">
+            <select name="boardId" class="select select-sm select-bordered">
               <option disabled>선택해주세요</option>
               <c:forEach var="board" items="${board}">
              	<c:choose> 
@@ -81,7 +111,7 @@
       </table> 
       
       <div class="flex items-center my-4 justify-center">  
-        <button>수정</button>
+        <button class="btn btn-sm">수정</button>
       </div>
      
     </form>
