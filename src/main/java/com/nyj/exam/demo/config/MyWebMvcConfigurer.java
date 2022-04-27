@@ -32,15 +32,25 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		 
 		 registry.addInterceptor(needLogin)
 		 .addPathPatterns("/usr/member/mypage")
+		 .addPathPatterns("/usr/member/checkPassword")
+		 .addPathPatterns("/usr/member/doCheckPassword")
+		 .addPathPatterns("/usr/member/modify")
+		 .addPathPatterns("/usr/member/doModify")
 		 .addPathPatterns("/usr/article/write")
 		 .addPathPatterns("/usr/article/doWrite")
 		 .addPathPatterns("/usr/article/modify")
 		 .addPathPatterns("/usr/article/doModify")
 		 .addPathPatterns("/usr/article/doDelete")
+		 .addPathPatterns("/usr/reply/write")
 		 .addPathPatterns("/usr/reply/modify")
 		 .addPathPatterns("/usr/reply/doModify")
+		 .addPathPatterns("/usr/reply/doDelete")
 		 .addPathPatterns("/usr/reactionPoint/doGooddReaction")
-		 .addPathPatterns("/usr/reactionPoint/doBadReaction");
+		 .addPathPatterns("/usr/reactionPoint/doBadReaction")
+		 .addPathPatterns("/usr/reactionPoint/doCancleGoodReaction")
+		 .addPathPatterns("/usr/reactionPoint/doCancleBadReaction")
+		 
+		 ;
 		 
 		 registry.addInterceptor(needLogoutInterceptor)
 		 .addPathPatterns("/usr/member/login")
