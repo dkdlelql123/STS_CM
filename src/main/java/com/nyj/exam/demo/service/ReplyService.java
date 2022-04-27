@@ -83,8 +83,9 @@ public class ReplyService {
 		replyRepository.doModifyReply(id, body);
 	}
 
-	public void doDeleteReply(int id) {
+	public ResultData doDeleteReply(int id) {
 		replyRepository.doDeleteReply(id);
+		return ResultData.form("S-1", Util.f("%d번 댓글을 수정하였습니다.", id));
 	}
 	
 }

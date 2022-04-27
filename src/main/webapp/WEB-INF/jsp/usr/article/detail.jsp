@@ -52,7 +52,7 @@
     </div>
 
     <div class="flex flex-col items-center gap-2">
-      <div class="title text-center size-la fontM">${article.title}</div>
+      <div class="title text-center size-lg fontM">${article.title}</div>
 
       <div class="flex gap-2 text-gray-500 flex items-center ">
         <span class="size-sm">${article.extra_actorName}</span>

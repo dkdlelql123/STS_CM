@@ -52,5 +52,5 @@
   </header>
   
   <section class="w-3/4 mx-auto mt-5">
-    <h1 class="size-xl">${pageTitle} 페이지</h1>
+    <h1 class="size-xl text-center font-bold">${pageTitle} 페이지</h1>
   </section>

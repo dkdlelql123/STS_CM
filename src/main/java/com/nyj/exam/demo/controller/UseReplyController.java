@@ -125,8 +125,8 @@ public class UseReplyController {
 			return rq.jsHistoryBack(Util.f("%d번 댓글을 삭제할 권한이 없습니다.", id));
 		}
 		
-		replyService.doDeleteReply(id);
+		ResultData deleteReplyRd = replyService.doDeleteReply(id);
 		
-		return rq.jsReplace("댓글이 삭제되었습니다.", Util.f("/usr/article/detail?id=%d", relId));
+		return rq.jsReplace(deleteReplyRd.getMsg(), Util.f("/usr/article/detail?id=%d", relId));
 	}
 }
