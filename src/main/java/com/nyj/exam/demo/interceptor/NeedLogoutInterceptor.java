@@ -22,6 +22,7 @@ public class NeedLogoutInterceptor implements HandlerInterceptor{
 			rq.publicHistoryBackJS("로그아웃 해주세요");
 			return false;
 		}
+		
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
 

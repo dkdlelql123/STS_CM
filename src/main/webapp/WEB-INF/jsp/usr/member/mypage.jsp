@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.nyj.exam.demo.util.Util"%>
 
 <c:set var="pageTitle" value="MYPAGE" />
 <%@ include file="../common/head.jspf"%>
@@ -23,7 +24,7 @@
         <p>👤 ${member.name} (${member.nickname})</p>
         <p>📞 ${member.phoneNumber}</p>
         <div class="card-actions justify-end">
-          <button class="btn btn-xs btn-primary">회원정보수정</button>
+          <a href="/usr/member/checkPassword?replaceUri=${Util.getUriEncoded('/usr/member/modify')}" class="btn btn-xs btn-primary">회원정보수정</a>
         </div>
       </div>
     </div>

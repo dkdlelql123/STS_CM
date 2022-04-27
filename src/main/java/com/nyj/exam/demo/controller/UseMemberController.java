@@ -83,10 +83,7 @@ public class UseMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody 
-	public Object doLogin(String loginId, String loginPw, Model model) {
-		if (rq.isLoginedCheck()) {
-			return rq.jsHistoryBack("이미 로그인되었습니다.");
-		}
+	public Object doLogin(String loginId, String loginPw, Model model) { 
 		if (Util.empty(loginId)) {
 			return rq.jsHistoryBack("로그인 아이디를 입력해주세요.");			
 		}
@@ -119,7 +116,7 @@ public class UseMemberController {
 	}
 	
 	@RequestMapping("/usr/member/mypage")
-	public String mypage(Model model) {
+	public String showMypage(Model model) {
 		
 		Member member = rq.getLoginedMember();
 		model.addAttribute("member", member);
@@ -127,6 +124,36 @@ public class UseMemberController {
 		return "/usr/member/mypage";
 	}
 	
+	
+	@RequestMapping("/usr/member/checkPassword")
+	public String showCheckPassword() { 
+		return "/usr/member/checkPassword";
+	}
+	
+	@RequestMapping("/usr/member/doCheckPassword")
+	@ResponseBody
+	public String doCheckPassword(String loginPw, String replaceUri) {
+		if (Util.empty(loginPw)) {
+			return rq.jsHistoryBack("비밀번호를 입력해주세요.");			
+		} 
+		
+		if (rq.getLoginedMember().getLoginPw().equals(loginPw) == false) {
+			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");	
+		}
+		
+		return Util.jsReplace("", replaceUri);
+	}
+	
+	@RequestMapping("/usr/member/modify")
+	public String showModify() { 
+		return "/usr/member/modify";
+	}
+	
+	@RequestMapping("/usr/member/doModify")
+	@ResponseBody
+	public String doModify() { 
+		return "";
+	}
 }
 
 
