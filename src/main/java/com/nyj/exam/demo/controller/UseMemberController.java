@@ -151,7 +151,27 @@ public class UseMemberController {
 	
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify() { 
+	public String doModify(String loginPw, String email, String name,String nickname, String phoneNumber) { 
+		if(Util.empty(loginPw)) {
+			return rq.jsHistoryBack("비밀번호를 입력해주세요.");
+		}
+		
+		if(Util.empty(email)) {
+			return rq.jsHistoryBack("비밀번호를 입력해주세요.");
+		}
+		
+		if(Util.empty(name)) {
+			return rq.jsHistoryBack("이름을 입력해주세요.");
+		}
+		
+		if(Util.empty(nickname)) {
+			return rq.jsHistoryBack("별명을 입력해주세요.");
+		}
+		
+		if(Util.empty(phoneNumber)) {
+			return rq.jsHistoryBack("휴대번호를 입력해주세요.");
+		}
+		
 		return "";
 	}
 }

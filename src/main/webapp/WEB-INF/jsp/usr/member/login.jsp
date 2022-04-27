@@ -7,8 +7,7 @@
   
 <div class="flex-grow">
   
-  <div class="w-3/4 m-auto">
-    <h1 class="text-center text-2xl fontB mt-12 mb-8">로그인</h1>
+  <div class="w-3/4 m-auto mt-12"> 
     
     <form action="/usr/member/doLogin" method="POST" id="loginForm" class="w-3/4 m-auto" >
       <div class="flex bg-gray-200 rounded rounded-full items-center p-1">
