@@ -6,10 +6,7 @@
 <%@ include file="../common/head.jspf"%>
 
 <script>
-	const id = $
-	{
-		param.id
-	};
+	const id = ${	param.id	};
 </script>
 <script>
 	function increasedHit() {

@@ -75,9 +75,7 @@ public class ReplyService {
 
 	public Reply getForPrintReply(Member member,int id) {
 		Reply reply = replyRepository.getForPrintReply(id);
-		
 		updateForPrintData(member, reply);
-		
 		return reply;
 	}
 	

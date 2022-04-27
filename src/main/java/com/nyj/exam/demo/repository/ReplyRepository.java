@@ -58,17 +58,17 @@ public interface ReplyRepository {
 	@Select("""
 			SELECT r.*,
 			m.nickname AS extra_actorName
-			FROM `member` m
-			LEFT JOIN reply r
-			ON m.id = r.memberId
-			WHERE r.id = #{relId}
+			FROM reply r
+			LEFT JOIN `member` m
+			ON r.memberId = m.id
+			WHERE r.id = #{id}
 			""")
 	Reply getForPrintReply(int id); 
 
 	@Select("""
 			SELECT *
 			FROM reply 
-			WHERE id = #{relId}  
+			WHERE id = #{id}  
 			""") 
 	Reply getReply(int id);
 }

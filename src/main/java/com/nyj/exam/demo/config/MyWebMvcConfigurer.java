@@ -36,6 +36,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		 .addPathPatterns("/usr/article/modify")
 		 .addPathPatterns("/usr/article/doModify")
 		 .addPathPatterns("/usr/article/doDelete")
+		 .addPathPatterns("/usr/reply/modify")
+		 .addPathPatterns("/usr/reply/doModify")
 		 .addPathPatterns("/usr/reactionPoint/doGooddReaction")
 		 .addPathPatterns("/usr/reactionPoint/doBadReaction");
 		 
